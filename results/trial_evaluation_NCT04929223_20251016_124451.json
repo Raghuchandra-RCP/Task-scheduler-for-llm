@@ -1,0 +1,567 @@
+{
+  "trial_id": "NCT04929223",
+  "trial_info": {
+    "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+    "condition": "[\"Metastatic Colorectal Cancer\"]",
+    "phase": "PHASE1",
+    "status": "RECRUITING",
+    "investigator": "",
+    "created_date": "2021-10-22",
+    "patients_matched": 0,
+    "matching_status": "pending",
+    "embedding_index": 4
+  },
+  "hybrid_matching": {
+    "trial_id": "NCT04929223",
+    "trial_info": {
+      "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+      "condition": "[\"Metastatic Colorectal Cancer\"]",
+      "phase": "PHASE1",
+      "status": "RECRUITING",
+      "investigator": "",
+      "created_date": "2021-10-22",
+      "patients_matched": 0,
+      "matching_status": "pending",
+      "embedding_index": 4
+    },
+    "matching_patients": [
+      {
+        "mrn": "70906771",
+        "age": 51,
+        "gender": "Male",
+        "oncologist": "Dr. Sarah Mitchell, MD",
+        "date_of_visit": "2025-05-24",
+        "created_at": "2025-10-10T10:18:09.858723",
+        "embedding_index": 27,
+        "index": 48,
+        "hybrid_score": 4.912632115595599,
+        "embedding_score": 6.771687030792236,
+        "bm25_score": 5.748373134701155
+      },
+      {
+        "mrn": "14728493",
+        "age": 47,
+        "gender": "Female",
+        "oncologist": "Dr. Jennifer Rodriguez, MD",
+        "date_of_visit": "2025-05-26",
+        "created_at": "2025-10-10T10:18:08.792832",
+        "embedding_index": 33,
+        "index": 24,
+        "hybrid_score": 4.892707181475485,
+        "embedding_score": 6.744391918182373,
+        "bm25_score": 5.7210946249274475
+      },
+      {
+        "mrn": "16148888",
+        "age": 28,
+        "gender": "Male",
+        "oncologist": "Dr. Sarah Mitchell, MD",
+        "date_of_visit": "2025-06-08",
+        "created_at": "2025-10-10T10:18:07.355108",
+        "embedding_index": 40,
+        "index": 46,
+        "hybrid_score": 4.8904542278106975,
+        "embedding_score": 6.741318702697754,
+        "bm25_score": 5.717704530742329
+      },
+      {
+        "mrn": "13264042",
+        "age": 72,
+        "gender": "Female",
+        "oncologist": "Dr. Michael Chen, MD",
+        "date_of_visit": "2025-05-22",
+        "created_at": "2025-10-10T10:18:09.148559",
+        "embedding_index": 31,
+        "index": 34,
+        "hybrid_score": 4.880305410388976,
+        "embedding_score": 6.724916934967041,
+        "bm25_score": 5.762118530401592
+      },
+      {
+        "mrn": "49271178",
+        "age": 71,
+        "gender": "Female",
+        "oncologist": "Dr. Lisa Park, MD",
+        "date_of_visit": "2025-06-14",
+        "created_at": "2025-10-10T10:18:08.344012",
+        "embedding_index": 35,
+        "index": 33,
+        "hybrid_score": 4.74034481048584,
+        "embedding_score": 6.771921157836914,
+        "bm25_score": 0.0
+      },
+      {
+        "mrn": "18118308",
+        "age": 28,
+        "gender": "Female",
+        "oncologist": "Dr. David Thompson, MD",
+        "date_of_visit": "2025-05-30",
+        "created_at": "2025-10-10T10:18:10.035485",
+        "embedding_index": 26,
+        "index": 31,
+        "hybrid_score": 4.73633804321289,
+        "embedding_score": 6.766197204589844,
+        "bm25_score": 0.0
+      },
+      {
+        "mrn": "90280004",
+        "age": 56,
+        "gender": "Female",
+        "oncologist": "Dr. David Thompson, MD",
+        "date_of_visit": "2025-06-03",
+        "created_at": "2025-10-10T10:18:06.645045",
+        "embedding_index": 44,
+        "index": 9,
+        "hybrid_score": 4.712784767150879,
+        "embedding_score": 6.732549667358398,
+        "bm25_score": 0.0
+      }
+    ],
+    "total_matches": 7,
+    "filters_applied": {
+      "age_range": [
+        18,
+        75
+      ],
+      "gender": null
+    },
+    "generated_at": "2025-10-16T12:44:12.788105"
+  },
+  "llm_evaluation": {
+    "trial_id": "NCT04929223",
+    "trial_title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+    "total_evaluations": 7,
+    "evaluations": [
+      {
+        "response": "```json\n{\n    \"eligibility_status\": \"NEED_MORE_INFO\",\n    \"confidence_score\": 65,\n    \"reasoning\": \"The patient has metastatic colorectal cancer, which matches the primary diagnosis of the clinical trial. The patient is 51 years old, male, and has an ECOG performance status of 2. The patient is newly diagnosed and treatment-naïve. The patient has comorbidities, including inflammatory bowel disease, chronic fatigue syndrome, and endometriosis. The patient's most recent laboratory values show elevated AST, ALT, alkaline phosphatase, and total bilirubin. While the patient generally fits the broad criteria for a Phase 1 trial in metastatic colorectal cancer, key specific inclusion/exclusion criteria for the INTRINSIC trial are missing, particularly regarding molecular markers beyond RAS/BRAF/MSI status, specific lab value cutoffs, and prior treatment limits. Given the phase I nature of the trial, it's highly likely that specific mutations are required for enrollment. Furthermore, the elevated liver enzymes may be a concern depending on the specific trial protocol's inclusion/exclusion criteria. Without the specific trial protocol details, a definitive eligibility assessment is impossible.\",\n    \"inclusion_criteria_met\": [\n        \"Metastatic Colorectal Cancer\",\n        \"Age 51\",\n        \"Male\",\n        \"Treatment-naive\"\n    ],\n    \"exclusion_criteria_violated\": [],\n    \"recommendations\": \"Obtain the full clinical trial protocol for the INTRINSIC trial. Specifically, review the detailed inclusion/exclusion criteria regarding molecular markers (e.g., specific gene mutations required for enrollment), acceptable ranges for liver function tests (AST, ALT, Alkaline Phosphatase, Total Bilirubin), creatinine, and any specific criteria related to ECOG performance status or presence of specific comorbidities. Assess whether NRAS Q61H qualifies for inclusion in a specific arm. Determine if any specific pre-treatment is allowed. Contact the trial sponsor to clarify the eligibility criteria if needed.\",\n    \"priority_score\": 75,\n    \"evaluation_timestamp\": \"2025-10-16T12:44:17.417510\"\n}\n```",
+        "eligibility_status": "NEED_MORE_INFO",
+        "confidence_score": 65,
+        "reasoning": "The patient has metastatic colorectal cancer, which matches the primary diagnosis of the clinical trial. The patient is 51 years old, male, and has an ECOG performance status of 2. The patient is newly diagnosed and treatment-naïve. The patient has comorbidities, including inflammatory bowel disease, chronic fatigue syndrome, and endometriosis. The patient's most recent laboratory values show elevated AST, ALT, alkaline phosphatase, and total bilirubin. While the patient generally fits the broad criteria for a Phase 1 trial in metastatic colorectal cancer, key specific inclusion/exclusion criteria for the INTRINSIC trial are missing, particularly regarding molecular markers beyond RAS/BRAF/MSI status, specific lab value cutoffs, and prior treatment limits. Given the phase I nature of the trial, it's highly likely that specific mutations are required for enrollment. Furthermore, the elevated liver enzymes may be a concern depending on the specific trial protocol's inclusion/exclusion criteria. Without the specific trial protocol details, a definitive eligibility assessment is impossible.",
+        "inclusion_criteria_met": [
+          "Metastatic Colorectal Cancer",
+          "Age 51",
+          "Male",
+          "Treatment-naive"
+        ],
+        "exclusion_criteria_violated": [],
+        "recommendations": "Obtain the full clinical trial protocol for the INTRINSIC trial. Specifically, review the detailed inclusion/exclusion criteria regarding molecular markers (e.g., specific gene mutations required for enrollment), acceptable ranges for liver function tests (AST, ALT, Alkaline Phosphatase, Total Bilirubin), creatinine, and any specific criteria related to ECOG performance status or presence of specific comorbidities. Assess whether NRAS Q61H qualifies for inclusion in a specific arm. Determine if any specific pre-treatment is allowed. Contact the trial sponsor to clarify the eligibility criteria if needed.",
+        "priority_score": 75,
+        "evaluation_timestamp": "2025-10-16T12:44:17.417510",
+        "patient_info": {
+          "patient_id": 48,
+          "mrn": "70906771",
+          "age": 51,
+          "gender": "Male",
+          "oncologist": "Dr. Sarah Mitchell, MD"
+        },
+        "trial_info": {
+          "trial_id": "NCT04929223",
+          "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+          "condition": "[\"Metastatic Colorectal Cancer\"]",
+          "phase": "PHASE1"
+        },
+        "hybrid_score": 0
+      },
+      {
+        "response": "```json\n{\n    \"eligibility_status\": \"NEED_MORE_INFO\",\n    \"confidence_score\": 65,\n    \"reasoning\": \"Based on the provided information, the patient has metastatic colorectal cancer, is 28 years old, male, and has an ECOG performance status of 1. The patient is treatment-naive. However, without knowing the specific inclusion and exclusion criteria for the INTRINSIC trial, a definitive eligibility assessment cannot be made. Important information missing includes specific molecular marker requirements (beyond RAS, BRAF, and MSI status), allowed or disallowed comorbidities, and acceptable laboratory value ranges (e.g., specific hemoglobin thresholds). The creatinine level is slightly elevated which might be a concern depending on the trial protocol. The trial is Phase 1 so there could be more stringent criteria.\",\n    \"inclusion_criteria_met\": [\n        \"Metastatic Colorectal Cancer\",\n        \"Age >= 18\",\n        \"Male gender\",\n        \"ECOG 0-1\",\n        \"Treatment-naive\"\n    ],\n    \"exclusion_criteria_violated\": [],\n    \"recommendations\": \"Obtain the detailed inclusion and exclusion criteria for the INTRINSIC trial. Specifically, review the molecular marker requirements, comorbidity restrictions, allowed or disallowed medications, and acceptable laboratory value ranges (especially hemoglobin and creatinine). Once this information is available, reassess the patient's eligibility. Further investigation of elevated creatinine is warranted.\",\n    \"priority_score\": 75,\n    \"evaluation_timestamp\": \"2025-10-16T12:44:28.890909\"\n}\n```",
+        "eligibility_status": "NEED_MORE_INFO",
+        "confidence_score": 65,
+        "reasoning": "Based on the provided information, the patient has metastatic colorectal cancer, is 28 years old, male, and has an ECOG performance status of 1. The patient is treatment-naive. However, without knowing the specific inclusion and exclusion criteria for the INTRINSIC trial, a definitive eligibility assessment cannot be made. Important information missing includes specific molecular marker requirements (beyond RAS, BRAF, and MSI status), allowed or disallowed comorbidities, and acceptable laboratory value ranges (e.g., specific hemoglobin thresholds). The creatinine level is slightly elevated which might be a concern depending on the trial protocol. The trial is Phase 1 so there could be more stringent criteria.",
+        "inclusion_criteria_met": [
+          "Metastatic Colorectal Cancer",
+          "Age >= 18",
+          "Male gender",
+          "ECOG 0-1",
+          "Treatment-naive"
+        ],
+        "exclusion_criteria_violated": [],
+        "recommendations": "Obtain the detailed inclusion and exclusion criteria for the INTRINSIC trial. Specifically, review the molecular marker requirements, comorbidity restrictions, allowed or disallowed medications, and acceptable laboratory value ranges (especially hemoglobin and creatinine). Once this information is available, reassess the patient's eligibility. Further investigation of elevated creatinine is warranted.",
+        "priority_score": 75,
+        "evaluation_timestamp": "2025-10-16T12:44:28.890909",
+        "patient_info": {
+          "patient_id": 46,
+          "mrn": "16148888",
+          "age": 28,
+          "gender": "Male",
+          "oncologist": "Dr. Sarah Mitchell, MD"
+        },
+        "trial_info": {
+          "trial_id": "NCT04929223",
+          "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+          "condition": "[\"Metastatic Colorectal Cancer\"]",
+          "phase": "PHASE1"
+        },
+        "hybrid_score": 0
+      },
+      {
+        "response": "```json\n{\n    \"eligibility_status\": \"NEED_MORE_INFO\",\n    \"confidence_score\": 65,\n    \"reasoning\": \"Based on the provided information, the patient has metastatic colorectal cancer, which aligns with the trial's focus. The patient is 72 years old, female, and has an ECOG performance status of 1. The patient is treatment-naive. The patient has several potentially relevant comorbidities, including sleep apnea and asthma. The patient has a BRAF V600E mutation and is MSS. More information is needed to determine eligibility. Specifically, the clinical trial inclusion/exclusion criteria are needed to confirm eligibility with respect to BRAF status, MSS status, ECOG performance status limitations (if any), age limits (if any), lab value limits, and acceptable comorbidities. The phase 1 nature of the trial usually has very strict inclusion and exclusion criteria.\",\n    \"inclusion_criteria_met\": [\n        \"Metastatic Colorectal Cancer\",\n        \"Female gender\",\n        \"Treatment-naive\"\n    ],\n    \"exclusion_criteria_violated\": [],\n    \"recommendations\": \"Obtain the detailed inclusion and exclusion criteria for the INTRINSIC trial. Specifically, determine if BRAF V600E, MSS status, ECOG PS of 1, age 72, sleep apnea, and asthma are permitted. Conduct a full assessment against all specified trial requirements.\",\n    \"priority_score\": 75,\n    \"evaluation_timestamp\": \"2025-10-16T12:44:33.124828\"\n}\n```",
+        "eligibility_status": "NEED_MORE_INFO",
+        "confidence_score": 65,
+        "reasoning": "Based on the provided information, the patient has metastatic colorectal cancer, which aligns with the trial's focus. The patient is 72 years old, female, and has an ECOG performance status of 1. The patient is treatment-naive. The patient has several potentially relevant comorbidities, including sleep apnea and asthma. The patient has a BRAF V600E mutation and is MSS. More information is needed to determine eligibility. Specifically, the clinical trial inclusion/exclusion criteria are needed to confirm eligibility with respect to BRAF status, MSS status, ECOG performance status limitations (if any), age limits (if any), lab value limits, and acceptable comorbidities. The phase 1 nature of the trial usually has very strict inclusion and exclusion criteria.",
+        "inclusion_criteria_met": [
+          "Metastatic Colorectal Cancer",
+          "Female gender",
+          "Treatment-naive"
+        ],
+        "exclusion_criteria_violated": [],
+        "recommendations": "Obtain the detailed inclusion and exclusion criteria for the INTRINSIC trial. Specifically, determine if BRAF V600E, MSS status, ECOG PS of 1, age 72, sleep apnea, and asthma are permitted. Conduct a full assessment against all specified trial requirements.",
+        "priority_score": 75,
+        "evaluation_timestamp": "2025-10-16T12:44:33.124828",
+        "patient_info": {
+          "patient_id": 34,
+          "mrn": "13264042",
+          "age": 72,
+          "gender": "Female",
+          "oncologist": "Dr. Michael Chen, MD"
+        },
+        "trial_info": {
+          "trial_id": "NCT04929223",
+          "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+          "condition": "[\"Metastatic Colorectal Cancer\"]",
+          "phase": "PHASE1"
+        },
+        "hybrid_score": 0
+      },
+      {
+        "response": "```json\n{\n    \"eligibility_status\": \"NEED_MORE_INFO\",\n    \"confidence_score\": 65,\n    \"reasoning\": \"Based on the provided information, the patient appears to meet some general eligibility criteria for a Phase I/Ib trial in metastatic colorectal cancer, such as having the correct diagnosis and an ECOG performance status of 1. However, several crucial pieces of information are missing, making it impossible to definitively determine eligibility. Specifically, the inclusion and exclusion criteria for the 'INTRINSIC' trial are completely absent. These criteria are essential to assess molecular marker status (beyond the provided RAS, BRAF and MSI/MMR), specific staging requirements, and any allowed or disallowed comorbidities or prior treatments. Without knowing the trial's specific requirements (e.g., specific metastatic sites allowed, acceptable range of lab values, etc.), it is impossible to determine the patient's eligibility.\",\n    \"inclusion_criteria_met\": [\n        \"Metastatic Colorectal Cancer Diagnosis\",\n        \"Age >/= 18\",\n        \"ECOG Performance Status of 0 or 1\"\n    ],\n    \"exclusion_criteria_violated\": [],\n    \"recommendations\": \"1. Obtain the complete inclusion and exclusion criteria for the 'INTRINSIC' trial.\\n2. Review the patient's medical history and laboratory values against these criteria.\\n3. Pay close attention to molecular marker requirements, allowable prior treatments, and comorbidity restrictions.\\n4. Determine if brain metastases are allowed in the trial and whether they need to be stable.\\n5. Contact the trial investigators or study coordinator for clarification on any ambiguous criteria.\",\n    \"priority_score\": 75,\n    \"evaluation_timestamp\": \"2025-10-16T12:44:37.300303\"\n}\n```",
+        "eligibility_status": "NEED_MORE_INFO",
+        "confidence_score": 65,
+        "reasoning": "Based on the provided information, the patient appears to meet some general eligibility criteria for a Phase I/Ib trial in metastatic colorectal cancer, such as having the correct diagnosis and an ECOG performance status of 1. However, several crucial pieces of information are missing, making it impossible to definitively determine eligibility. Specifically, the inclusion and exclusion criteria for the 'INTRINSIC' trial are completely absent. These criteria are essential to assess molecular marker status (beyond the provided RAS, BRAF and MSI/MMR), specific staging requirements, and any allowed or disallowed comorbidities or prior treatments. Without knowing the trial's specific requirements (e.g., specific metastatic sites allowed, acceptable range of lab values, etc.), it is impossible to determine the patient's eligibility.",
+        "inclusion_criteria_met": [
+          "Metastatic Colorectal Cancer Diagnosis",
+          "Age >/= 18",
+          "ECOG Performance Status of 0 or 1"
+        ],
+        "exclusion_criteria_violated": [],
+        "recommendations": "1. Obtain the complete inclusion and exclusion criteria for the 'INTRINSIC' trial.\n2. Review the patient's medical history and laboratory values against these criteria.\n3. Pay close attention to molecular marker requirements, allowable prior treatments, and comorbidity restrictions.\n4. Determine if brain metastases are allowed in the trial and whether they need to be stable.\n5. Contact the trial investigators or study coordinator for clarification on any ambiguous criteria.",
+        "priority_score": 75,
+        "evaluation_timestamp": "2025-10-16T12:44:37.300303",
+        "patient_info": {
+          "patient_id": 33,
+          "mrn": "49271178",
+          "age": 71,
+          "gender": "Female",
+          "oncologist": "Dr. Lisa Park, MD"
+        },
+        "trial_info": {
+          "trial_id": "NCT04929223",
+          "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+          "condition": "[\"Metastatic Colorectal Cancer\"]",
+          "phase": "PHASE1"
+        },
+        "hybrid_score": 0
+      },
+      {
+        "response": "```json\n{\n    \"eligibility_status\": \"NEED_MORE_INFO\",\n    \"confidence_score\": 65,\n    \"reasoning\": \"The patient has metastatic colorectal cancer, which aligns with the trial's condition. The patient's age (28) and gender (female) are likely within the acceptable range for a Phase 1/1b trial. The patient is newly diagnosed and treatment-naive, which is a common inclusion criterion. However, the trial is an 'umbrella study' evaluating targeted therapies, and the patient's BRAF V600E mutation might make her eligible for a BRAF-targeted therapy arm. More information is needed to determine the specific inclusion/exclusion criteria related to BRAF V600E mutations, other targetable mutations, acceptable ECOG performance status, and brain metastases inclusion/exclusion guidelines. The total bilirubin is slightly elevated, this would not typically be exclusionary, but more information is required.\",\n    \"inclusion_criteria_met\": [\n        \"Metastatic Colorectal Cancer diagnosis\",\n        \"Treatment-naive\"\n    ],\n    \"exclusion_criteria_violated\": [],\n    \"recommendations\": \"1. Obtain the full inclusion and exclusion criteria for the INTRINSIC trial, focusing on genomic biomarker requirements and ECOG performance status restrictions. 2. Determine if the trial has a BRAF-targeted therapy arm and if the patient's BRAF V600E mutation makes her eligible for that specific arm. 3. Clarify brain metastases inclusion/exclusion criteria. 4. Clarify allowable total bilirubin.\",\n    \"priority_score\": 75,\n    \"evaluation_timestamp\": \"2025-10-16T12:44:42.354667\"\n}\n```",
+        "eligibility_status": "NEED_MORE_INFO",
+        "confidence_score": 65,
+        "reasoning": "The patient has metastatic colorectal cancer, which aligns with the trial's condition. The patient's age (28) and gender (female) are likely within the acceptable range for a Phase 1/1b trial. The patient is newly diagnosed and treatment-naive, which is a common inclusion criterion. However, the trial is an 'umbrella study' evaluating targeted therapies, and the patient's BRAF V600E mutation might make her eligible for a BRAF-targeted therapy arm. More information is needed to determine the specific inclusion/exclusion criteria related to BRAF V600E mutations, other targetable mutations, acceptable ECOG performance status, and brain metastases inclusion/exclusion guidelines. The total bilirubin is slightly elevated, this would not typically be exclusionary, but more information is required.",
+        "inclusion_criteria_met": [
+          "Metastatic Colorectal Cancer diagnosis",
+          "Treatment-naive"
+        ],
+        "exclusion_criteria_violated": [],
+        "recommendations": "1. Obtain the full inclusion and exclusion criteria for the INTRINSIC trial, focusing on genomic biomarker requirements and ECOG performance status restrictions. 2. Determine if the trial has a BRAF-targeted therapy arm and if the patient's BRAF V600E mutation makes her eligible for that specific arm. 3. Clarify brain metastases inclusion/exclusion criteria. 4. Clarify allowable total bilirubin.",
+        "priority_score": 75,
+        "evaluation_timestamp": "2025-10-16T12:44:42.354667",
+        "patient_info": {
+          "patient_id": 31,
+          "mrn": "18118308",
+          "age": 28,
+          "gender": "Female",
+          "oncologist": "Dr. David Thompson, MD"
+        },
+        "trial_info": {
+          "trial_id": "NCT04929223",
+          "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+          "condition": "[\"Metastatic Colorectal Cancer\"]",
+          "phase": "PHASE1"
+        },
+        "hybrid_score": 0
+      },
+      {
+        "response": "```json\n{\n    \"eligibility_status\": \"NEED_MORE_INFO\",\n    \"confidence_score\": 65,\n    \"reasoning\": \"Based on the information provided, the patient has metastatic colorectal cancer, is 56 years old, and has an ECOG performance status of 1. She is newly diagnosed and treatment-naive, which is potentially favorable. However, without the specific inclusion/exclusion criteria for the 'INTRINSIC' trial, a definitive eligibility assessment is not possible. For instance, the trial may have specific molecular marker requirements beyond RAS and BRAF status. It may also have restrictions based on comorbidities like depression, thyroid disorder, or asthma. Smoking status may also be a factor. Information regarding required or prohibited medications is also missing. A Phase I/Ib trial may also have a limit to prior lines of treatment, and this patient has had none, but it is essential to confirm this information. The fact that she is a nurse may be relevant as well. The actual inclusion/exclusion criteria are needed for a complete assessment.\",\n    \"inclusion_criteria_met\": [\n        \"Metastatic Colorectal Cancer\",\n        \"Age within a potentially eligible range\",\n        \"ECOG performance status <= 1 (assuming trial allows 1)\"\n    ],\n    \"exclusion_criteria_violated\": [],\n    \"recommendations\": \"Obtain the full inclusion/exclusion criteria for the INTRINSIC trial. Assess the patient's eligibility against each criterion. Specifically, verify molecular marker eligibility (beyond RAS/BRAF), comorbidity considerations, smoking status restrictions, medication restrictions, and any other trial-specific requirements. Confirm eligibility based on prior lines of treatment and number of prior treatments allowed. Review vital signs and laboratory values against trial criteria once the trial criteria are available.\",\n    \"priority_score\": 75,\n    \"evaluation_timestamp\": \"2025-10-16T12:44:47.300784\"\n}\n```",
+        "eligibility_status": "NEED_MORE_INFO",
+        "confidence_score": 65,
+        "reasoning": "Based on the information provided, the patient has metastatic colorectal cancer, is 56 years old, and has an ECOG performance status of 1. She is newly diagnosed and treatment-naive, which is potentially favorable. However, without the specific inclusion/exclusion criteria for the 'INTRINSIC' trial, a definitive eligibility assessment is not possible. For instance, the trial may have specific molecular marker requirements beyond RAS and BRAF status. It may also have restrictions based on comorbidities like depression, thyroid disorder, or asthma. Smoking status may also be a factor. Information regarding required or prohibited medications is also missing. A Phase I/Ib trial may also have a limit to prior lines of treatment, and this patient has had none, but it is essential to confirm this information. The fact that she is a nurse may be relevant as well. The actual inclusion/exclusion criteria are needed for a complete assessment.",
+        "inclusion_criteria_met": [
+          "Metastatic Colorectal Cancer",
+          "Age within a potentially eligible range",
+          "ECOG performance status <= 1 (assuming trial allows 1)"
+        ],
+        "exclusion_criteria_violated": [],
+        "recommendations": "Obtain the full inclusion/exclusion criteria for the INTRINSIC trial. Assess the patient's eligibility against each criterion. Specifically, verify molecular marker eligibility (beyond RAS/BRAF), comorbidity considerations, smoking status restrictions, medication restrictions, and any other trial-specific requirements. Confirm eligibility based on prior lines of treatment and number of prior treatments allowed. Review vital signs and laboratory values against trial criteria once the trial criteria are available.",
+        "priority_score": 75,
+        "evaluation_timestamp": "2025-10-16T12:44:47.300784",
+        "patient_info": {
+          "patient_id": 9,
+          "mrn": "90280004",
+          "age": 56,
+          "gender": "Female",
+          "oncologist": "Dr. David Thompson, MD"
+        },
+        "trial_info": {
+          "trial_id": "NCT04929223",
+          "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+          "condition": "[\"Metastatic Colorectal Cancer\"]",
+          "phase": "PHASE1"
+        },
+        "hybrid_score": 0
+      },
+      {
+        "response": "```json\n{\n    \"eligibility_status\": \"NEED_MORE_INFO\",\n    \"confidence_score\": 60,\n    \"reasoning\": \"The patient has metastatic colorectal cancer, which matches the trial's condition. The patient is 47 years old, female, and has an ECOG performance status of 1. She is treatment-naïve. Her RAS mutation (NRAS Q61H) is a relevant biomarker that needs to be assessed against the trial's inclusion/exclusion criteria. Her comorbidities, including dementia, macular degeneration, heart failure, peripheral artery disease, osteoporosis and CKD stage 2-3, need careful evaluation against the trial's exclusion criteria to determine their potential impact on safety and efficacy. The laboratory values are mostly within normal limits, but further information about specific inclusion/exclusion criteria for laboratory values is required. The provided information does not include the specific inclusion/exclusion criteria for the INTRINSIC trial. Therefore, a definitive determination of eligibility cannot be made.\",\n    \"inclusion_criteria_met\": [\n        \"Metastatic Colorectal Cancer\",\n        \"Age 47\",\n        \"Female\",\n        \"ECOG 1\",\n        \"Treatment-naive\"\n    ],\n    \"exclusion_criteria_violated\": [],\n    \"recommendations\": \"Obtain the full inclusion and exclusion criteria for the INTRINSIC trial. Specifically, focus on the eligibility criteria related to: 1) specific RAS mutations (NRAS Q61H) addressed by the trial, 2) allowable ECOG performance status, 3) acceptable lab values (CBC, chemistry, LFTs), and 4) exclusion criteria related to comorbidities (dementia, macular degeneration, heart failure, peripheral artery disease, osteoporosis and CKD stage 2-3). Assess whether the current comorbidities are stable and well-controlled to ensure patient safety during a Phase I trial.\",\n    \"priority_score\": 65,\n    \"evaluation_timestamp\": \"2025-10-16T12:44:23.652454\"\n}\n```",
+        "eligibility_status": "NEED_MORE_INFO",
+        "confidence_score": 60,
+        "reasoning": "The patient has metastatic colorectal cancer, which matches the trial's condition. The patient is 47 years old, female, and has an ECOG performance status of 1. She is treatment-naïve. Her RAS mutation (NRAS Q61H) is a relevant biomarker that needs to be assessed against the trial's inclusion/exclusion criteria. Her comorbidities, including dementia, macular degeneration, heart failure, peripheral artery disease, osteoporosis and CKD stage 2-3, need careful evaluation against the trial's exclusion criteria to determine their potential impact on safety and efficacy. The laboratory values are mostly within normal limits, but further information about specific inclusion/exclusion criteria for laboratory values is required. The provided information does not include the specific inclusion/exclusion criteria for the INTRINSIC trial. Therefore, a definitive determination of eligibility cannot be made.",
+        "inclusion_criteria_met": [
+          "Metastatic Colorectal Cancer",
+          "Age 47",
+          "Female",
+          "ECOG 1",
+          "Treatment-naive"
+        ],
+        "exclusion_criteria_violated": [],
+        "recommendations": "Obtain the full inclusion and exclusion criteria for the INTRINSIC trial. Specifically, focus on the eligibility criteria related to: 1) specific RAS mutations (NRAS Q61H) addressed by the trial, 2) allowable ECOG performance status, 3) acceptable lab values (CBC, chemistry, LFTs), and 4) exclusion criteria related to comorbidities (dementia, macular degeneration, heart failure, peripheral artery disease, osteoporosis and CKD stage 2-3). Assess whether the current comorbidities are stable and well-controlled to ensure patient safety during a Phase I trial.",
+        "priority_score": 65,
+        "evaluation_timestamp": "2025-10-16T12:44:23.652454",
+        "patient_info": {
+          "patient_id": 24,
+          "mrn": "14728493",
+          "age": 47,
+          "gender": "Female",
+          "oncologist": "Dr. Jennifer Rodriguez, MD"
+        },
+        "trial_info": {
+          "trial_id": "NCT04929223",
+          "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+          "condition": "[\"Metastatic Colorectal Cancer\"]",
+          "phase": "PHASE1"
+        },
+        "hybrid_score": 0
+      }
+    ],
+    "summary": {
+      "eligible_count": 0,
+      "not_eligible_count": 0,
+      "need_more_info_count": 7,
+      "average_confidence": 64.28571428571429
+    },
+    "generated_at": "2025-10-16T12:44:51.248625"
+  },
+  "final_ranking": [
+    {
+      "response": "```json\n{\n    \"eligibility_status\": \"NEED_MORE_INFO\",\n    \"confidence_score\": 65,\n    \"reasoning\": \"The patient has metastatic colorectal cancer, which matches the primary diagnosis of the clinical trial. The patient is 51 years old, male, and has an ECOG performance status of 2. The patient is newly diagnosed and treatment-naïve. The patient has comorbidities, including inflammatory bowel disease, chronic fatigue syndrome, and endometriosis. The patient's most recent laboratory values show elevated AST, ALT, alkaline phosphatase, and total bilirubin. While the patient generally fits the broad criteria for a Phase 1 trial in metastatic colorectal cancer, key specific inclusion/exclusion criteria for the INTRINSIC trial are missing, particularly regarding molecular markers beyond RAS/BRAF/MSI status, specific lab value cutoffs, and prior treatment limits. Given the phase I nature of the trial, it's highly likely that specific mutations are required for enrollment. Furthermore, the elevated liver enzymes may be a concern depending on the specific trial protocol's inclusion/exclusion criteria. Without the specific trial protocol details, a definitive eligibility assessment is impossible.\",\n    \"inclusion_criteria_met\": [\n        \"Metastatic Colorectal Cancer\",\n        \"Age 51\",\n        \"Male\",\n        \"Treatment-naive\"\n    ],\n    \"exclusion_criteria_violated\": [],\n    \"recommendations\": \"Obtain the full clinical trial protocol for the INTRINSIC trial. Specifically, review the detailed inclusion/exclusion criteria regarding molecular markers (e.g., specific gene mutations required for enrollment), acceptable ranges for liver function tests (AST, ALT, Alkaline Phosphatase, Total Bilirubin), creatinine, and any specific criteria related to ECOG performance status or presence of specific comorbidities. Assess whether NRAS Q61H qualifies for inclusion in a specific arm. Determine if any specific pre-treatment is allowed. Contact the trial sponsor to clarify the eligibility criteria if needed.\",\n    \"priority_score\": 75,\n    \"evaluation_timestamp\": \"2025-10-16T12:44:17.417510\"\n}\n```",
+      "eligibility_status": "NEED_MORE_INFO",
+      "confidence_score": 65,
+      "reasoning": "The patient has metastatic colorectal cancer, which matches the primary diagnosis of the clinical trial. The patient is 51 years old, male, and has an ECOG performance status of 2. The patient is newly diagnosed and treatment-naïve. The patient has comorbidities, including inflammatory bowel disease, chronic fatigue syndrome, and endometriosis. The patient's most recent laboratory values show elevated AST, ALT, alkaline phosphatase, and total bilirubin. While the patient generally fits the broad criteria for a Phase 1 trial in metastatic colorectal cancer, key specific inclusion/exclusion criteria for the INTRINSIC trial are missing, particularly regarding molecular markers beyond RAS/BRAF/MSI status, specific lab value cutoffs, and prior treatment limits. Given the phase I nature of the trial, it's highly likely that specific mutations are required for enrollment. Furthermore, the elevated liver enzymes may be a concern depending on the specific trial protocol's inclusion/exclusion criteria. Without the specific trial protocol details, a definitive eligibility assessment is impossible.",
+      "inclusion_criteria_met": [
+        "Metastatic Colorectal Cancer",
+        "Age 51",
+        "Male",
+        "Treatment-naive"
+      ],
+      "exclusion_criteria_violated": [],
+      "recommendations": "Obtain the full clinical trial protocol for the INTRINSIC trial. Specifically, review the detailed inclusion/exclusion criteria regarding molecular markers (e.g., specific gene mutations required for enrollment), acceptable ranges for liver function tests (AST, ALT, Alkaline Phosphatase, Total Bilirubin), creatinine, and any specific criteria related to ECOG performance status or presence of specific comorbidities. Assess whether NRAS Q61H qualifies for inclusion in a specific arm. Determine if any specific pre-treatment is allowed. Contact the trial sponsor to clarify the eligibility criteria if needed.",
+      "priority_score": 75,
+      "evaluation_timestamp": "2025-10-16T12:44:17.417510",
+      "patient_info": {
+        "patient_id": 48,
+        "mrn": "70906771",
+        "age": 51,
+        "gender": "Male",
+        "oncologist": "Dr. Sarah Mitchell, MD"
+      },
+      "trial_info": {
+        "trial_id": "NCT04929223",
+        "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+        "condition": "[\"Metastatic Colorectal Cancer\"]",
+        "phase": "PHASE1"
+      },
+      "hybrid_score": 0
+    },
+    {
+      "response": "```json\n{\n    \"eligibility_status\": \"NEED_MORE_INFO\",\n    \"confidence_score\": 65,\n    \"reasoning\": \"Based on the provided information, the patient has metastatic colorectal cancer, is 28 years old, male, and has an ECOG performance status of 1. The patient is treatment-naive. However, without knowing the specific inclusion and exclusion criteria for the INTRINSIC trial, a definitive eligibility assessment cannot be made. Important information missing includes specific molecular marker requirements (beyond RAS, BRAF, and MSI status), allowed or disallowed comorbidities, and acceptable laboratory value ranges (e.g., specific hemoglobin thresholds). The creatinine level is slightly elevated which might be a concern depending on the trial protocol. The trial is Phase 1 so there could be more stringent criteria.\",\n    \"inclusion_criteria_met\": [\n        \"Metastatic Colorectal Cancer\",\n        \"Age >= 18\",\n        \"Male gender\",\n        \"ECOG 0-1\",\n        \"Treatment-naive\"\n    ],\n    \"exclusion_criteria_violated\": [],\n    \"recommendations\": \"Obtain the detailed inclusion and exclusion criteria for the INTRINSIC trial. Specifically, review the molecular marker requirements, comorbidity restrictions, allowed or disallowed medications, and acceptable laboratory value ranges (especially hemoglobin and creatinine). Once this information is available, reassess the patient's eligibility. Further investigation of elevated creatinine is warranted.\",\n    \"priority_score\": 75,\n    \"evaluation_timestamp\": \"2025-10-16T12:44:28.890909\"\n}\n```",
+      "eligibility_status": "NEED_MORE_INFO",
+      "confidence_score": 65,
+      "reasoning": "Based on the provided information, the patient has metastatic colorectal cancer, is 28 years old, male, and has an ECOG performance status of 1. The patient is treatment-naive. However, without knowing the specific inclusion and exclusion criteria for the INTRINSIC trial, a definitive eligibility assessment cannot be made. Important information missing includes specific molecular marker requirements (beyond RAS, BRAF, and MSI status), allowed or disallowed comorbidities, and acceptable laboratory value ranges (e.g., specific hemoglobin thresholds). The creatinine level is slightly elevated which might be a concern depending on the trial protocol. The trial is Phase 1 so there could be more stringent criteria.",
+      "inclusion_criteria_met": [
+        "Metastatic Colorectal Cancer",
+        "Age >= 18",
+        "Male gender",
+        "ECOG 0-1",
+        "Treatment-naive"
+      ],
+      "exclusion_criteria_violated": [],
+      "recommendations": "Obtain the detailed inclusion and exclusion criteria for the INTRINSIC trial. Specifically, review the molecular marker requirements, comorbidity restrictions, allowed or disallowed medications, and acceptable laboratory value ranges (especially hemoglobin and creatinine). Once this information is available, reassess the patient's eligibility. Further investigation of elevated creatinine is warranted.",
+      "priority_score": 75,
+      "evaluation_timestamp": "2025-10-16T12:44:28.890909",
+      "patient_info": {
+        "patient_id": 46,
+        "mrn": "16148888",
+        "age": 28,
+        "gender": "Male",
+        "oncologist": "Dr. Sarah Mitchell, MD"
+      },
+      "trial_info": {
+        "trial_id": "NCT04929223",
+        "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+        "condition": "[\"Metastatic Colorectal Cancer\"]",
+        "phase": "PHASE1"
+      },
+      "hybrid_score": 0
+    },
+    {
+      "response": "```json\n{\n    \"eligibility_status\": \"NEED_MORE_INFO\",\n    \"confidence_score\": 65,\n    \"reasoning\": \"Based on the provided information, the patient has metastatic colorectal cancer, which aligns with the trial's focus. The patient is 72 years old, female, and has an ECOG performance status of 1. The patient is treatment-naive. The patient has several potentially relevant comorbidities, including sleep apnea and asthma. The patient has a BRAF V600E mutation and is MSS. More information is needed to determine eligibility. Specifically, the clinical trial inclusion/exclusion criteria are needed to confirm eligibility with respect to BRAF status, MSS status, ECOG performance status limitations (if any), age limits (if any), lab value limits, and acceptable comorbidities. The phase 1 nature of the trial usually has very strict inclusion and exclusion criteria.\",\n    \"inclusion_criteria_met\": [\n        \"Metastatic Colorectal Cancer\",\n        \"Female gender\",\n        \"Treatment-naive\"\n    ],\n    \"exclusion_criteria_violated\": [],\n    \"recommendations\": \"Obtain the detailed inclusion and exclusion criteria for the INTRINSIC trial. Specifically, determine if BRAF V600E, MSS status, ECOG PS of 1, age 72, sleep apnea, and asthma are permitted. Conduct a full assessment against all specified trial requirements.\",\n    \"priority_score\": 75,\n    \"evaluation_timestamp\": \"2025-10-16T12:44:33.124828\"\n}\n```",
+      "eligibility_status": "NEED_MORE_INFO",
+      "confidence_score": 65,
+      "reasoning": "Based on the provided information, the patient has metastatic colorectal cancer, which aligns with the trial's focus. The patient is 72 years old, female, and has an ECOG performance status of 1. The patient is treatment-naive. The patient has several potentially relevant comorbidities, including sleep apnea and asthma. The patient has a BRAF V600E mutation and is MSS. More information is needed to determine eligibility. Specifically, the clinical trial inclusion/exclusion criteria are needed to confirm eligibility with respect to BRAF status, MSS status, ECOG performance status limitations (if any), age limits (if any), lab value limits, and acceptable comorbidities. The phase 1 nature of the trial usually has very strict inclusion and exclusion criteria.",
+      "inclusion_criteria_met": [
+        "Metastatic Colorectal Cancer",
+        "Female gender",
+        "Treatment-naive"
+      ],
+      "exclusion_criteria_violated": [],
+      "recommendations": "Obtain the detailed inclusion and exclusion criteria for the INTRINSIC trial. Specifically, determine if BRAF V600E, MSS status, ECOG PS of 1, age 72, sleep apnea, and asthma are permitted. Conduct a full assessment against all specified trial requirements.",
+      "priority_score": 75,
+      "evaluation_timestamp": "2025-10-16T12:44:33.124828",
+      "patient_info": {
+        "patient_id": 34,
+        "mrn": "13264042",
+        "age": 72,
+        "gender": "Female",
+        "oncologist": "Dr. Michael Chen, MD"
+      },
+      "trial_info": {
+        "trial_id": "NCT04929223",
+        "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+        "condition": "[\"Metastatic Colorectal Cancer\"]",
+        "phase": "PHASE1"
+      },
+      "hybrid_score": 0
+    },
+    {
+      "response": "```json\n{\n    \"eligibility_status\": \"NEED_MORE_INFO\",\n    \"confidence_score\": 65,\n    \"reasoning\": \"Based on the provided information, the patient appears to meet some general eligibility criteria for a Phase I/Ib trial in metastatic colorectal cancer, such as having the correct diagnosis and an ECOG performance status of 1. However, several crucial pieces of information are missing, making it impossible to definitively determine eligibility. Specifically, the inclusion and exclusion criteria for the 'INTRINSIC' trial are completely absent. These criteria are essential to assess molecular marker status (beyond the provided RAS, BRAF and MSI/MMR), specific staging requirements, and any allowed or disallowed comorbidities or prior treatments. Without knowing the trial's specific requirements (e.g., specific metastatic sites allowed, acceptable range of lab values, etc.), it is impossible to determine the patient's eligibility.\",\n    \"inclusion_criteria_met\": [\n        \"Metastatic Colorectal Cancer Diagnosis\",\n        \"Age >/= 18\",\n        \"ECOG Performance Status of 0 or 1\"\n    ],\n    \"exclusion_criteria_violated\": [],\n    \"recommendations\": \"1. Obtain the complete inclusion and exclusion criteria for the 'INTRINSIC' trial.\\n2. Review the patient's medical history and laboratory values against these criteria.\\n3. Pay close attention to molecular marker requirements, allowable prior treatments, and comorbidity restrictions.\\n4. Determine if brain metastases are allowed in the trial and whether they need to be stable.\\n5. Contact the trial investigators or study coordinator for clarification on any ambiguous criteria.\",\n    \"priority_score\": 75,\n    \"evaluation_timestamp\": \"2025-10-16T12:44:37.300303\"\n}\n```",
+      "eligibility_status": "NEED_MORE_INFO",
+      "confidence_score": 65,
+      "reasoning": "Based on the provided information, the patient appears to meet some general eligibility criteria for a Phase I/Ib trial in metastatic colorectal cancer, such as having the correct diagnosis and an ECOG performance status of 1. However, several crucial pieces of information are missing, making it impossible to definitively determine eligibility. Specifically, the inclusion and exclusion criteria for the 'INTRINSIC' trial are completely absent. These criteria are essential to assess molecular marker status (beyond the provided RAS, BRAF and MSI/MMR), specific staging requirements, and any allowed or disallowed comorbidities or prior treatments. Without knowing the trial's specific requirements (e.g., specific metastatic sites allowed, acceptable range of lab values, etc.), it is impossible to determine the patient's eligibility.",
+      "inclusion_criteria_met": [
+        "Metastatic Colorectal Cancer Diagnosis",
+        "Age >/= 18",
+        "ECOG Performance Status of 0 or 1"
+      ],
+      "exclusion_criteria_violated": [],
+      "recommendations": "1. Obtain the complete inclusion and exclusion criteria for the 'INTRINSIC' trial.\n2. Review the patient's medical history and laboratory values against these criteria.\n3. Pay close attention to molecular marker requirements, allowable prior treatments, and comorbidity restrictions.\n4. Determine if brain metastases are allowed in the trial and whether they need to be stable.\n5. Contact the trial investigators or study coordinator for clarification on any ambiguous criteria.",
+      "priority_score": 75,
+      "evaluation_timestamp": "2025-10-16T12:44:37.300303",
+      "patient_info": {
+        "patient_id": 33,
+        "mrn": "49271178",
+        "age": 71,
+        "gender": "Female",
+        "oncologist": "Dr. Lisa Park, MD"
+      },
+      "trial_info": {
+        "trial_id": "NCT04929223",
+        "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+        "condition": "[\"Metastatic Colorectal Cancer\"]",
+        "phase": "PHASE1"
+      },
+      "hybrid_score": 0
+    },
+    {
+      "response": "```json\n{\n    \"eligibility_status\": \"NEED_MORE_INFO\",\n    \"confidence_score\": 65,\n    \"reasoning\": \"The patient has metastatic colorectal cancer, which aligns with the trial's condition. The patient's age (28) and gender (female) are likely within the acceptable range for a Phase 1/1b trial. The patient is newly diagnosed and treatment-naive, which is a common inclusion criterion. However, the trial is an 'umbrella study' evaluating targeted therapies, and the patient's BRAF V600E mutation might make her eligible for a BRAF-targeted therapy arm. More information is needed to determine the specific inclusion/exclusion criteria related to BRAF V600E mutations, other targetable mutations, acceptable ECOG performance status, and brain metastases inclusion/exclusion guidelines. The total bilirubin is slightly elevated, this would not typically be exclusionary, but more information is required.\",\n    \"inclusion_criteria_met\": [\n        \"Metastatic Colorectal Cancer diagnosis\",\n        \"Treatment-naive\"\n    ],\n    \"exclusion_criteria_violated\": [],\n    \"recommendations\": \"1. Obtain the full inclusion and exclusion criteria for the INTRINSIC trial, focusing on genomic biomarker requirements and ECOG performance status restrictions. 2. Determine if the trial has a BRAF-targeted therapy arm and if the patient's BRAF V600E mutation makes her eligible for that specific arm. 3. Clarify brain metastases inclusion/exclusion criteria. 4. Clarify allowable total bilirubin.\",\n    \"priority_score\": 75,\n    \"evaluation_timestamp\": \"2025-10-16T12:44:42.354667\"\n}\n```",
+      "eligibility_status": "NEED_MORE_INFO",
+      "confidence_score": 65,
+      "reasoning": "The patient has metastatic colorectal cancer, which aligns with the trial's condition. The patient's age (28) and gender (female) are likely within the acceptable range for a Phase 1/1b trial. The patient is newly diagnosed and treatment-naive, which is a common inclusion criterion. However, the trial is an 'umbrella study' evaluating targeted therapies, and the patient's BRAF V600E mutation might make her eligible for a BRAF-targeted therapy arm. More information is needed to determine the specific inclusion/exclusion criteria related to BRAF V600E mutations, other targetable mutations, acceptable ECOG performance status, and brain metastases inclusion/exclusion guidelines. The total bilirubin is slightly elevated, this would not typically be exclusionary, but more information is required.",
+      "inclusion_criteria_met": [
+        "Metastatic Colorectal Cancer diagnosis",
+        "Treatment-naive"
+      ],
+      "exclusion_criteria_violated": [],
+      "recommendations": "1. Obtain the full inclusion and exclusion criteria for the INTRINSIC trial, focusing on genomic biomarker requirements and ECOG performance status restrictions. 2. Determine if the trial has a BRAF-targeted therapy arm and if the patient's BRAF V600E mutation makes her eligible for that specific arm. 3. Clarify brain metastases inclusion/exclusion criteria. 4. Clarify allowable total bilirubin.",
+      "priority_score": 75,
+      "evaluation_timestamp": "2025-10-16T12:44:42.354667",
+      "patient_info": {
+        "patient_id": 31,
+        "mrn": "18118308",
+        "age": 28,
+        "gender": "Female",
+        "oncologist": "Dr. David Thompson, MD"
+      },
+      "trial_info": {
+        "trial_id": "NCT04929223",
+        "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+        "condition": "[\"Metastatic Colorectal Cancer\"]",
+        "phase": "PHASE1"
+      },
+      "hybrid_score": 0
+    },
+    {
+      "response": "```json\n{\n    \"eligibility_status\": \"NEED_MORE_INFO\",\n    \"confidence_score\": 65,\n    \"reasoning\": \"Based on the information provided, the patient has metastatic colorectal cancer, is 56 years old, and has an ECOG performance status of 1. She is newly diagnosed and treatment-naive, which is potentially favorable. However, without the specific inclusion/exclusion criteria for the 'INTRINSIC' trial, a definitive eligibility assessment is not possible. For instance, the trial may have specific molecular marker requirements beyond RAS and BRAF status. It may also have restrictions based on comorbidities like depression, thyroid disorder, or asthma. Smoking status may also be a factor. Information regarding required or prohibited medications is also missing. A Phase I/Ib trial may also have a limit to prior lines of treatment, and this patient has had none, but it is essential to confirm this information. The fact that she is a nurse may be relevant as well. The actual inclusion/exclusion criteria are needed for a complete assessment.\",\n    \"inclusion_criteria_met\": [\n        \"Metastatic Colorectal Cancer\",\n        \"Age within a potentially eligible range\",\n        \"ECOG performance status <= 1 (assuming trial allows 1)\"\n    ],\n    \"exclusion_criteria_violated\": [],\n    \"recommendations\": \"Obtain the full inclusion/exclusion criteria for the INTRINSIC trial. Assess the patient's eligibility against each criterion. Specifically, verify molecular marker eligibility (beyond RAS/BRAF), comorbidity considerations, smoking status restrictions, medication restrictions, and any other trial-specific requirements. Confirm eligibility based on prior lines of treatment and number of prior treatments allowed. Review vital signs and laboratory values against trial criteria once the trial criteria are available.\",\n    \"priority_score\": 75,\n    \"evaluation_timestamp\": \"2025-10-16T12:44:47.300784\"\n}\n```",
+      "eligibility_status": "NEED_MORE_INFO",
+      "confidence_score": 65,
+      "reasoning": "Based on the information provided, the patient has metastatic colorectal cancer, is 56 years old, and has an ECOG performance status of 1. She is newly diagnosed and treatment-naive, which is potentially favorable. However, without the specific inclusion/exclusion criteria for the 'INTRINSIC' trial, a definitive eligibility assessment is not possible. For instance, the trial may have specific molecular marker requirements beyond RAS and BRAF status. It may also have restrictions based on comorbidities like depression, thyroid disorder, or asthma. Smoking status may also be a factor. Information regarding required or prohibited medications is also missing. A Phase I/Ib trial may also have a limit to prior lines of treatment, and this patient has had none, but it is essential to confirm this information. The fact that she is a nurse may be relevant as well. The actual inclusion/exclusion criteria are needed for a complete assessment.",
+      "inclusion_criteria_met": [
+        "Metastatic Colorectal Cancer",
+        "Age within a potentially eligible range",
+        "ECOG performance status <= 1 (assuming trial allows 1)"
+      ],
+      "exclusion_criteria_violated": [],
+      "recommendations": "Obtain the full inclusion/exclusion criteria for the INTRINSIC trial. Assess the patient's eligibility against each criterion. Specifically, verify molecular marker eligibility (beyond RAS/BRAF), comorbidity considerations, smoking status restrictions, medication restrictions, and any other trial-specific requirements. Confirm eligibility based on prior lines of treatment and number of prior treatments allowed. Review vital signs and laboratory values against trial criteria once the trial criteria are available.",
+      "priority_score": 75,
+      "evaluation_timestamp": "2025-10-16T12:44:47.300784",
+      "patient_info": {
+        "patient_id": 9,
+        "mrn": "90280004",
+        "age": 56,
+        "gender": "Female",
+        "oncologist": "Dr. David Thompson, MD"
+      },
+      "trial_info": {
+        "trial_id": "NCT04929223",
+        "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+        "condition": "[\"Metastatic Colorectal Cancer\"]",
+        "phase": "PHASE1"
+      },
+      "hybrid_score": 0
+    },
+    {
+      "response": "```json\n{\n    \"eligibility_status\": \"NEED_MORE_INFO\",\n    \"confidence_score\": 60,\n    \"reasoning\": \"The patient has metastatic colorectal cancer, which matches the trial's condition. The patient is 47 years old, female, and has an ECOG performance status of 1. She is treatment-naïve. Her RAS mutation (NRAS Q61H) is a relevant biomarker that needs to be assessed against the trial's inclusion/exclusion criteria. Her comorbidities, including dementia, macular degeneration, heart failure, peripheral artery disease, osteoporosis and CKD stage 2-3, need careful evaluation against the trial's exclusion criteria to determine their potential impact on safety and efficacy. The laboratory values are mostly within normal limits, but further information about specific inclusion/exclusion criteria for laboratory values is required. The provided information does not include the specific inclusion/exclusion criteria for the INTRINSIC trial. Therefore, a definitive determination of eligibility cannot be made.\",\n    \"inclusion_criteria_met\": [\n        \"Metastatic Colorectal Cancer\",\n        \"Age 47\",\n        \"Female\",\n        \"ECOG 1\",\n        \"Treatment-naive\"\n    ],\n    \"exclusion_criteria_violated\": [],\n    \"recommendations\": \"Obtain the full inclusion and exclusion criteria for the INTRINSIC trial. Specifically, focus on the eligibility criteria related to: 1) specific RAS mutations (NRAS Q61H) addressed by the trial, 2) allowable ECOG performance status, 3) acceptable lab values (CBC, chemistry, LFTs), and 4) exclusion criteria related to comorbidities (dementia, macular degeneration, heart failure, peripheral artery disease, osteoporosis and CKD stage 2-3). Assess whether the current comorbidities are stable and well-controlled to ensure patient safety during a Phase I trial.\",\n    \"priority_score\": 65,\n    \"evaluation_timestamp\": \"2025-10-16T12:44:23.652454\"\n}\n```",
+      "eligibility_status": "NEED_MORE_INFO",
+      "confidence_score": 60,
+      "reasoning": "The patient has metastatic colorectal cancer, which matches the trial's condition. The patient is 47 years old, female, and has an ECOG performance status of 1. She is treatment-naïve. Her RAS mutation (NRAS Q61H) is a relevant biomarker that needs to be assessed against the trial's inclusion/exclusion criteria. Her comorbidities, including dementia, macular degeneration, heart failure, peripheral artery disease, osteoporosis and CKD stage 2-3, need careful evaluation against the trial's exclusion criteria to determine their potential impact on safety and efficacy. The laboratory values are mostly within normal limits, but further information about specific inclusion/exclusion criteria for laboratory values is required. The provided information does not include the specific inclusion/exclusion criteria for the INTRINSIC trial. Therefore, a definitive determination of eligibility cannot be made.",
+      "inclusion_criteria_met": [
+        "Metastatic Colorectal Cancer",
+        "Age 47",
+        "Female",
+        "ECOG 1",
+        "Treatment-naive"
+      ],
+      "exclusion_criteria_violated": [],
+      "recommendations": "Obtain the full inclusion and exclusion criteria for the INTRINSIC trial. Specifically, focus on the eligibility criteria related to: 1) specific RAS mutations (NRAS Q61H) addressed by the trial, 2) allowable ECOG performance status, 3) acceptable lab values (CBC, chemistry, LFTs), and 4) exclusion criteria related to comorbidities (dementia, macular degeneration, heart failure, peripheral artery disease, osteoporosis and CKD stage 2-3). Assess whether the current comorbidities are stable and well-controlled to ensure patient safety during a Phase I trial.",
+      "priority_score": 65,
+      "evaluation_timestamp": "2025-10-16T12:44:23.652454",
+      "patient_info": {
+        "patient_id": 24,
+        "mrn": "14728493",
+        "age": 47,
+        "gender": "Female",
+        "oncologist": "Dr. Jennifer Rodriguez, MD"
+      },
+      "trial_info": {
+        "trial_id": "NCT04929223",
+        "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+        "condition": "[\"Metastatic Colorectal Cancer\"]",
+        "phase": "PHASE1"
+      },
+      "hybrid_score": 0
+    }
+  ],
+  "summary": {
+    "total_patients_found": 7,
+    "patients_evaluated": 7,
+    "eligible_patients": 0,
+    "average_confidence": 64.28571428571429
+  },
+  "generated_at": "2025-10-16T12:44:51.248625"
+}

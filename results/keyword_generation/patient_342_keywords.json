@@ -1,0 +1,56 @@
+{
+  "patient_id": 342,
+  "mrn": "76415",
+  "age": 53,
+  "gender": "Female",
+  "summary": "53-year-old female presents with rectal bleeding and altered bowel habits. Colonoscopy revealed early-stage rectal adenocarcinoma with no lymph node involvement or distant metastases on MRI. The patient has a history of hypothyroidism and cholecystectomy.",
+  "primary_diagnosis": "Rectal Adenocarcinoma",
+  "stage": "Early-Stage",
+  "metastatic_sites": [],
+  "molecular_markers": [],
+  "comorbidities": [
+    "Hypothyroidism"
+  ],
+  "medications": [
+    "Levothyroxine 75 mcg"
+  ],
+  "allergies": [
+    "NKDA"
+  ],
+  "performance_status": null,
+  "family_history": [
+    "Ovarian Cancer"
+  ],
+  "keywords": [
+    "Rectal Cancer",
+    "Colorectal Cancer",
+    "Adenocarcinoma",
+    "Early-Stage Cancer",
+    "Treatment-Naïve",
+    "53 years old",
+    "Female",
+    "Rectal Bleeding",
+    "Altered Bowel Habits",
+    "CEA 3.2",
+    "Hypothyroidism",
+    "Cholecystectomy",
+    "Colonoscopy",
+    "Rectal Lesion",
+    "MRI Pelvis",
+    "No Lymph Node Involvement",
+    "No Metastases",
+    "Tumor",
+    "Neoplasm",
+    "GI Symptoms",
+    "Levothyroxine",
+    "NKDA",
+    "Family History of Ovarian Cancer",
+    "Radiation Therapy",
+    "Chemoradiation",
+    "Total Mesorectal Excision",
+    "Low Anterior Resection",
+    "Local Excision",
+    "Adjuvant Chemotherapy"
+  ],
+  "generated_at": "2025-10-16T12:22:03.243298"
+}

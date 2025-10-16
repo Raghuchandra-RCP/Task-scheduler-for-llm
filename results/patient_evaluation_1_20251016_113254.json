@@ -1,0 +1,25 @@
+{
+  "patient_id": 1,
+  "patient_info": {
+    "patient_id": 1,
+    "mrn": "71406421",
+    "age": 52,
+    "gender": "Female",
+    "combined_text": "Patient MRN: 71406421\nAge: 52, Gender: Female\nDate of Visit: 2025-06-02\nOncologist: Dr. David Thompson, MD\n\nChief Complaint: - Diarrhea, Bloating, Vomiting\n\nHistory of Present Illness: - Date of initial colorectal cancer diagnosis: May 12, 2025\n- Site of primary tumor: Sigmoid colon (left colon)\n- Date of initial diagnosis and TNM stage: May 12, 2025; T3N2aM1 (Stage IV)\n- Date and nature of metastatic disease diagnosis: June 07, 2025 - bone metastases identified\n- Summary of prior treatments: None - newly diagnosed, treatment-naïve\n- Current symptoms: Diarrhea, Bloating, Vomiting, Constipation\n- Performance status: ECOG 1\n- Recent complications or hospitalizations: None\n\nPast Medical History: - Other malignancies: None\n- Significant comorbidities:\n- Type 1 diabetes\n- Surgical history:\n- Ovarian cyst removal (1996)\n- Hysterectomy (2007)\n\nFamily History: - Colorectal or other cancers in first-degree relatives: No known family history of cancer\n- Known familial syndromes: No known familial syndromes\n\nSocial History: - Smoking: Former smoker, quit 10 years ago (20 pack-year history)\n- Alcohol use: Denies alcohol use\n- Living situation/support: Lives with spouse, strong family support\n- Occupation: Sales manager\n- Functional status/ADL: Independent in all activities of daily living\n\nReview of Systems: - Constitutional: Fatigue, weight loss, no fever, chills, or night sweats\n- GI: Abdominal pain, change in bowel habits, no hematemesis, early satiety\n- Cardiovascular: No chest pain, palpitations, or shortness of breath\n- Respiratory: No cough, dyspnea, or wheezing\n- Genitourinary: No dysuria, hematuria, or urinary frequency\n- Neurological: No headaches, dizziness, or focal neurological symptoms\n- Musculoskeletal: No new joint pain or muscle weakness\n- Integumentary: No rashes or skin changes\n- Hematologic: No easy bruising or bleeding\n\nMedications and Allergies: - Current medications (exclude current anti cancer therapies):\n- None\n- Allergies: Penicillin (rash)\n\nPhysical Examination: - Vitals: BP 116/73, HR 94, RR 16, Temp 99.2°F, SpO2 98% on room air, Weight 190 lbs\n- General appearance: Alert and oriented, appears stated age, mild pallor\n- Abdominal exam: Soft, mild tenderness, no masses palpable, no ascites, active bowel sounds\n- Rectal exam: No masses palpable, guaiac positive stool\n- Other relevant findings: No lymphadenopathy, no peripheral edema\n\nLaboratory and Imaging Results: - Most recent CBC:\n- WBC: 4.9 × 10³/µL, ANC: 11.2 × 10³/µL\n- Hgb: 10.2 g/dL, Platelets: 388 × 10³/µL\n- Chemistry:\n- Creatinine: 1.8 mg/dL, eGFR: 35 mL/min/1.73m²\n- LFTs:\n- AST: 83 U/L, ALT: 78 U/L\n- Alkaline phosphatase: 283 U/L, Total bilirubin: 0.7 mg/dL\n- CEA: 164.8 ng/mL (elevated)\n- Molecular markers:\n- RAS: KRAS G13D\n- BRAF: Wild-type\n- MSI/MMR status: MSS\n- Imaging:\n- CT chest/abdomen/pelvis (June 07, 2025):\nPrimary sigmoid colon mass (6.6 cm), near-obstructing lesion\nosseous metastases\n- Other relevant tests: Colonoscopy with biopsy confirming moderately differentiated\nadenocarcinoma\n\nImaging: Results\n- Most recent CBC:\n- WBC: 4.9 × 10³/µL, ANC: 11.2 × 10³/µL\n- Hgb: 10.2 g/dL, Platelets: 388 × 10³/µL\n- Chemistry:\n- Creatinine: 1.8 mg/dL, eGFR: 35 mL/min/1.73m²\n- LFTs:\n- AST: 83 U/L, ALT: 78 U/L\n- Alkaline phosphatase: 283 U/L, Total bilirubin: 0.7 mg/dL\n- CEA: 164.8 ng/mL (elevated)\n- Molecular markers:\n- RAS: KRAS G13D\n- BRAF: Wild-type\n- MSI/MMR status: MSS\n- Imaging:\n- CT chest/abdomen/pelvis (June 07, 2025):\nPrimary sigmoid colon mass (6.6 cm), near-obstructing lesion\nosseous metastases\n- Other relevant tests: Colonoscopy with biopsy confirming moderately differentiated\nadenocarcinoma\n\nAssessment: - Diagnosis: Metastatic colorectal cancer (bone)\n- Disease status: Newly diagnosed, treatment-naïve\n- Treatment-related toxicities/adverse events: None at this time\n- Symptom burden: Moderate - abdominal pain, constitutional symptoms",
+    "oncologist": "Dr. David Thompson, MD",
+    "date_of_visit": "2025-06-02",
+    "created_at": "2025-10-10T10:17:55.601013"
+  },
+  "matching_trials": [],
+  "total_matches": 0,
+  "filters_applied": {
+    "age_range": null,
+    "gender": null,
+    "phase_filter": [
+      "Phase I",
+      "Phase II",
+      "Phase III"
+    ]
+  },
+  "generated_at": "2025-10-16T11:32:54.492712"
+}

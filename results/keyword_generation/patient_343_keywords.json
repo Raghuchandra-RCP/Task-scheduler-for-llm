@@ -1,0 +1,57 @@
+{
+  "patient_id": 343,
+  "mrn": "34982",
+  "age": 37,
+  "gender": "Male",
+  "summary": "37-year-old male presents with abdominal pain and bloating. CT scan revealed stage IV colon adenocarcinoma with a transverse colon mass and liver metastases. The patient has a history of asthma and migraine, smokes, and has a family history of colorectal cancer.",
+  "primary_diagnosis": "Transverse Colon Adenocarcinoma",
+  "stage": "IV",
+  "metastatic_sites": [
+    "Liver"
+  ],
+  "molecular_markers": [],
+  "comorbidities": [
+    "Asthma",
+    "Migraine"
+  ],
+  "medications": [],
+  "allergies": [],
+  "performance_status": null,
+  "family_history": [
+    "Colorectal Cancer"
+  ],
+  "keywords": [
+    "Colon Cancer",
+    "Colorectal Cancer",
+    "Adenocarcinoma",
+    "Transverse Colon",
+    "Stage IV",
+    "Metastatic Colon Cancer",
+    "Liver Metastasis",
+    "37 years old",
+    "Male",
+    "Abdominal Pain",
+    "Bloating",
+    "Hgb 11.0",
+    "CEA 80 ng/mL",
+    "Asthma",
+    "Migraine",
+    "Smoker",
+    "CT Scan",
+    "Hepatic Lesions",
+    "Tumor",
+    "Neoplasm",
+    "GI Symptoms",
+    "Family History of Colorectal Cancer",
+    "Weight Loss",
+    "Unresectable",
+    "Chemotherapy",
+    "Targeted Therapy",
+    "Palliative Care",
+    "Bevacizumab",
+    "Cetuximab",
+    "KRAS mutation",
+    "NRAS mutation"
+  ],
+  "generated_at": "2025-10-16T12:22:03.243298"
+}

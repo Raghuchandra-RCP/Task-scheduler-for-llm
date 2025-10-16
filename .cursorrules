@@ -1,0 +1,287 @@
+# Clinical Trial Matching System - Cursor Rules
+
+## Project Overview
+This is a sophisticated **Clinical Trial Matching System** that uses AI/ML to match patients with suitable clinical trials and vice versa. The system combines traditional database queries with modern AI techniques including embeddings, vector search, and LLM processing.
+
+## Architecture & Technology Stack
+
+### Core Technologies
+- **Backend**: Python with FastAPI for API endpoints
+- **Database**: PostgreSQL with custom stored procedures
+- **AI/ML**: 
+  - Google Gemini API for LLM processing
+  - MedCPT embeddings (NCBI) for medical text understanding
+  - FAISS for vector similarity search
+  - BM25 for keyword-based matching
+  - Hybrid matching combining semantic and keyword approaches
+- **Task Scheduling**: APScheduler for automated processing
+- **Logging**: Loguru for comprehensive logging
+- **Data Processing**: Pandas, NumPy for data manipulation
+
+### Key Components
+
+#### 1. Task Scheduler (`task_scheduler.py`)
+- **Purpose**: Automated background processing of matching tasks
+- **Scheduled Jobs**:
+  - Patient-to-trial matching (every 30 minutes)
+  - Trial-to-patient matching (every 30 minutes) 
+  - Trial eligibility updates (hourly)
+  - Data cleanup (daily at 2 AM)
+- **Key Features**: Async processing, error handling, configurable intervals
+
+#### 2. Matching Services
+- **Patient-to-Trial** (`services/patient_to_trial/`):
+  - `patient_matcher.py`: Hybrid matching using embeddings + BM25
+  - `patient_embedding.py`: Generates patient embeddings
+  - `patient_evaluator.py`: LLM-based evaluation of matches
+  - `keyword_generator.py`: Extracts relevant keywords
+
+- **Trial-to-Patient** (`services/trial_to_patient/`):
+  - `trial_matcher.py`: Reverse matching (trials → patients)
+  - `trial_embedding.py`: Generates trial embeddings
+  - `trial_evaluator.py`: LLM-based evaluation
+  - `hybrid_matcher.py`: Advanced hybrid matching
+
+#### 3. Shared Services (`services/shared/`)
+- **`database_utils.py`**: Database operations and stored procedure calls
+- **`embedding_utils.py`**: MedCPT embedding generation and FAISS indexing
+- **`llm_utils.py`**: Google Gemini API integration
+
+#### 4. Database Layer (`database/`)
+- **PostgreSQL** with custom schema `insightsedge`
+- **Stored Procedures**: Optimized queries for patient/trial data
+- **Tables**: `patient_medical_history`, `clinical_trial_details`
+
+#### 5. Data Persistence (`persist/embeddings/`)
+- **FAISS Indices**: Pre-computed vector indices for fast similarity search
+- **Embeddings**: Cached MedCPT embeddings for patients and trials
+- **Metadata**: JSON files with entity information and indices
+
+## Development Guidelines
+
+### Environment Setup
+- **Always use virtual environment** before installing any dependencies
+- **Virtual Environment**: Create and activate venv before pip install
+  ```bash
+  python -m venv venv
+  source venv/bin/activate  # On Windows: venv\Scripts\activate
+  pip install -r requirements.txt
+  ```
+- **Dependency Management**: Never install packages globally, always use venv
+- **Environment Isolation**: Each project should have its own virtual environment
+- **Activation Check**: Always verify venv is activated before running commands
+
+### Code Style & Patterns
+- **Async/Await**: Use async patterns for I/O operations (database, API calls)
+- **Error Handling**: Comprehensive try-catch blocks with detailed logging
+- **Type Hints**: Always use type hints for function parameters and returns
+- **Configuration**: Use `config.py` for all environment variables and settings
+- **Logging**: Use structured logging with context (patient_id, trial_id, etc.)
+
+### Database Operations
+- **Always use stored procedures** for complex queries (see `database/patient_trial_stored_procedures.sql`)
+- **Connection Management**: Use context managers for database connections
+- **Error Handling**: Handle database connection failures gracefully
+- **Data Types**: Be explicit about data type conversions (especially dates/timestamps)
+
+### AI/ML Components
+- **Embeddings**: Use MedCPT models for medical text understanding
+- **Hybrid Matching**: Combine semantic (embeddings) and keyword (BM25) approaches
+- **Caching**: Cache embeddings and indices to avoid recomputation
+- **Batch Processing**: Process multiple entities efficiently
+- **Error Fallbacks**: Return zero vectors or empty results on embedding failures
+
+### API Development
+- **FastAPI**: Use Pydantic models for request/response validation
+- **Async Endpoints**: All endpoints should be async
+- **Error Responses**: Consistent error response format
+- **Documentation**: Comprehensive API documentation with examples
+
+### Configuration Management
+- **Environment Variables**: Use `.env` files for sensitive data
+- **Feature Flags**: Use boolean flags for enabling/disabling features
+- **Resource Limits**: Configure timeouts, concurrency limits, and memory usage
+- **API Keys**: Never hardcode API keys in source code
+
+## File Organization
+
+### Directory Structure
+```
+├── main.py                          # Application entry point
+├── task_scheduler.py                # Background task scheduler
+├── config.py                        # Configuration management
+├── requirements.txt                 # Python dependencies
+├── database/                        # Database layer
+│   └── patient_trial_stored_procedures.sql
+├── services/                        # Business logic services
+│   ├── patient_to_trial/           # Patient → Trial matching
+│   ├── trial_to_patient/           # Trial → Patient matching
+│   └── shared/                     # Common utilities
+├── persist/embeddings/              # Cached embeddings and indices
+│   ├── patients/                   # Patient embeddings
+│   └── trials/                     # Trial embeddings
+└── results/                        # Processing results and logs
+```
+
+### Naming Conventions
+- **Files**: Use snake_case for Python files
+- **Classes**: Use PascalCase (e.g., `PatientMatcher`, `TrialMatcher`)
+- **Functions**: Use snake_case with descriptive names
+- **Variables**: Use snake_case, be descriptive
+- **Constants**: Use UPPER_CASE in config.py
+
+## Key Business Logic
+
+### Patient-to-Trial Matching Flow
+1. **Data Retrieval**: Get patient medical history from database
+2. **Text Processing**: Combine patient data into searchable text
+3. **Embedding Generation**: Create MedCPT embedding for patient
+4. **Hybrid Search**: 
+   - Semantic search using FAISS index
+   - Keyword search using BM25
+   - Combine scores with configurable weights
+5. **LLM Evaluation**: Use Gemini to evaluate match quality
+6. **Result Ranking**: Sort by combined similarity scores
+7. **Filtering**: Apply age, gender, phase filters
+8. **Storage**: Save results to database
+
+### Trial-to-Patient Matching Flow
+1. **Trial Data**: Get trial details and eligibility criteria
+2. **Text Processing**: Combine trial information
+3. **Embedding Generation**: Create trial embedding
+4. **Patient Search**: Find matching patients using hybrid approach
+5. **Eligibility Check**: Verify patient meets trial criteria
+6. **Ranking**: Sort patients by match quality
+7. **Results**: Return top matching patients
+
+## Performance Considerations
+
+### Optimization Strategies
+- **Embedding Caching**: Pre-compute and cache embeddings
+- **FAISS Indices**: Use efficient vector search indices
+- **Batch Processing**: Process multiple entities together
+- **Connection Pooling**: Reuse database connections
+- **Async Processing**: Use async/await for I/O operations
+- **Memory Management**: Monitor memory usage for large datasets
+
+### Scalability
+- **Horizontal Scaling**: Design for multiple worker processes
+- **Database Optimization**: Use indexes and optimized queries
+- **Caching Strategy**: Cache frequently accessed data
+- **Resource Monitoring**: Monitor CPU, memory, and API usage
+
+## Testing & Debugging
+
+### Testing Approach
+- **Unit Tests**: Test individual components in isolation
+- **Integration Tests**: Test database and API interactions
+- **End-to-End Tests**: Test complete matching workflows
+- **Performance Tests**: Test with large datasets
+
+### Debugging Tools
+- **Logging**: Comprehensive logging with different levels
+- **Error Tracking**: Detailed error messages with context
+- **Performance Monitoring**: Track processing times
+- **Data Validation**: Verify data integrity at each step
+
+## Security & Compliance
+
+### Data Protection
+- **Sensitive Data**: Handle patient data according to HIPAA guidelines
+- **API Security**: Use proper authentication and authorization
+- **Data Encryption**: Encrypt sensitive data in transit and at rest
+- **Access Control**: Implement proper access controls
+
+### Compliance
+- **Audit Logging**: Log all data access and modifications
+- **Data Retention**: Implement proper data retention policies
+- **Privacy**: Ensure patient privacy in all operations
+
+## Common Patterns & Best Practices
+
+### Error Handling
+```python
+try:
+    result = await process_patient_matching(patient_id)
+    logger.info(f"Successfully processed patient {patient_id}")
+    return result
+except DatabaseError as e:
+    logger.error(f"Database error for patient {patient_id}: {e}")
+    raise
+except EmbeddingError as e:
+    logger.warning(f"Embedding error for patient {patient_id}: {e}")
+    return fallback_result
+except Exception as e:
+    logger.error(f"Unexpected error for patient {patient_id}: {e}")
+    raise
+```
+
+### Database Operations
+```python
+async def get_patient_data(patient_id: int) -> Optional[Dict[str, Any]]:
+    try:
+        with self.get_connection() as connection:
+            query = text("SELECT * FROM insightsedge.get_patient_data_for_keywords(:limit)")
+            result = connection.execute(query, {"limit": 1})
+            return dict(result.fetchone()) if result.fetchone() else None
+    except Exception as e:
+        logger.error(f"Database error: {e}")
+        return None
+```
+
+### Embedding Generation
+```python
+def generate_patient_embedding(patient_text: str) -> np.ndarray:
+    try:
+        embedding = self.embedding_utils.generate_embedding(
+            patient_text, 
+            task_type="retrieval_query"
+        )
+        return embedding
+    except Exception as e:
+        logger.error(f"Embedding generation failed: {e}")
+        return np.zeros(768, dtype=np.float32)  # Fallback
+```
+
+## Deployment & Operations
+
+### Environment Setup
+- **Python 3.11+**: Required for async features
+- **PostgreSQL**: Database with custom schema
+- **GPU Support**: Optional for faster embedding generation
+- **Memory**: Minimum 8GB RAM for production
+
+### Monitoring
+- **Health Checks**: Monitor service availability
+- **Performance Metrics**: Track processing times and throughput
+- **Error Rates**: Monitor and alert on high error rates
+- **Resource Usage**: Monitor CPU, memory, and disk usage
+
+### Maintenance
+- **Regular Cleanup**: Automated cleanup of old results
+- **Index Updates**: Refresh embeddings when data changes
+- **Log Rotation**: Manage log file sizes
+- **Backup Strategy**: Regular database backups
+
+## Development Workflow
+
+### Adding New Features
+1. **Design**: Plan the feature with proper error handling
+2. **Database**: Add necessary stored procedures if needed
+3. **Service Layer**: Implement business logic in services/
+4. **API Layer**: Add FastAPI endpoints if needed
+5. **Testing**: Add comprehensive tests
+6. **Documentation**: Update README and API docs
+7. **Deployment**: Test in staging before production
+
+### Code Review Checklist
+- [ ] Proper error handling and logging
+- [ ] Type hints for all functions
+- [ ] Async/await patterns used correctly
+- [ ] Database operations use stored procedures
+- [ ] Configuration values from config.py
+- [ ] No hardcoded secrets or API keys
+- [ ] Comprehensive docstrings
+- [ ] Performance considerations addressed
+
+This system represents a sophisticated approach to clinical trial matching, combining traditional database operations with modern AI techniques to provide accurate and efficient patient-trial matching capabilities.
