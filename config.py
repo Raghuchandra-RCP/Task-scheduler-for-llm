@@ -11,6 +11,7 @@ load_dotenv()
 USE_DUMMY_DATA = False
 USE_LLM_PROCESSING = os.getenv("USE_LLM_PROCESSING", "true").lower() == "true"
 USE_DATABASE = os.getenv("USE_DATABASE", "true").lower() == "true"
+AUTOMATION_ENABLED = os.getenv("AUTOMATION_ENABLED", "false").lower() == "true"
 
 # Gemini API Configuration
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AIzaSyAaK5LASwLAzQljsficijwt6--HTPztOx4")
@@ -35,6 +36,8 @@ TASK_TIMEOUT_SECONDS = int(os.getenv("TASK_TIMEOUT_SECONDS", "300"))
 
 # Patient Processing Configuration
 DEFAULT_PATIENT_LIMIT = int(os.getenv("DEFAULT_PATIENT_LIMIT", "50"))
+AUTOMATION_PATIENT_BATCH_SIZE = int(os.getenv("AUTOMATION_PATIENT_BATCH_SIZE", "100"))
+AUTOMATION_TRIAL_BATCH_SIZE = int(os.getenv("AUTOMATION_TRIAL_BATCH_SIZE", "100"))
 
 # Logging Configuration
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
@@ -57,6 +60,7 @@ else:
 print(f"Task Scheduler Configuration loaded:")
 print(f"  - USE_DUMMY_DATA: {USE_DUMMY_DATA}")
 print(f"  - USE_LLM_PROCESSING: {USE_LLM_PROCESSING}")
+print(f"  - AUTOMATION_ENABLED: {AUTOMATION_ENABLED}")
 print(f"  - SCHEDULER_INTERVAL_MINUTES: {SCHEDULER_INTERVAL_MINUTES}")
 print(f"  - MAX_CONCURRENT_TASKS: {MAX_CONCURRENT_TASKS}")
 print(f"  - LOG_LEVEL: {LOG_LEVEL}")

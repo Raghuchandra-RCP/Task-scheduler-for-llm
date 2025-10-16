@@ -12,18 +12,21 @@ from apscheduler.triggers.interval import IntervalTrigger
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.jobstores.memory import MemoryJobStore
 from apscheduler.executors.asyncio import AsyncIOExecutor
+from sqlalchemy import text
 
 from config import (
     SCHEDULER_INTERVAL_MINUTES,
     MAX_CONCURRENT_TASKS,
     TASK_TIMEOUT_SECONDS,
     USE_LLM_PROCESSING,
-    USE_DATABASE
+    USE_DATABASE,
+    AUTOMATION_ENABLED
 )
 
 # Import our services
 from database.patient_db import PatientDB
 from database.trial_database_service import TrialDatabaseService
+from services.automation_service import AutomationService
 
 class TaskScheduler:
     def __init__(self):
@@ -37,6 +40,7 @@ class TaskScheduler:
         # Initialize services
         self.patient_db = None
         self.trial_db = None
+        self.automation_service = None
         
     async def initialize(self):
         """Initialize all services and database connections"""
@@ -54,6 +58,11 @@ class TaskScheduler:
             # Initialize LLM services
             if USE_LLM_PROCESSING:
                 logger.info("LLM processing enabled - using modular pipeline services")
+            
+            # Initialize automation service
+            if AUTOMATION_ENABLED:
+                self.automation_service = AutomationService()
+                logger.info("Automation service initialized")
             
             logger.info("All services initialized successfully")
             
@@ -144,26 +153,15 @@ class TaskScheduler:
         logger.info("Starting patient-trial matching task...")
         
         try:
-            if not self.patient_db:
-                logger.warning("Required database services not initialized")
-                return
-                
-            # Get pending patient IDs that need trial matching
-            pending_patients = await self._get_pending_patient_trial_tasks()
-            
-            if not pending_patients:
-                logger.info("No pending patient-trial tasks found")
-                return
-                
-            logger.info(f"Processing {len(pending_patients)} patient-trial tasks")
-            
-            # Process each patient
-            for patient_id in pending_patients:
-                try:
-                    await self._process_single_patient_trial_match(patient_id)
-                except Exception as e:
-                    logger.error(f"Failed to process patient {patient_id}: {e}")
-                    continue
+            if AUTOMATION_ENABLED and self.automation_service:
+                # Run full automation if enabled
+                logger.info("Running full automation for patient-trial matching...")
+                results = await self.automation_service.run_full_automation()
+                logger.info(f"Automation completed with status: {results['status']}")
+            else:
+                # Manual processing mode - process only new patients
+                logger.info("Running manual patient-trial matching...")
+                await self._process_new_patients_only()
                     
             logger.info("Patient-trial matching task completed")
             
@@ -175,26 +173,13 @@ class TaskScheduler:
         logger.info("Starting trial-patient matching task...")
         
         try:
-            if not self.trial_db:
-                logger.warning("Required database services not initialized")
-                return
-                
-            # Get pending trial IDs that need patient matching
-            pending_trials = await self._get_pending_trial_patient_tasks()
-            
-            if not pending_trials:
-                logger.info("No pending trial-patient tasks found")
-                return
-                
-            logger.info(f"Processing {len(pending_trials)} trial-patient tasks")
-            
-            # Process each trial
-            for trial_id in pending_trials:
-                try:
-                    await self._process_single_trial_patient_match(trial_id)
-                except Exception as e:
-                    logger.error(f"Failed to process trial {trial_id}: {e}")
-                    continue
+            if AUTOMATION_ENABLED and self.automation_service:
+                # In automation mode, this is handled by the full automation process
+                logger.info("Trial-patient matching handled by automation service")
+            else:
+                # Manual processing mode - process only new trials
+                logger.info("Running manual trial-patient matching...")
+                await self._process_new_trials_only()
                     
             logger.info("Trial-patient matching task completed")
             
@@ -246,56 +231,178 @@ class TaskScheduler:
         except Exception as e:
             logger.error(f"Error in cleanup task: {e}")
             
-    # Helper methods for database operations
-    async def _get_pending_patient_trial_tasks(self) -> List[str]:
-        """Get list of patient IDs that need trial matching"""
-        # This would query your database for pending tasks
-        # For now, return empty list as placeholder
-        return []
-        
-    async def _get_pending_trial_patient_tasks(self) -> List[str]:
-        """Get list of trial IDs that need patient matching"""
-        # This would query your database for pending tasks
-        # For now, return empty list as placeholder
-        return []
-        
+    # Helper methods for manual processing (when automation is disabled)
+    async def _process_new_patients_only(self):
+        """Process only new patients that haven't been processed yet"""
+        try:
+            from services.shared.database_utils import DatabaseUtils
+            db_utils = DatabaseUtils()
+            
+            # Get patients that need embeddings
+            patients_needing_embeddings = db_utils.get_patients_needing_embeddings()
+            
+            if patients_needing_embeddings:
+                logger.info(f"Found {len(patients_needing_embeddings)} patients needing embeddings")
+                
+                # Process a small batch for manual mode
+                batch_size = min(10, len(patients_needing_embeddings))
+                batch = patients_needing_embeddings[:batch_size]
+                
+                for patient in batch:
+                    try:
+                        # Generate embedding
+                        from services.patient_to_trial.patient_embedding import PatientEmbeddingGenerator
+                        embedding_gen = PatientEmbeddingGenerator()
+                        result = embedding_gen.generate_patient_embedding(
+                            patient["patient_id"], 
+                            patient["combined_text"]
+                        )
+                        
+                        if result:
+                            db_utils.update_patient_processing_status(
+                                patient["patient_id"], 
+                                embedding_generated=True
+                            )
+                            logger.info(f"Generated embedding for patient {patient['patient_id']}")
+                        
+                    except Exception as e:
+                        logger.error(f"Error processing patient {patient['patient_id']}: {e}")
+                        db_utils.update_patient_processing_status(
+                            patient["patient_id"], 
+                            error_message=str(e)
+                        )
+            else:
+                logger.info("No patients need embedding generation")
+                
+        except Exception as e:
+            logger.error(f"Error in manual patient processing: {e}")
+    
+    async def _process_new_trials_only(self):
+        """Process only new trials that haven't been processed yet"""
+        try:
+            from services.shared.database_utils import DatabaseUtils
+            db_utils = DatabaseUtils()
+            
+            # Get trials that need embeddings
+            trials_needing_embeddings = db_utils.get_trials_needing_embeddings()
+            
+            if trials_needing_embeddings:
+                logger.info(f"Found {len(trials_needing_embeddings)} trials needing embeddings")
+                
+                # Process a small batch for manual mode
+                batch_size = min(10, len(trials_needing_embeddings))
+                batch = trials_needing_embeddings[:batch_size]
+                
+                for trial in batch:
+                    try:
+                        # Generate embedding
+                        from services.trial_to_patient.trial_embedding import TrialEmbeddingGenerator
+                        embedding_gen = TrialEmbeddingGenerator()
+                        result = embedding_gen.generate_trial_embedding(
+                            trial["trial_id"], 
+                            trial["combined_trial_text"]
+                        )
+                        
+                        if result:
+                            db_utils.update_trial_processing_status(
+                                trial["trial_id"], 
+                                embedding_generated=True
+                            )
+                            logger.info(f"Generated embedding for trial {trial['trial_id']}")
+                        
+                    except Exception as e:
+                        logger.error(f"Error processing trial {trial['trial_id']}: {e}")
+                        db_utils.update_trial_processing_status(
+                            trial["trial_id"], 
+                            error_message=str(e)
+                        )
+            else:
+                logger.info("No trials need embedding generation")
+                
+        except Exception as e:
+            logger.error(f"Error in manual trial processing: {e}")
+    
     async def _get_trials_needing_eligibility_update(self) -> List[str]:
         """Get list of trial IDs that need eligibility updates"""
-        # This would query your database for trials needing updates
-        # For now, return empty list as placeholder
-        return []
-        
-    async def _process_single_patient_trial_match(self, patient_id: str):
-        """Process a single patient-trial matching task"""
-        logger.info(f"Processing patient-trial match for patient {patient_id}")
-        
-        # Implement the actual processing logic here
-        # This would use the patient_to_trial_service to process the patient
-        
-    async def _process_single_trial_patient_match(self, trial_id: str):
-        """Process a single trial-patient matching task"""
-        logger.info(f"Processing trial-patient match for trial {trial_id}")
-        
-        # Implement the actual processing logic here
-        # This would use the trial_to_patient_service to process the trial
+        try:
+            from services.shared.database_utils import DatabaseUtils
+            db_utils = DatabaseUtils()
+            
+            # Get trials that haven't been processed recently
+            with db_utils.get_connection() as connection:
+                query = text("""
+                    SELECT trial_id 
+                    FROM insightsedge.trial_processing_status 
+                    WHERE embedding_generated = TRUE 
+                    AND last_embedding_update < NOW() - INTERVAL '7 days'
+                    LIMIT 50
+                """)
+                result = connection.execute(query)
+                return [row[0] for row in result]
+        except Exception as e:
+            logger.error(f"Error getting trials needing eligibility update: {e}")
+            return []
         
     async def _update_single_trial_eligibility(self, trial_id: str):
         """Update eligibility for a single trial"""
         logger.info(f"Updating eligibility for trial {trial_id}")
         
-        # Implement the actual eligibility update logic here
-        # This would use the eligibility_service to update the trial
+        try:
+            # This would trigger a re-evaluation of the trial's eligibility criteria
+            # For now, just update the timestamp
+            from services.shared.database_utils import DatabaseUtils
+            db_utils = DatabaseUtils()
+            db_utils.update_trial_processing_status(trial_id, embedding_generated=True)
+            
+        except Exception as e:
+            logger.error(f"Error updating trial eligibility for {trial_id}: {e}")
         
     async def _cleanup_old_data(self, cutoff_date: datetime) -> int:
         """Clean up old data older than cutoff_date"""
-        # Implement cleanup logic here
-        # This would remove old results, temporary files, etc.
-        return 0
+        try:
+            from services.shared.database_utils import DatabaseUtils
+            db_utils = DatabaseUtils()
+            
+            cleaned_count = 0
+            
+            with db_utils.get_connection() as connection:
+                # Clean up old processing logs
+                query = text("""
+                    DELETE FROM insightsedge.automation_processing_log 
+                    WHERE started_at < :cutoff_date
+                """)
+                result = connection.execute(query, {"cutoff_date": cutoff_date})
+                cleaned_count += result.rowcount
+                
+                # Clean up old matching results (keep only recent ones)
+                query = text("""
+                    DELETE FROM insightsedge.patient_trial_matches 
+                    WHERE created_at < :cutoff_date
+                """)
+                result = connection.execute(query, {"cutoff_date": cutoff_date})
+                cleaned_count += result.rowcount
+                
+                query = text("""
+                    DELETE FROM insightsedge.trial_patient_matches 
+                    WHERE created_at < :cutoff_date
+                """)
+                result = connection.execute(query, {"cutoff_date": cutoff_date})
+                cleaned_count += result.rowcount
+                
+                connection.commit()
+            
+            logger.info(f"Cleaned up {cleaned_count} old records")
+            return cleaned_count
+            
+        except Exception as e:
+            logger.error(f"Error cleaning up old data: {e}")
+            return 0
         
     def get_status(self) -> Dict[str, Any]:
         """Get current scheduler status"""
-        return {
+        status = {
             "running": self.running,
+            "automation_enabled": AUTOMATION_ENABLED,
             "jobs": [
                 {
                     "id": job.id,
@@ -307,6 +414,17 @@ class TaskScheduler:
             ],
             "services_initialized": {
                 "patient_db": self.patient_db is not None,
-                "trial_db": self.trial_db is not None
+                "trial_db": self.trial_db is not None,
+                "automation_service": self.automation_service is not None
             }
         }
+        
+        # Add automation status if available
+        if self.automation_service:
+            try:
+                automation_status = self.automation_service.get_automation_status()
+                status["automation_status"] = automation_status
+            except Exception as e:
+                status["automation_status"] = {"error": str(e)}
+        
+        return status
