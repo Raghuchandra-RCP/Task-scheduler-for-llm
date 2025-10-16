@@ -1,0 +1,176 @@
+{
+  "evaluation_id": "eval_20251016_195631",
+  "patient_info": {
+    "patient_id": 1,
+    "mrn": "71406421",
+    "age": 52,
+    "gender": "Female",
+    "condition": "Colorectal Cancer",
+    "oncologist": "Dr. David Thompson, MD"
+  },
+  "bidirectional_results": [
+    {
+      "trial_info": {
+        "trial_id": "NCT04792684",
+        "title": "Collection of Samples From the United States Population for Optimization and Evaluation of Colorectal Cancer (CRC) Plasma Circulating Free-DNA (cfDNA) Marker Panel Performance (\"USOPTIVAL\")",
+        "phase": "Not specified",
+        "status": "RECRUITING",
+        "hybrid_score": NaN
+      },
+      "patient_to_trial_evaluation": {
+        "eligibility_status": "NEED_MORE_INFO",
+        "confidence_score": 50,
+        "reasoning": "Due to the lack of specified inclusion/exclusion criteria, it's impossible to definitively determine eligibility. The patient does have colorectal cancer, which aligns with the trial's condition. Further information about the trial's specific requirements is needed.",
+        "inclusion_criteria_met": [],
+        "exclusion_criteria_status": [],
+        "missing_information": [
+          "Specific inclusion and exclusion criteria"
+        ],
+        "next_steps": "Contact the trial investigators to obtain detailed inclusion/exclusion criteria."
+      },
+      "trial_to_patient_evaluation": {
+        "suitability_status": "NEED_MORE_INFO",
+        "priority_score": 50,
+        "reasoning": "The patient has metastatic colorectal cancer. Without knowing the specific aims of the trial (e.g., specific stages, treatment history requirements), it's difficult to assess suitability. The patient's KRAS G13D mutation might be relevant, but it's unclear without more details.",
+        "strengths": [
+          "Has colorectal cancer which is a listed condition"
+        ],
+        "concerns": [
+          "Unknown eligibility criteria",
+          "Metastatic disease, unknown if suitable"
+        ],
+        "enrollment_recommendation": "CONDITIONAL_ON_TESTING"
+      },
+      "overall_compatibility": {
+        "match_quality": "POOR",
+        "combined_score": 50.0,
+        "final_recommendation": "AWAIT_MOLECULAR_TESTING",
+        "enrollment_probability": "MEDIUM (40%)",
+        "p2t_score": 50,
+        "t2p_score": 50
+      }
+    },
+    {
+      "trial_info": {
+        "trial_id": "NCT05612347",
+        "title": "Colonoscopy Versus Stool-based Testing for Older Adults With a History of Colon Polyps",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "hybrid_score": 0.800792396068573
+      },
+      "patient_to_trial_evaluation": {
+        "eligibility_status": "NOT_ELIGIBLE",
+        "confidence_score": 95,
+        "reasoning": "This trial appears to focus on screening and detection of colorectal polyps and neoplasms, not treatment of metastatic colorectal cancer. The patient has already been diagnosed with metastatic colorectal cancer. Therefore, the patient is likely ineligible.",
+        "inclusion_criteria_met": [],
+        "exclusion_criteria_status": [],
+        "missing_information": [],
+        "next_steps": "None - patient is not eligible."
+      },
+      "trial_to_patient_evaluation": {
+        "suitability_status": "NOT_SUITABLE",
+        "priority_score": 10,
+        "reasoning": "This trial is designed for patients with a history of colon polyps for screening purposes, not for patients with metastatic disease. The patient's needs are for treatment options, not screening.",
+        "strengths": [],
+        "concerns": [
+          "Patient has metastatic cancer, not just polyps"
+        ],
+        "enrollment_recommendation": "NOT_RECOMMENDED"
+      },
+      "overall_compatibility": {
+        "match_quality": "FAIR",
+        "combined_score": 61.0,
+        "final_recommendation": "NOT_SUITABLE",
+        "enrollment_probability": "LOW (18%)",
+        "p2t_score": 95,
+        "t2p_score": 10
+      }
+    },
+    {
+      "trial_info": {
+        "trial_id": "NCT05080673",
+        "title": "Five or Ten Year Colonoscopy for 1-2 Non-Advanced Adenomatous Polyps",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "hybrid_score": 0.7971059083938599
+      },
+      "patient_to_trial_evaluation": {
+        "eligibility_status": "NOT_ELIGIBLE",
+        "confidence_score": 95,
+        "reasoning": "This trial is focused on surveillance colonoscopies for patients with a history of 1-2 non-advanced adenomatous polyps. The patient has metastatic colorectal cancer, making them ineligible for this surveillance study.",
+        "inclusion_criteria_met": [],
+        "exclusion_criteria_status": [],
+        "missing_information": [],
+        "next_steps": "None - patient is not eligible."
+      },
+      "trial_to_patient_evaluation": {
+        "suitability_status": "NOT_SUITABLE",
+        "priority_score": 10,
+        "reasoning": "The trial is for patients with a history of non-advanced adenomas, while the patient has advanced metastatic colorectal cancer. The patient's needs are for treatment options.",
+        "strengths": [],
+        "concerns": [
+          "Patient has metastatic cancer, not just polyps"
+        ],
+        "enrollment_recommendation": "NOT_RECOMMENDED"
+      },
+      "overall_compatibility": {
+        "match_quality": "FAIR",
+        "combined_score": 61.0,
+        "final_recommendation": "NOT_SUITABLE",
+        "enrollment_probability": "LOW (18%)",
+        "p2t_score": 95,
+        "t2p_score": 10
+      }
+    }
+  ],
+  "summary": {
+    "total_trials_evaluated": 3,
+    "eligible_trials": 0,
+    "not_eligible_trials": 2,
+    "need_more_info_trials": 1,
+    "highly_suitable_trials": 0,
+    "suitable_trials": 0,
+    "not_suitable_trials": 2,
+    "average_confidence_score": 80.0,
+    "average_priority_score": 23.33,
+    "average_compatibility_score": 57.33,
+    "success_rate": 0.0
+  },
+  "llm_summary": {
+    "total_trials_evaluated": 3,
+    "eligible_trials": 0,
+    "need_more_info_trials": 1,
+    "not_eligible_trials": 2,
+    "highly_suitable_trials": 0,
+    "average_compatibility": 23.3,
+    "top_recommendations": [
+      "NCT04792684 - Await detailed inclusion/exclusion criteria to assess suitability."
+    ],
+    "action_items": [
+      "Contact investigators for NCT04792684 to obtain detailed inclusion/exclusion criteria.",
+      "Focus on clinical trials evaluating treatment options for metastatic colorectal cancer with KRAS G13D mutation."
+    ]
+  },
+  "processing_metadata": {
+    "evaluation_method": "unified_bidirectional",
+    "total_trials_evaluated": 3,
+    "processing_timestamp": "2025-10-16T19:56:31.151163",
+    "llm_metadata": {
+      "evaluation_type": "bidirectional_patient_trials",
+      "patient_id": 1,
+      "total_trials": 3,
+      "generated_at": "2025-10-16T19:56:18.106689"
+    }
+  },
+  "generated_at": "2025-10-16T19:56:31.151163",
+  "pipeline_metadata": {
+    "pipeline_type": "unified_patient_evaluation",
+    "patient_id": 1,
+    "trial_ids": null,
+    "max_trials": 3,
+    "total_trials_evaluated": 3,
+    "pipeline_start_time": "2025-10-16T19:56:31.153444",
+    "pipeline_end_time": "2025-10-16T19:56:31.153444",
+    "pipeline_duration_seconds": 0
+  }
+}

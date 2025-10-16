@@ -1,0 +1,79 @@
+{
+  "batch_id": "batch_20251016_195305",
+  "patient_ids": [
+    1,
+    2
+  ],
+  "trial_ids": [
+    "NCT04929223",
+    "NCT05123456"
+  ],
+  "evaluations": [
+    {
+      "patient_id": 1,
+      "trial_id": "NCT04929223",
+      "patient_to_trial_evaluation": {
+        "eligibility_status": "NEED_MORE_INFO",
+        "confidence_score": 50,
+        "reasoning": "The inclusion and exclusion criteria are not available, but the trial is for metastatic colorectal cancer, which this patient has. Further criteria would be needed to determine eligibility.",
+        "inclusion_criteria_met": [],
+        "exclusion_criteria_status": [],
+        "missing_information": [],
+        "next_steps": "No next steps provided"
+      },
+      "trial_to_patient_evaluation": {
+        "suitability_status": "NEED_MORE_INFO",
+        "priority_score": 50,
+        "reasoning": "Without inclusion and exclusion criteria, it is difficult to determine patient suitability. The patient is newly diagnosed with metastatic colorectal cancer, so she is potentially suitable.",
+        "strengths": [],
+        "concerns": [],
+        "enrollment_recommendation": "UNKNOWN"
+      },
+      "overall_compatibility": {
+        "match_quality": "POOR",
+        "combined_score": 50.0,
+        "final_recommendation": "AWAIT_MOLECULAR_TESTING",
+        "enrollment_probability": "MEDIUM (40%)",
+        "p2t_score": 50,
+        "t2p_score": 50
+      }
+    },
+    {
+      "patient_id": 2,
+      "trial_id": "NCT04929223",
+      "patient_to_trial_evaluation": {
+        "eligibility_status": "NEED_MORE_INFO",
+        "confidence_score": 50,
+        "reasoning": "The inclusion and exclusion criteria are not available, but the trial is for metastatic colorectal cancer, which this patient has. Further criteria would be needed to determine eligibility.",
+        "inclusion_criteria_met": [],
+        "exclusion_criteria_status": [],
+        "missing_information": [],
+        "next_steps": "No next steps provided"
+      },
+      "trial_to_patient_evaluation": {
+        "suitability_status": "NEED_MORE_INFO",
+        "priority_score": 50,
+        "reasoning": "Without inclusion and exclusion criteria, it is difficult to determine patient suitability. The patient is newly diagnosed with metastatic colorectal cancer, so he is potentially suitable.",
+        "strengths": [],
+        "concerns": [],
+        "enrollment_recommendation": "UNKNOWN"
+      },
+      "overall_compatibility": {
+        "match_quality": "POOR",
+        "combined_score": 50.0,
+        "final_recommendation": "AWAIT_MOLECULAR_TESTING",
+        "enrollment_probability": "MEDIUM (40%)",
+        "p2t_score": 50,
+        "t2p_score": 50
+      }
+    }
+  ],
+  "summary": {
+    "total_evaluations": 2,
+    "eligible_matches": 0,
+    "suitable_matches": 0,
+    "average_compatibility": 50.0,
+    "success_rate": 0.0
+  },
+  "generated_at": "2025-10-16T19:53:05.961563"
+}

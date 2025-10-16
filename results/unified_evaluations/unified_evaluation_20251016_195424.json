@@ -1,0 +1,257 @@
+{
+  "evaluation_id": "eval_20251016_195424",
+  "patient_info": {
+    "patient_id": 1,
+    "mrn": "71406421",
+    "age": 52,
+    "gender": "Female",
+    "condition": "Colorectal Cancer",
+    "oncologist": "Dr. David Thompson, MD"
+  },
+  "bidirectional_results": [
+    {
+      "trial_info": {
+        "trial_id": "NCT04792684",
+        "title": "Collection of Samples From the United States Population for Optimization and Evaluation of Colorectal Cancer (CRC) Plasma Circulating Free-DNA (cfDNA) Marker Panel Performance (\"USOPTIVAL\")",
+        "phase": "Not specified",
+        "status": "RECRUITING",
+        "hybrid_score": NaN
+      },
+      "patient_to_trial_evaluation": {
+        "eligibility_status": "NEED_MORE_INFO",
+        "confidence_score": 50,
+        "reasoning": "Insufficient information to determine eligibility. The inclusion/exclusion criteria are not available. Patient does have colorectal cancer.",
+        "inclusion_criteria_met": [
+          "Colorectal Cancer"
+        ],
+        "exclusion_criteria_status": [],
+        "missing_information": [
+          "Specific inclusion/exclusion criteria"
+        ],
+        "next_steps": "Contact the trial sponsor to obtain the detailed inclusion/exclusion criteria."
+      },
+      "trial_to_patient_evaluation": {
+        "suitability_status": "NEED_MORE_INFO",
+        "priority_score": 50,
+        "reasoning": "Cannot assess suitability without knowing the trial's specific aims and requirements.",
+        "strengths": [
+          "Colorectal cancer diagnosis"
+        ],
+        "concerns": [
+          "Unknown eligibility criteria"
+        ],
+        "enrollment_recommendation": "CONDITIONAL_ON_TESTING"
+      },
+      "overall_compatibility": {
+        "match_quality": "POOR",
+        "combined_score": 50.0,
+        "final_recommendation": "AWAIT_MOLECULAR_TESTING",
+        "enrollment_probability": "MEDIUM (40%)",
+        "p2t_score": 50,
+        "t2p_score": 50
+      }
+    },
+    {
+      "trial_info": {
+        "trial_id": "NCT05612347",
+        "title": "Colonoscopy Versus Stool-based Testing for Older Adults With a History of Colon Polyps",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "hybrid_score": 0.800792396068573
+      },
+      "patient_to_trial_evaluation": {
+        "eligibility_status": "NOT_ELIGIBLE",
+        "confidence_score": 95,
+        "reasoning": "This trial is focused on colon polyp screening and surveillance in older adults *with a history of colon polyps*. The patient has a diagnosis of metastatic colorectal cancer, not a history of polyps without cancer. Furthermore, the inclusion criteria likely exclude patients with a current colorectal cancer diagnosis.",
+        "inclusion_criteria_met": [],
+        "exclusion_criteria_status": [],
+        "missing_information": [
+          "Specific inclusion/exclusion criteria (likely excludes current colorectal cancer)"
+        ],
+        "next_steps": "No further action. This trial is not appropriate for this patient."
+      },
+      "trial_to_patient_evaluation": {
+        "suitability_status": "NOT_SUITABLE",
+        "priority_score": 10,
+        "reasoning": "The patient has metastatic colorectal cancer, making them unsuitable for a colon polyp screening/surveillance study. The focus of the trial does not align with the patient's needs.",
+        "strengths": [],
+        "concerns": [
+          "Metastatic colorectal cancer diagnosis"
+        ],
+        "enrollment_recommendation": "NOT_RECOMMENDED"
+      },
+      "overall_compatibility": {
+        "match_quality": "FAIR",
+        "combined_score": 61.0,
+        "final_recommendation": "NOT_SUITABLE",
+        "enrollment_probability": "LOW (18%)",
+        "p2t_score": 95,
+        "t2p_score": 10
+      }
+    },
+    {
+      "trial_info": {
+        "trial_id": "NCT05080673",
+        "title": "Five or Ten Year Colonoscopy for 1-2 Non-Advanced Adenomatous Polyps",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "hybrid_score": 0.7971059083938599
+      },
+      "patient_to_trial_evaluation": {
+        "eligibility_status": "NOT_ELIGIBLE",
+        "confidence_score": 95,
+        "reasoning": "This trial is designed for patients with 1-2 non-advanced adenomatous polyps, not for patients with a diagnosis of metastatic colorectal cancer. The patient has a primary tumor in the sigmoid colon, along with bone metastases and a history of abdominal pain.",
+        "inclusion_criteria_met": [],
+        "exclusion_criteria_status": [],
+        "missing_information": [
+          "Detailed inclusion/exclusion criteria likely exclude patients with colorectal cancer"
+        ],
+        "next_steps": "No further action. This trial is not appropriate for this patient."
+      },
+      "trial_to_patient_evaluation": {
+        "suitability_status": "NOT_SUITABLE",
+        "priority_score": 10,
+        "reasoning": "Patients with metastatic colorectal cancer are not suitable for a colonoscopy surveillance trial focusing on non-advanced polyps.",
+        "strengths": [],
+        "concerns": [
+          "Metastatic colorectal cancer diagnosis"
+        ],
+        "enrollment_recommendation": "NOT_RECOMMENDED"
+      },
+      "overall_compatibility": {
+        "match_quality": "FAIR",
+        "combined_score": 61.0,
+        "final_recommendation": "NOT_SUITABLE",
+        "enrollment_probability": "LOW (18%)",
+        "p2t_score": 95,
+        "t2p_score": 10
+      }
+    },
+    {
+      "trial_info": {
+        "trial_id": "NCT04486378",
+        "title": "A Multi-site, Open-label, Phase II, Randomized, Controlled Trial to Compare the Efficacy of RO7198457 Versus Watchful Waiting in Resected, Stage II (High Risk) and Stage III Colorectal Cancer Patients Who Are ctDNA Positive Following Resection",
+        "phase": "PHASE2",
+        "status": "RECRUITING",
+        "hybrid_score": 0.7736754417419434
+      },
+      "patient_to_trial_evaluation": {
+        "eligibility_status": "NOT_ELIGIBLE",
+        "confidence_score": 95,
+        "reasoning": "This patient has Stage IV (metastatic) colorectal cancer, not Stage II or III. Additionally, the trial requires prior resection of the primary tumor and ctDNA positivity, neither of which currently applies to this treatment-naive patient. Although this is Phase 2 trial, no prior treatments have been administered to the patient.",
+        "inclusion_criteria_met": [],
+        "exclusion_criteria_status": [],
+        "missing_information": [
+          "Detailed inclusion/exclusion criteria"
+        ],
+        "next_steps": "No further action. This trial is not appropriate for this patient."
+      },
+      "trial_to_patient_evaluation": {
+        "suitability_status": "NOT_SUITABLE",
+        "priority_score": 5,
+        "reasoning": "The trial focuses on post-resection, ctDNA-positive, Stage II/III colorectal cancer. This patient is Stage IV and has not undergone resection or ctDNA testing post-resection.",
+        "strengths": [],
+        "concerns": [
+          "Stage IV colorectal cancer",
+          "No prior resection",
+          "No ctDNA testing post-resection"
+        ],
+        "enrollment_recommendation": "NOT_RECOMMENDED"
+      },
+      "overall_compatibility": {
+        "match_quality": "FAIR",
+        "combined_score": 59.0,
+        "final_recommendation": "NOT_SUITABLE",
+        "enrollment_probability": "LOW (17%)",
+        "p2t_score": 95,
+        "t2p_score": 5
+      }
+    },
+    {
+      "trial_info": {
+        "trial_id": "NCT06101277",
+        "title": "Locally ablatIVe thErapy for oLigo-progressive gastrOintestiNal maliGnancies (LIVELONG)",
+        "phase": "NA",
+        "status": "RECRUITING",
+        "hybrid_score": 0.7414945363998413
+      },
+      "patient_to_trial_evaluation": {
+        "eligibility_status": "NEED_MORE_INFO",
+        "confidence_score": 60,
+        "reasoning": "The patient has metastatic colorectal cancer. This trial is for 'Oligoprogressive' gastrointestinal malignancies. While colorectal cancer is listed as a condition, the 'oligoprogressive' requirement needs further clarification. Is the patient considered 'oligoprogressive'? This is a treatment-naive patient; thus, whether they are 'oligoprogressive' is currently unknown, since they have not yet had treatment or progression.",
+        "inclusion_criteria_met": [
+          "Colorectal Cancer"
+        ],
+        "exclusion_criteria_status": [],
+        "missing_information": [
+          "Definition of 'Oligoprogressive' in the context of this trial",
+          "Specific inclusion/exclusion criteria"
+        ],
+        "next_steps": "Contact the trial sponsor to determine the specific criteria for 'oligoprogressive' disease in the context of colorectal cancer. Investigate what prior therapies if any are required before patient is considered oligoprogressive."
+      },
+      "trial_to_patient_evaluation": {
+        "suitability_status": "NEED_MORE_INFO",
+        "priority_score": 40,
+        "reasoning": "Suitability depends on whether the patient's disease qualifies as 'oligoprogressive'. Treatment naive metastatic disease is not typical of oligoprogression.",
+        "strengths": [
+          "Colorectal Cancer diagnosis"
+        ],
+        "concerns": [
+          "Metastatic disease",
+          "Newly Diagnosed",
+          "Treatment Naive",
+          "Definition of Oligoprogressive not clear"
+        ],
+        "enrollment_recommendation": "CONDITIONAL_ON_TESTING"
+      },
+      "overall_compatibility": {
+        "match_quality": "POOR",
+        "combined_score": 52.0,
+        "final_recommendation": "AWAIT_MOLECULAR_TESTING",
+        "enrollment_probability": "MEDIUM (41%)",
+        "p2t_score": 60,
+        "t2p_score": 40
+      }
+    }
+  ],
+  "summary": {
+    "total_trials_evaluated": 5,
+    "eligible_trials": 0,
+    "not_eligible_trials": 3,
+    "need_more_info_trials": 2,
+    "highly_suitable_trials": 0,
+    "suitable_trials": 0,
+    "not_suitable_trials": 3,
+    "average_confidence_score": 79.0,
+    "average_priority_score": 23.0,
+    "average_compatibility_score": 56.6,
+    "success_rate": 0.0
+  },
+  "llm_summary": {
+    "total_trials_evaluated": 5,
+    "eligible_trials": 0,
+    "need_more_info_trials": 2,
+    "not_eligible_trials": 3,
+    "highly_suitable_trials": 0,
+    "average_compatibility": 25,
+    "top_recommendations": [
+      "Trials NCT04792684 and NCT06101277 - Contact trial sponsors for eligibility and inclusion criteria."
+    ],
+    "action_items": [
+      "Contact trial sponsors for additional information on NCT04792684 and NCT06101277.",
+      "Focus on trials for treatment-naive metastatic colorectal cancer patients."
+    ]
+  },
+  "processing_metadata": {
+    "evaluation_method": "unified_bidirectional",
+    "total_trials_evaluated": 5,
+    "processing_timestamp": "2025-10-16T19:54:24.636264",
+    "llm_metadata": {
+      "evaluation_type": "bidirectional_patient_trials",
+      "patient_id": 1,
+      "total_trials": 5,
+      "generated_at": "2025-10-16T19:53:56.429526"
+    }
+  },
+  "generated_at": "2025-10-16T19:54:24.636264"
+}

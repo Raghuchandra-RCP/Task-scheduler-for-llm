@@ -1,0 +1,97 @@
+{
+  "evaluation_id": "eval_20251016_195305",
+  "trial_info": {
+    "trial_id": "NCT04929223",
+    "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+    "condition": "[\"Metastatic Colorectal Cancer\"]",
+    "phase": "PHASE1",
+    "status": "RECRUITING",
+    "investigator": ""
+  },
+  "bidirectional_results": [
+    {
+      "patient_info": {
+        "patient_id": 37,
+        "mrn": "47601870",
+        "age": 37,
+        "gender": "Female",
+        "hybrid_score": 0.5002967715263367
+      },
+      "patient_to_trial_evaluation": {
+        "eligibility_status": "NEED_MORE_INFO",
+        "confidence_score": 50,
+        "reasoning": "The trial's inclusion/exclusion criteria are not available, making it impossible to definitively determine eligibility. The patient has metastatic colorectal cancer and is treatment-naive which generally aligns with Phase I/Ib trials but specific molecular profiles and other medical history details may apply.",
+        "inclusion_criteria_met": [],
+        "exclusion_criteria_status": [],
+        "missing_information": [
+          "Full Inclusion/Exclusion Criteria"
+        ],
+        "next_steps": "Obtain the complete inclusion and exclusion criteria for NCT04929223. Evaluate the patient's specific molecular profile (NRAS Q61H) against any mutation-specific requirements in the trial protocol, ECOG performance status requirements, and organ function eligibility."
+      },
+      "trial_to_patient_evaluation": {
+        "suitability_status": "NEED_MORE_INFO",
+        "priority_score": 50,
+        "reasoning": "Without access to the inclusion/exclusion criteria, the patient's suitability cannot be fully assessed. Patient's ECOG 0 status is a plus. Their age and general health seem acceptable for a Phase I trial. However, without knowing the targeted therapies being evaluated and the required molecular profile, suitability is uncertain.",
+        "strengths": [
+          "Metastatic colorectal cancer diagnosis",
+          "Treatment-naive",
+          "ECOG 0 Performance Status"
+        ],
+        "concerns": [
+          "Unknown inclusion/exclusion criteria",
+          "Specific molecular targets of the therapies not known"
+        ],
+        "enrollment_recommendation": "CONDITIONAL_ON_TESTING"
+      },
+      "overall_compatibility": {
+        "match_quality": "POOR",
+        "combined_score": 50.0,
+        "final_recommendation": "AWAIT_MOLECULAR_TESTING",
+        "enrollment_probability": "MEDIUM (40%)",
+        "p2t_score": 50,
+        "t2p_score": 50
+      }
+    }
+  ],
+  "summary": {
+    "total_patients_evaluated": 1,
+    "eligible_patients": 0,
+    "not_eligible_patients": 0,
+    "need_more_info_patients": 1,
+    "highly_suitable_patients": 0,
+    "suitable_patients": 0,
+    "not_suitable_patients": 0,
+    "average_confidence_score": 50.0,
+    "average_priority_score": 50.0,
+    "average_compatibility_score": 50.0,
+    "success_rate": 0.0
+  },
+  "llm_summary": {
+    "total_patients_evaluated": 1,
+    "eligible_patients": 0,
+    "need_more_info_patients": 1,
+    "not_eligible_patients": 0,
+    "highly_suitable_patients": 0,
+    "average_compatibility": 50,
+    "top_recommendations": [
+      "Obtain full inclusion/exclusion criteria for NCT04929223"
+    ],
+    "action_items": [
+      "Request complete inclusion/exclusion criteria from trial sponsor.",
+      "Assess patient's molecular profile against trial targets if available.",
+      "Contact investigator to clarify study eligibility requirements."
+    ]
+  },
+  "processing_metadata": {
+    "evaluation_method": "unified_bidirectional_reverse",
+    "total_patients_evaluated": 1,
+    "processing_timestamp": "2025-10-16T19:53:05.960041",
+    "llm_metadata": {
+      "evaluation_type": "bidirectional_trial_patients",
+      "trial_id": "NCT04929223",
+      "total_patients": 1,
+      "generated_at": "2025-10-16T19:52:57.772437"
+    }
+  },
+  "generated_at": "2025-10-16T19:53:05.960041"
+}

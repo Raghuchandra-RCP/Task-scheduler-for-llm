@@ -1,0 +1,117 @@
+{
+  "evaluation_id": "eval_20251016_201112",
+  "patient_info": {
+    "patient_id": 1,
+    "mrn": "71406421",
+    "age": 52,
+    "gender": "Female",
+    "condition": "Colorectal Cancer",
+    "oncologist": "Dr. David Thompson, MD"
+  },
+  "bidirectional_results": [
+    {
+      "trial_info": {
+        "trial_id": "NCT04929223",
+        "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+        "phase": "Phase I",
+        "status": "Recruiting",
+        "hybrid_score": NaN
+      },
+      "patient_to_trial_evaluation": {
+        "eligibility_status": "NEED_MORE_INFO",
+        "confidence_score": 85,
+        "reasoning": "The patient meets several inclusion criteria, including age, metastatic colorectal cancer, ECOG performance status, and willingness to undergo molecular profiling. The patient has a creatinine of 1.8 and eGFR of 35mL/min/1.73m^2, which is below the inclusion criteria of adequate organ function (creatinine clearance <60 mL/min, bilirubin >1.5x ULN). The patient also has KRAS G13D mutation, which needs to be investigated if it is suitable for the targeted therapy in the study. It's unclear if this trial includes treatment for patients with the patient's specific KRAS mutation. We need to confirm that the target therapy options include KRAS G13D mutations. The patient also needs to be screened for any active infections that would exclude her from the trial.",
+        "inclusion_criteria_met": [
+          "Age 18-75 years",
+          "Histologically confirmed metastatic colorectal cancer",
+          "ECOG performance status 0-1",
+          "Willingness to undergo molecular profiling",
+          "No prior treatment with targeted therapy for current disease"
+        ],
+        "exclusion_criteria_status": [
+          "Active brain metastases (unknown)",
+          "Severe cardiac conditions (NYHA Class III/IV) (likely no)",
+          "Pregnancy or breastfeeding (no)",
+          "Active infection requiring systemic therapy (unknown)",
+          "Inadequate organ function (creatinine clearance <60 mL/min, bilirubin >1.5x ULN) - Potentially not met"
+        ],
+        "missing_information": [
+          "Status of brain metastases",
+          "Presence of active infection",
+          "Availability of a targeted therapy for KRAS G13D mutations within the trial",
+          "Exact creatinine clearance calculation using Cockcroft-Gault formula or similar",
+          "Patient's cardiac history"
+        ],
+        "next_steps": "1. Assess patient for brain metastases and active infections. 2. Calculate creatinine clearance. 3. Contact trial investigators to determine if there is a treatment arm for KRAS G13D mutations. 4. Check patient's cardiac history to confirm the absence of severe conditions."
+      },
+      "trial_to_patient_evaluation": {
+        "suitability_status": "NEED_MORE_INFO",
+        "priority_score": 75,
+        "reasoning": "The patient is potentially suitable due to having metastatic colorectal cancer, an ECOG performance status of 1, and a willingness to undergo molecular profiling. However, the patient's impaired renal function (elevated creatinine and reduced eGFR) is a significant concern. Also, specific targeted therapies for the patient's KRAS G13D mutation must be confirmed before enrolling her in this trial. The diarrhea, bloating, and vomiting may further complicate the trial treatment, depending on the specific therapy utilized.",
+        "strengths": [
+          "Metastatic colorectal cancer",
+          "ECOG 1 performance status",
+          "Willingness to undergo molecular profiling",
+          "Treatment-naive to targeted therapies"
+        ],
+        "concerns": [
+          "Impaired renal function (elevated creatinine and reduced eGFR)",
+          "Uncertainty regarding available targeted therapies for KRAS G13D",
+          "Gastrointestinal symptoms",
+          "Type 1 Diabetes"
+        ],
+        "enrollment_recommendation": "CONDITIONAL_ON_TESTING"
+      },
+      "overall_compatibility": {
+        "match_quality": "GOOD",
+        "combined_score": 81.0,
+        "final_recommendation": "AWAIT_MOLECULAR_TESTING",
+        "enrollment_probability": "MEDIUM (64%)",
+        "p2t_score": 85,
+        "t2p_score": 75
+      }
+    }
+  ],
+  "summary": {
+    "total_trials_evaluated": 1,
+    "eligible_trials": 0,
+    "not_eligible_trials": 0,
+    "need_more_info_trials": 1,
+    "highly_suitable_trials": 0,
+    "suitable_trials": 0,
+    "not_suitable_trials": 0,
+    "average_confidence_score": 85.0,
+    "average_priority_score": 75.0,
+    "average_compatibility_score": 81.0,
+    "success_rate": 0.0
+  },
+  "llm_summary": {
+    "total_trials_evaluated": 1,
+    "eligible_trials": 0,
+    "need_more_info_trials": 1,
+    "not_eligible_trials": 0,
+    "highly_suitable_trials": 0,
+    "average_compatibility": 80,
+    "top_recommendations": [
+      "Trial NCT04929223 - Await molecular testing and renal function assessment"
+    ],
+    "action_items": [
+      "Assess brain metastases",
+      "Evaluate for active infection.",
+      "Contact trial sponsor to assess suitability based on creatinine and KRAS G13D mutation.",
+      "Calculate creatinine clearance."
+    ]
+  },
+  "processing_metadata": {
+    "evaluation_method": "unified_bidirectional",
+    "total_trials_evaluated": 1,
+    "processing_timestamp": "2025-10-16T20:11:12.012591",
+    "llm_metadata": {
+      "evaluation_type": "bidirectional_patient_trials",
+      "patient_id": 1,
+      "total_trials": 1,
+      "generated_at": "2025-10-16T20:11:01.200371"
+    }
+  },
+  "generated_at": "2025-10-16T20:11:12.012591"
+}

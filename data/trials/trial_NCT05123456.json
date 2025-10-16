@@ -1,0 +1,18 @@
+{
+  "trial_id": "NCT05123456",
+  "title": "Targeted Therapy for EGFR Mutations",
+  "condition": "Non-small cell lung cancer",
+  "phase": "Phase III",
+  "status": "Recruiting",
+  "investigator": "Dr. Davis",
+  "minimum_age": 18,
+  "maximum_age": 80,
+  "sex": "All",
+  "brief_summary": "Targeted therapy study for EGFR-positive NSCLC",
+  "detailed_description": "This study evaluates targeted therapy in patients with EGFR-mutated non-small cell lung cancer.",
+  "inclusion_criteria": "Age 18-80, confirmed EGFR mutation, NSCLC diagnosis, adequate performance status",
+  "exclusion_criteria": "Prior targeted therapy, severe comorbidities, inadequate organ function",
+  "eligibility_criteria": "EGFR mutation testing required for eligibility",
+  "saved_at": "2025-10-16T19:50:58.468796",
+  "data_type": "trial"
+}

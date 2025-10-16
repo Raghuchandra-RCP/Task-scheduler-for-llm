@@ -1,0 +1,18 @@
+{
+  "trial_id": "NCT05234567",
+  "title": "Chemotherapy Combination Study",
+  "condition": "Breast cancer",
+  "phase": "Phase I",
+  "status": "Recruiting",
+  "investigator": "Dr. Miller",
+  "minimum_age": 18,
+  "maximum_age": 70,
+  "sex": "Female",
+  "brief_summary": "Novel chemotherapy combination for breast cancer",
+  "detailed_description": "This study evaluates a novel chemotherapy combination in patients with breast cancer.",
+  "inclusion_criteria": "Age 18-70, female, breast cancer diagnosis, no prior chemotherapy within 6 months",
+  "exclusion_criteria": "Prior chemotherapy within 6 months, severe renal impairment, pregnancy",
+  "eligibility_criteria": "Comprehensive eligibility assessment for chemotherapy study",
+  "saved_at": "2025-10-16T19:50:58.469814",
+  "data_type": "trial"
+}

@@ -1,0 +1,11 @@
+{
+  "patient_id": 1,
+  "mrn": "MRN001",
+  "age": 65,
+  "gender": "Male",
+  "oncologist": "Dr. Smith",
+  "date_of_visit": "2025-01-15",
+  "combined_text": "65-year-old male with non-small cell lung cancer, Stage IIIB. ECOG performance status 1. No prior immunotherapy. Adequate organ function. No brain metastases.",
+  "saved_at": "2025-10-16T19:50:58.467233",
+  "data_type": "patient"
+}

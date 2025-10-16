@@ -1,0 +1,11 @@
+{
+  "patient_id": 2,
+  "mrn": "MRN002",
+  "age": 58,
+  "gender": "Female",
+  "oncologist": "Dr. Johnson",
+  "date_of_visit": "2025-01-14",
+  "combined_text": "58-year-old female with breast cancer, Stage II. ECOG performance status 0. Prior chemotherapy completed 6 months ago. Good cardiac function.",
+  "saved_at": "2025-10-16T19:50:58.467233",
+  "data_type": "patient"
+}

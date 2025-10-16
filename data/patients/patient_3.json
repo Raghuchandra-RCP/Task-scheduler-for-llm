@@ -1,0 +1,11 @@
+{
+  "patient_id": 3,
+  "mrn": "MRN003",
+  "age": 72,
+  "gender": "Male",
+  "oncologist": "Dr. Brown",
+  "date_of_visit": "2025-01-13",
+  "combined_text": "72-year-old male with prostate cancer, Stage IV. ECOG performance status 2. Multiple comorbidities including diabetes and hypertension.",
+  "saved_at": "2025-10-16T19:50:58.468796",
+  "data_type": "patient"
+}

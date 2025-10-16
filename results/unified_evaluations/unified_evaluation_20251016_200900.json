@@ -1,0 +1,106 @@
+{
+  "evaluation_id": "eval_20251016_200900",
+  "patient_info": {
+    "patient_id": 1,
+    "mrn": "71406421",
+    "age": 52,
+    "gender": "Female",
+    "condition": "Colorectal Cancer",
+    "oncologist": "Dr. David Thompson, MD"
+  },
+  "bidirectional_results": [
+    {
+      "trial_info": {
+        "trial_id": "NCT04929223",
+        "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+        "phase": "Phase I",
+        "status": "Recruiting",
+        "hybrid_score": NaN
+      },
+      "patient_to_trial_evaluation": {
+        "eligibility_status": "NEED_MORE_INFO",
+        "confidence_score": 85,
+        "reasoning": "The patient meets several inclusion criteria, including age, metastatic colorectal cancer, ECOG performance status, and willingness to undergo molecular profiling. The patient does NOT have active brain metastases or active infection. However, the creatinine clearance is concerning, given the creatinine of 1.8 mg/dL and eGFR of 35 mL/min/1.73m². The trial excludes patients with creatinine clearance < 60 mL/min, and the upper limit of normal (ULN) for bilirubin is needed to evaluate liver function. The patient also has a KRAS G13D mutation, which may or may not be suitable for a targeted therapy being evaluated in this trial, depending on the specific arms available. We need to determine the specific inclusion/exclusion criteria for KRAS G13D mutations in this trial.",
+        "inclusion_criteria_met": [
+          "Age 18-75 years",
+          "Histologically confirmed metastatic colorectal cancer",
+          "ECOG performance status 0-1",
+          "Willingness to undergo molecular profiling"
+        ],
+        "exclusion_criteria_status": [
+          "Active brain metastases",
+          "Active infection requiring systemic therapy",
+          "Severe cardiac conditions (NYHA Class III/IV) - assumed absent"
+        ],
+        "missing_information": [
+          "Bilirubin level compared to ULN",
+          "Specific inclusion/exclusion criteria for KRAS G13D mutations in this trial"
+        ],
+        "next_steps": "1. Determine bilirubin level and ULN at the testing lab. 2. Confirm that the patient's creatinine clearance is indeed less than 60 ml/min using a formal calculation and accounting for race/gender. 3. Investigate whether the patient's specific KRAS G13D mutation aligns with a specific arm of the INTRINSIC trial. If creatinine clearance is truly less than 60, the patient is not eligible. If the bilirubin is elevated more than 1.5x ULN, the patient is also ineligible."
+      },
+      "trial_to_patient_evaluation": {
+        "suitability_status": "NEED_MORE_INFO",
+        "priority_score": 70,
+        "reasoning": "The patient is newly diagnosed with metastatic colorectal cancer and has an ECOG performance status of 1, making her potentially suitable for a Phase I trial. However, her renal function (elevated creatinine and low eGFR) raises concerns about drug toxicities, especially since this is a Phase I trial. The KRAS G13D mutation could be a good target, depending on the available arms of the trial. The patient's diabetes also needs to be considered when determining suitability. The patient is treatment naive, which is a positive factor.",
+        "strengths": [
+          "Newly diagnosed, treatment-naïve",
+          "ECOG 1",
+          "KRAS G13D mutation"
+        ],
+        "concerns": [
+          "Elevated creatinine and low eGFR",
+          "Type 1 diabetes",
+          "Constitutional symptoms and weight loss"
+        ],
+        "enrollment_recommendation": "CONDITIONAL_ON_TESTING"
+      },
+      "overall_compatibility": {
+        "match_quality": "GOOD",
+        "combined_score": 79.0,
+        "final_recommendation": "AWAIT_MOLECULAR_TESTING",
+        "enrollment_probability": "MEDIUM (63%)",
+        "p2t_score": 85,
+        "t2p_score": 70
+      }
+    }
+  ],
+  "summary": {
+    "total_trials_evaluated": 1,
+    "eligible_trials": 0,
+    "not_eligible_trials": 0,
+    "need_more_info_trials": 1,
+    "highly_suitable_trials": 0,
+    "suitable_trials": 0,
+    "not_suitable_trials": 0,
+    "average_confidence_score": 85.0,
+    "average_priority_score": 70.0,
+    "average_compatibility_score": 79.0,
+    "success_rate": 0.0
+  },
+  "llm_summary": {
+    "total_trials_evaluated": 1,
+    "eligible_trials": 0,
+    "need_more_info_trials": 1,
+    "not_eligible_trials": 0,
+    "highly_suitable_trials": 0,
+    "average_compatibility": 77.5,
+    "top_recommendations": [
+      "NCT04929223 - Await molecular testing and renal function clarification (77.5% potential match)"
+    ],
+    "action_items": [
+      "1. Check bilirubin level and ULN. 2. Formally calculate creatinine clearance. 3. Confirm eligibility for KRAS G13D-specific arms of NCT04929223. If creatinine clearance < 60, exclude the trial."
+    ]
+  },
+  "processing_metadata": {
+    "evaluation_method": "unified_bidirectional",
+    "total_trials_evaluated": 1,
+    "processing_timestamp": "2025-10-16T20:09:00.722212",
+    "llm_metadata": {
+      "evaluation_type": "bidirectional_patient_trials",
+      "patient_id": 1,
+      "total_trials": 1,
+      "generated_at": "2025-10-16T20:08:50.200145"
+    }
+  },
+  "generated_at": "2025-10-16T20:09:00.722212"
+}

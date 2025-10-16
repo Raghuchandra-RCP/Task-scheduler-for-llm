@@ -1,0 +1,18 @@
+{
+  "trial_id": "NCT04929223",
+  "title": "Immunotherapy Study for Advanced NSCLC",
+  "condition": "Non-small cell lung cancer",
+  "phase": "Phase II",
+  "status": "Recruiting",
+  "investigator": "Dr. Wilson",
+  "minimum_age": 18,
+  "maximum_age": 75,
+  "sex": "All",
+  "brief_summary": "Study of immunotherapy in advanced NSCLC patients",
+  "detailed_description": "This study evaluates the efficacy and safety of immunotherapy in patients with advanced non-small cell lung cancer.",
+  "inclusion_criteria": "Age 18-75, confirmed NSCLC, Stage IIIB or IV, ECOG 0-1, no prior immunotherapy",
+  "exclusion_criteria": "Active brain metastases, severe cardiac conditions, inadequate organ function",
+  "eligibility_criteria": "Comprehensive eligibility assessment for immunotherapy study",
+  "saved_at": "2025-10-16T19:50:58.468796",
+  "data_type": "trial"
+}

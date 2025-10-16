@@ -1,0 +1,120 @@
+{
+  "evaluation_id": "eval_20251016_200527",
+  "patient_info": {
+    "patient_id": 1,
+    "mrn": "71406421",
+    "age": 52,
+    "gender": "Female",
+    "condition": "Colorectal Cancer",
+    "oncologist": "Dr. David Thompson, MD"
+  },
+  "bidirectional_results": [
+    {
+      "trial_info": {
+        "trial_id": "NCT04929223",
+        "title": "A Phase I/Ib Global, Multicenter, Open-label Umbrella Study Evaluating the Safety and Efficacy of Targeted Therapies in Subpopulations of Patients With Metastatic Colorectal Cancer (INTRINSIC)",
+        "phase": "Phase I",
+        "status": "Recruiting",
+        "hybrid_score": NaN
+      },
+      "patient_to_trial_evaluation": {
+        "eligibility_status": "ELIGIBLE",
+        "confidence_score": 85,
+        "reasoning": "The patient is 52 years old, has metastatic colorectal cancer, ECOG performance status of 1, and is newly diagnosed (treatment-naïve for targeted therapies). She is willing to undergo molecular profiling. Her creatinine and bilirubin levels require further clarification (see missing information below). The presence of the KRAS G13D mutation makes her potentially eligible, depending on the specific targeted therapies being investigated in the trial and whether they are relevant to her mutation. Active brain metastases are not present. Cardiac history is not mentioned, so we're assuming no severe cardiac conditions. The ECOG status is acceptable. The patient is female, so pregnancy/breastfeeding is not applicable. The AST, ALT and Alkaline Phosphatase are elevated, potentially indicating liver involvement of the metastatic disease and will need to be monitored. But these elevations don't necessarily exclude her immediately as bilirubin is normal. The low Hgb of 10.2 should be addressed before enrolling in the trial.",
+        "inclusion_criteria_met": [
+          "Age 18-75 years",
+          "Histologically confirmed metastatic colorectal cancer",
+          "ECOG performance status 0-1",
+          "No prior treatment with targeted therapy for current disease",
+          "Willingness to undergo molecular profiling"
+        ],
+        "exclusion_criteria_status": [
+          "Active brain metastases - No active brain metastases",
+          "Pregnancy or breastfeeding - Not applicable"
+        ],
+        "missing_information": [
+          "Creatinine clearance calculation based on creatinine of 1.8 mg/dL to verify >60 mL/min requirement.",
+          "Whether targeted therapies are relevant to KRAS G13D mutation in this specific trial."
+        ],
+        "next_steps": "1. Calculate creatinine clearance. 2. Determine if the trial has a cohort appropriate for a KRAS G13D mutation. 3. Treat anemia prior to initiating treatment."
+      },
+      "trial_to_patient_evaluation": {
+        "suitability_status": "SUITABLE",
+        "priority_score": 75,
+        "reasoning": "The patient has metastatic colorectal cancer and a KRAS G13D mutation, which potentially makes her a good candidate for a targeted therapy trial. Her ECOG performance status of 1 is acceptable. Her elevated creatinine and liver enzymes, and low hemoglobin are potential concerns that need further investigation and management. However, she is newly diagnosed, meaning she has no treatment fatigue and is likely to benefit from the trial.",
+        "strengths": [
+          "Newly diagnosed with metastatic colorectal cancer",
+          "ECOG performance status of 1",
+          "Willing to undergo molecular profiling",
+          "KRAS G13D mutation"
+        ],
+        "concerns": [
+          "Elevated creatinine (1.8 mg/dL) and eGFR (35 mL/min/1.73m²)",
+          "Elevated AST, ALT, and Alkaline Phosphatase",
+          "Low hemoglobin (10.2 g/dL)",
+          "Type 1 diabetes"
+        ],
+        "enrollment_recommendation": "CONDITIONAL_ON_TESTING"
+      },
+      "overall_compatibility": {
+        "match_quality": "GOOD",
+        "combined_score": 81.0,
+        "final_recommendation": "PROCEED_WITH_ENROLLMENT",
+        "enrollment_probability": "HIGH (81%)",
+        "p2t_score": 85,
+        "t2p_score": 75
+      }
+    }
+  ],
+  "summary": {
+    "total_trials_evaluated": 1,
+    "eligible_trials": 1,
+    "not_eligible_trials": 0,
+    "need_more_info_trials": 0,
+    "highly_suitable_trials": 0,
+    "suitable_trials": 1,
+    "not_suitable_trials": 0,
+    "average_confidence_score": 85.0,
+    "average_priority_score": 75.0,
+    "average_compatibility_score": 81.0,
+    "success_rate": 100.0
+  },
+  "llm_summary": {
+    "total_trials_evaluated": 1,
+    "eligible_trials": 1,
+    "need_more_info_trials": 0,
+    "not_eligible_trials": 0,
+    "highly_suitable_trials": 0,
+    "average_compatibility": 80,
+    "top_recommendations": [
+      "NCT04929223 - Await molecular testing to confirm suitability (80% match)"
+    ],
+    "action_items": [
+      "Calculate creatinine clearance.",
+      "Determine if NCT04929223 has a cohort appropriate for a KRAS G13D mutation.",
+      "Address elevated creatinine, LFTs and anemia prior to enrollment."
+    ]
+  },
+  "processing_metadata": {
+    "evaluation_method": "unified_bidirectional",
+    "total_trials_evaluated": 1,
+    "processing_timestamp": "2025-10-16T20:05:27.587722",
+    "llm_metadata": {
+      "evaluation_type": "bidirectional_patient_trials",
+      "patient_id": 1,
+      "total_trials": 1,
+      "generated_at": "2025-10-16T20:03:34.783427"
+    }
+  },
+  "generated_at": "2025-10-16T20:05:27.587722",
+  "pipeline_metadata": {
+    "pipeline_type": "unified_patient_evaluation",
+    "patient_id": 1,
+    "trial_ids": null,
+    "max_trials": 1,
+    "total_trials_evaluated": 1,
+    "pipeline_start_time": "2025-10-16T20:05:27.589724",
+    "pipeline_end_time": "2025-10-16T20:05:27.589724",
+    "pipeline_duration_seconds": 0
+  }
+}

@@ -36,6 +36,25 @@ TASK_TIMEOUT_SECONDS = int(os.getenv("TASK_TIMEOUT_SECONDS", "300"))
 # Patient Processing Configuration
 DEFAULT_PATIENT_LIMIT = int(os.getenv("DEFAULT_PATIENT_LIMIT", "50"))
 
+# Unified Bidirectional Matching Configuration
+UNIFIED_EVALUATION_ENABLED = os.getenv("UNIFIED_EVALUATION_ENABLED", "true").lower() == "true"
+BIDIRECTIONAL_BATCH_SIZE = int(os.getenv("BIDIRECTIONAL_BATCH_SIZE", "10"))
+COMBINED_SCORING_WEIGHTS = {
+    "p2t_weight": float(os.getenv("P2T_WEIGHT", "0.6")),
+    "t2p_weight": float(os.getenv("T2P_WEIGHT", "0.4"))
+}
+UNIFIED_PROMPT_TEMPLATE = os.getenv("UNIFIED_PROMPT_TEMPLATE", "unified_bidirectional_prompt_v1")
+
+# JSON Data Persistence Configuration (No Database Mode)
+USE_JSON_PERSISTENCE = os.getenv("USE_JSON_PERSISTENCE", "true").lower() == "true"
+JSON_DATA_DIR = os.getenv("JSON_DATA_DIR", "data")
+JSON_CLEANUP_DAYS = int(os.getenv("JSON_CLEANUP_DAYS", "30"))
+
+# Hybrid Matching Configuration
+HYBRID_ALPHA = float(os.getenv("HYBRID_ALPHA", "0.7"))  # Weight for embedding vs BM25
+MAX_TRIALS_FOR_LLM = int(os.getenv("MAX_TRIALS_FOR_LLM", "10"))
+MAX_PATIENTS_FOR_LLM = int(os.getenv("MAX_PATIENTS_FOR_LLM", "10"))
+
 # Logging Configuration
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 LOG_FILE = os.getenv("LOG_FILE", "task_scheduler.log")
@@ -57,6 +76,9 @@ else:
 print(f"Task Scheduler Configuration loaded:")
 print(f"  - USE_DUMMY_DATA: {USE_DUMMY_DATA}")
 print(f"  - USE_LLM_PROCESSING: {USE_LLM_PROCESSING}")
+print(f"  - USE_DATABASE: {USE_DATABASE}")
+print(f"  - UNIFIED_EVALUATION_ENABLED: {UNIFIED_EVALUATION_ENABLED}")
+print(f"  - USE_JSON_PERSISTENCE: {USE_JSON_PERSISTENCE}")
 print(f"  - SCHEDULER_INTERVAL_MINUTES: {SCHEDULER_INTERVAL_MINUTES}")
 print(f"  - MAX_CONCURRENT_TASKS: {MAX_CONCURRENT_TASKS}")
 print(f"  - LOG_LEVEL: {LOG_LEVEL}")
