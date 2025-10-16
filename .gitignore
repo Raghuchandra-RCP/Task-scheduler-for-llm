@@ -1,2 +1,235 @@
-/venv
-/__pycache__
+# Clinical Trial Matching System - .gitignore
+
+# =====================================================
+# Python
+# =====================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# =====================================================
+# Virtual Environment
+# =====================================================
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+.env/
+
+# =====================================================
+# IDE and Editor Files
+# =====================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# =====================================================
+# Environment Variables and Secrets
+# =====================================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+config.ini
+secrets.json
+*.key
+*.pem
+*.p12
+
+# =====================================================
+# Database
+# =====================================================
+*.db
+*.sqlite
+*.sqlite3
+database_backup/
+*.dump
+*.sql.gz
+
+# =====================================================
+# Logs and Temporary Files
+# =====================================================
+*.log
+logs/
+*.tmp
+*.temp
+.cache/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# =====================================================
+# Machine Learning and AI Models
+# =====================================================
+# Hugging Face models cache
+.cache/
+huggingface/
+transformers_cache/
+# MedCPT models
+medcpt_models/
+*.bin
+*.safetensors
+model_checkpoints/
+
+# =====================================================
+# Embeddings and Vector Data
+# =====================================================
+persist/embeddings/*.npy
+persist/embeddings/*.pkl
+persist/embeddings/*.faiss
+persist/embeddings/*.index
+# Keep metadata files
+!persist/embeddings/*.json
+!persist/embeddings/metadata.json
+
+# =====================================================
+# Results and Output Files
+# =====================================================
+# Keep some result files for documentation
+results/*.json
+!results/sample_*.json
+!results/README.md
+# Remove large result files
+results/embeddings/
+results/keyword_generation/
+results/*_pipeline_*.json
+results/*_evaluation_*.json
+
+# =====================================================
+# Jupyter Notebooks
+# =====================================================
+.ipynb_checkpoints/
+*.ipynb
+!examples/*.ipynb
+
+# =====================================================
+# Testing
+# =====================================================
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# =====================================================
+# Documentation Build
+# =====================================================
+docs/_build/
+site/
+.readthedocs.yml
+
+# =====================================================
+# Package Management
+# =====================================================
+pip-log.txt
+pip-delete-this-directory.txt
+
+# =====================================================
+# OS Generated Files
+# =====================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# =====================================================
+# Project Specific
+# =====================================================
+# Temporary test files
+test_*.py
+*_test.py
+temp_*.py
+debug_*.py
+
+# API Keys and sensitive data
+api_keys.txt
+credentials.json
+*.pem
+*.key
+
+# Large data files
+data/raw/
+data/processed/
+*.csv.gz
+*.parquet
+*.h5
+*.hdf5
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# =====================================================
+# Keep Important Files
+# =====================================================
+# Keep configuration templates
+!env_template.txt
+!config_template.py
+!requirements.txt
+!README.md
+!LICENSE
+!CHANGELOG.md
+
+# Keep database schema files
+!database/*.sql
+!evaluation_results_db/sql/*.sql
+
+# Keep utility scripts
+!utils/
+!scripts/
+!tools/
+
+# Keep documentation
+!docs/
+!*.md
+!*.rst
+!*.txt
+!LICENSE
+!CHANGELOG*
+
+# =====================================================
+# Comments for Team
+# =====================================================
+# Note: This .gitignore is designed for the Clinical Trial Matching System
+# It excludes large ML models, embeddings, and temporary files while
+# preserving important configuration templates and documentation
+# 
+# If you need to commit specific files that are ignored, use:
+# git add -f <filename>
