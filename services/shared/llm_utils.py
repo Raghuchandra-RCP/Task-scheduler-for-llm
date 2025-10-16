@@ -4,15 +4,840 @@ Common LLM API calls and prompt templates for both patient-to-trial and trial-to
 """
 
 import json
+import openai
 from datetime import datetime
 from typing import Dict, Any, List
-import google.generativeai as genai
-from config import GEMINI_API_KEY
+from config import (
+    OPENAI_API_KEY, 
+    OPENAI_MODEL, 
+    OPENAI_TEMPERATURE, 
+    OPENAI_MAX_TOKENS, 
+    OPENAI_TIMEOUT, 
+    OPENAI_MAX_RETRIES
+)
 
 class LLMUtils:
     def __init__(self):
-        genai.configure(api_key=GEMINI_API_KEY)
-        self.model = genai.GenerativeModel('gemini-2.0-flash-exp')
+        openai.api_key = OPENAI_API_KEY
+        self.model = OPENAI_MODEL
+        self.temperature = OPENAI_TEMPERATURE
+        self.max_tokens = OPENAI_MAX_TOKENS
+        self.timeout = OPENAI_TIMEOUT
+        self.max_retries = OPENAI_MAX_RETRIES
+
+    def generate_keywords_prompt(self, patient_data: Dict[str, Any]) -> str:
+        """Generate prompt for patient keyword extraction"""
+        return f"""
+        You are a medical research assistant specializing in clinical trial matching. 
+        Analyze the following patient medical record and generate comprehensive keywords for clinical trial matching.
+
+        Patient Data:
+        {patient_data['combined_text']}
+
+        Instructions:
+        1. Extract ALL relevant medical conditions, symptoms, treatments, and characteristics
+        2. Generate at least 30-40 keywords covering:
+           - Primary diagnosis and staging
+           - Metastatic sites
+           - Molecular markers
+           - Comorbidities
+           - Medications
+           - Allergies
+           - Performance status
+           - Family history
+           - Demographics
+        3. Use standardized medical terminology
+        4. Include both specific and general terms for better matching
+
+        Return ONLY a valid JSON object with this structure:
+        {{
+            "patient_id": {patient_data['patient_id']},
+            "mrn": "{patient_data['mrn']}",
+            "age": {patient_data['age']},
+            "gender": "{patient_data['gender']}",
+            "summary": "Brief 2-3 sentence summary of patient's condition",
+            "primary_diagnosis": "Main diagnosis",
+            "stage": "Cancer stage if applicable",
+            "metastatic_sites": ["site1", "site2", ...],
+            "molecular_markers": ["marker1", "marker2", ...],
+            "comorbidities": ["condition1", "condition2", ...],
+            "medications": ["med1", "med2", ...],
+            "allergies": ["allergy1", "allergy2", ...],
+            "performance_status": "ECOG status",
+            "family_history": ["condition1", "condition2", ...],
+            "keywords": ["keyword1", "keyword2", "keyword3", ...],
+            "generated_at": "{datetime.now().isoformat()}"
+        }}
+        """
+
+    def patient_trial_evaluation_prompt(self, trial_info: Dict[str, Any], patient_info: Dict[str, Any]) -> str:
+        """Generate prompt for patient-trial eligibility evaluation"""
+        return f"""
+        You are an expert clinical trial coordinator specializing in patient-trial matching for oncology trials.
+        
+        Evaluate the eligibility of this patient for the given clinical trial.
+        
+        CLINICAL TRIAL INFORMATION:
+        Title: {trial_info['title']}
+        Condition: {trial_info['condition']}
+        Phase: {trial_info['phase']}
+        Status: {trial_info['status']}
+        Investigator: {trial_info['investigator']}
+        
+        PATIENT INFORMATION:
+        MRN: {patient_info['mrn']}
+        Age: {patient_info['age']}
+        Gender: {patient_info['gender']}
+        Oncologist: {patient_info['oncologist']}
+        Date of Visit: {patient_info['date_of_visit']}
+        
+        PATIENT MEDICAL RECORD:
+        {patient_info['combined_text']}
+        
+        EVALUATION CRITERIA:
+        1. Primary diagnosis match
+        2. Disease stage compatibility
+        3. Age eligibility
+        4. Gender eligibility
+        5. Performance status
+        6. Prior treatments
+        7. Comorbidities
+        8. Laboratory values
+        9. Exclusion criteria
+        10. Overall eligibility assessment
+        
+        Provide a comprehensive evaluation with:
+        - Eligibility status (ELIGIBLE, NOT_ELIGIBLE, NEED_MORE_INFO)
+        - Confidence score (0-100)
+        - Detailed reasoning
+        - Specific inclusion/exclusion criteria met or not met
+        - Recommendations for next steps
+        
+        Return ONLY a valid JSON object with this structure:
+        {{
+            "eligibility_status": "ELIGIBLE|NOT_ELIGIBLE|NEED_MORE_INFO",
+            "confidence_score": 85,
+            "reasoning": "Detailed explanation of eligibility assessment",
+            "inclusion_criteria_met": ["criteria1", "criteria2", ...],
+            "exclusion_criteria_violated": ["criteria1", "criteria2", ...],
+            "recommendations": "Specific recommendations for next steps",
+            "priority_score": 75,
+            "evaluation_timestamp": "{datetime.now().isoformat()}"
+        }}
+        """
+
+    def trial_patient_evaluation_prompt(self, trial_info: Dict[str, Any], patient_info: Dict[str, Any]) -> str:
+        """Generate prompt for trial-patient eligibility evaluation"""
+        return f"""
+        You are an expert clinical trial coordinator specializing in patient-trial matching for oncology trials.
+        
+        Evaluate the eligibility of this patient for the given clinical trial.
+        
+        CLINICAL TRIAL INFORMATION:
+        Title: {trial_info['title']}
+        Condition: {trial_info['condition']}
+        Phase: {trial_info['phase']}
+        Status: {trial_info['status']}
+        Investigator: {trial_info['investigator']}
+        
+        PATIENT INFORMATION:
+        MRN: {patient_info['mrn']}
+        Age: {patient_info['age']}
+        Gender: {patient_info['gender']}
+        Oncologist: {patient_info['oncologist']}
+        Date of Visit: {patient_info['date_of_visit']}
+        
+        PATIENT MEDICAL RECORD:
+        {patient_info['combined_text']}
+        
+        EVALUATION CRITERIA:
+        1. Primary diagnosis match
+        2. Disease stage compatibility
+        3. Age eligibility
+        4. Gender eligibility
+        5. Performance status
+        6. Prior treatments
+        7. Comorbidities
+        8. Laboratory values
+        9. Exclusion criteria
+        10. Overall eligibility assessment
+        
+        Provide a comprehensive evaluation with:
+        - Eligibility status (ELIGIBLE, NOT_ELIGIBLE, NEED_MORE_INFO)
+        - Confidence score (0-100)
+        - Detailed reasoning
+        - Specific inclusion/exclusion criteria met or not met
+        - Recommendations for next steps
+        
+        Return ONLY a valid JSON object with this structure:
+        {{
+            "eligibility_status": "ELIGIBLE|NOT_ELIGIBLE|NEED_MORE_INFO",
+            "confidence_score": 85,
+            "reasoning": "Detailed explanation of eligibility assessment",
+            "inclusion_criteria_met": ["criteria1", "criteria2", ...],
+            "exclusion_criteria_violated": ["criteria1", "criteria2", ...],
+            "recommendations": "Specific recommendations for next steps",
+            "priority_score": 75,
+            "evaluation_timestamp": "{datetime.now().isoformat()}"
+        }}
+        """
+
+    def call_llm(self, prompt: str) -> Dict[str, Any]:
+        """Make OpenAI API call and parse response"""
+        try:
+            response = openai.ChatCompletion.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": "You are a medical research assistant specializing in clinical trial matching. Always respond with valid JSON format."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=self.temperature,
+                max_tokens=self.max_tokens,
+                timeout=self.timeout
+            )
+            
+            response_text = response.choices[0].message.content.strip()
+            
+            try:
+                # Clean the response - remove code block markers
+                if response_text.startswith("```json"):
+                    response_text = response_text[7:]
+                if response_text.endswith("```"):
+                    response_text = response_text[:-3]
+                response_text = response_text.strip()
+                
+                result = json.loads(response_text)
+                return {"response": response_text, **result}
+            except json.JSONDecodeError as e:
+                print(f"Failed to parse JSON response: {str(e)}")
+                print(f"Response text (first 500 chars): {response_text[:500]}")
+                return {
+                    "error": "Failed to parse JSON response",
+                    "raw_response": response_text
+                }
+                
+        except Exception as e:
+            print(f"Error calling OpenAI API: {e}")
+            return {
+                "error": str(e)
+            }
+
+    def generate_keywords_for_patient(self, patient_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Generate keywords for a single patient"""
+        prompt = self.generate_keywords_prompt(patient_data)
+        result = self.call_llm(prompt)
+        
+        if "error" not in result:
+            result["patient_id"] = patient_data['patient_id']
+            result["mrn"] = patient_data['mrn']
+        
+        return result
+
+    def generate_keywords_for_patient_batch(self, patients: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Generate keywords for multiple patients in one batch with size limit"""
+        try:
+            print(f"Processing {len(patients)} patients in single batch...")
+            
+            # Handle empty list case
+            if not patients:
+                return {
+                    "successful": {},
+                    "failed": {},
+                    "metadata": {
+                        "total_patients": 0,
+                        "generated_at": datetime.now().isoformat(),
+                        "model": self.model,
+                        "batch_processing": "single_batch_all_patients",
+                        "note": "No patients provided"
+                    }
+                }
+            
+            # Limit batch size to prevent token limits
+            MAX_BATCH_SIZE = 5  # Reduced for OpenAI token limits
+            if len(patients) > MAX_BATCH_SIZE:
+                print(f"⚠️ Batch size {len(patients)} exceeds limit of {MAX_BATCH_SIZE}. Processing first {MAX_BATCH_SIZE} patients.")
+                patients = patients[:MAX_BATCH_SIZE]
+            
+            # Create batch prompt
+            batch_prompt = self.generate_batch_keywords_prompt(patients)
+            
+            # Call LLM with batch prompt
+            result = self.call_llm(batch_prompt)
+            
+            if "error" in result:
+                return {"error": result["error"]}
+            
+            # Parse batch results
+            return self.parse_batch_keywords_result(result, patients)
+            
+        except Exception as e:
+            print(f"Error in batch processing: {e}")
+            return {"error": str(e)}
+
+    def generate_batch_keywords_prompt(self, patients: List[Dict[str, Any]]) -> str:
+        """Generate prompt for batch patient keyword extraction"""
+        if not patients:
+            return "No patients provided for keyword generation."
+        
+        patients_text = ""
+        
+        for i, patient in enumerate(patients, 1):
+            patients_text += f"\n{'='*50}\nPATIENT {i}:\n{'='*50}\n"
+            patients_text += f"Patient ID: {patient['patient_id']}\n"
+            patients_text += f"MRN: {patient['mrn']}\n"
+            patients_text += f"Age: {patient['age']}\n"
+            patients_text += f"Gender: {patient['gender']}\n"
+            patients_text += f"Combined Medical Record:\n{patient['combined_text']}\n"
+        
+        return f"""
+        You are a medical research assistant specializing in clinical trial matching. 
+        Analyze the following {len(patients)} patient medical records and generate comprehensive keywords for clinical trial matching.
+
+        PATIENTS DATA:
+        {patients_text}
+
+        Instructions:
+        1. Extract ALL relevant medical conditions, symptoms, treatments, and characteristics for EACH patient
+        2. Generate at least 20-30 keywords per patient covering:
+           - Primary diagnosis and staging
+           - Metastatic sites
+           - Molecular markers
+           - Comorbidities
+           - Medications
+           - Allergies
+           - Performance status
+           - Family history
+           - Demographics
+        3. Use standardized medical terminology
+        4. Include both specific and general terms for better matching
+
+        Return ONLY a valid JSON object with this structure:
+        {{
+            "batch_results": [
+                {{
+                    "patient_id": {patients[0]['patient_id']},
+                    "mrn": "{patients[0]['mrn']}",
+                    "age": {patients[0]['age']},
+                    "gender": "{patients[0]['gender']}",
+                    "summary": "Brief 2-3 sentence summary of patient's condition",
+                    "primary_diagnosis": "Main diagnosis",
+                    "stage": "Cancer stage if applicable",
+                    "metastatic_sites": ["site1", "site2", ...],
+                    "molecular_markers": ["marker1", "marker2", ...],
+                    "comorbidities": ["condition1", "condition2", ...],
+                    "medications": ["med1", "med2", ...],
+                    "allergies": ["allergy1", "allergy2", ...],
+                    "performance_status": "ECOG status",
+                    "family_history": ["condition1", "condition2", ...],
+                    "keywords": ["keyword1", "keyword2", "keyword3", ...],
+                    "generated_at": "{datetime.now().isoformat()}"
+                }}{f''',
+                {{
+                    "patient_id": {patients[1]['patient_id']},
+                    "mrn": "{patients[1]['mrn']}",
+                    "age": {patients[1]['age']},
+                    "gender": "{patients[1]['gender']}",
+                    "summary": "Brief 2-3 sentence summary of patient's condition",
+                    "primary_diagnosis": "Main diagnosis",
+                    "stage": "Cancer stage if applicable",
+                    "metastatic_sites": ["site1", "site2", ...],
+                    "molecular_markers": ["marker1", "marker2", ...],
+                    "comorbidities": ["condition1", "condition2", ...],
+                    "medications": ["med1", "med2", ...],
+                    "allergies": ["allergy1", "allergy2", ...],
+                    "performance_status": "ECOG status",
+                    "family_history": ["condition1", "condition2", ...],
+                    "keywords": ["keyword1", "keyword2", "keyword3", ...],
+                    "generated_at": "{datetime.now().isoformat()}"
+                }}''' if len(patients) > 1 else ''}
+                // ... continue for all {len(patients)} patients
+            ],
+            "batch_metadata": {{
+                "total_patients": {len(patients)},
+                "generated_at": "{datetime.now().isoformat()}",
+                "model": "{self.model}",
+                "batch_processing": true
+            }}
+        }}
+        """
+
+    def parse_batch_keywords_result(self, result: Dict[str, Any], patients: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Parse batch keywords result with improved error handling"""
+        try:
+            response = result.get("response", "")
+            
+            # Clean the response - remove code block markers
+            response = response.strip()
+            if response.startswith("```json"):
+                response = response[7:]
+            if response.endswith("```"):
+                response = response[:-3]
+            response = response.strip()
+            
+            # Try to parse JSON
+            try:
+                parsed_data = json.loads(response)
+            except json.JSONDecodeError as e:
+                print(f"JSON parsing failed: {str(e)}")
+                print(f"Response length: {len(response)}")
+                print(f"Response preview (first 1000 chars): {response[:1000]}")
+                print(f"Response preview (last 1000 chars): {response[-1000:]}")
+                
+                # Try to fix common JSON issues
+                response = self._fix_json_response(response)
+                try:
+                    parsed_data = json.loads(response)
+                except json.JSONDecodeError as e2:
+                    print(f"JSON fix failed: {str(e2)}")
+                    return {"error": f"Failed to parse JSON response: {str(e)}"}
+            
+            batch_results = parsed_data.get("batch_results", [])
+            
+            print(f"Successfully parsed JSON with {len(batch_results)} batch results")
+            
+            successful = {}
+            failed = {}
+            
+            for i, patient_result in enumerate(batch_results):
+                if i < len(patients):
+                    patient_id = patients[i]['patient_id']
+                    
+                    if patient_result and "error" not in patient_result:
+                        successful[patient_id] = patient_result
+                    else:
+                        failed[patient_id] = {
+                            "patient_id": patient_id,
+                            "error": patient_result.get("error", "Unknown error")
+                        }
+            
+            print(f"Processed {len(successful)} successful and {len(failed)} failed results")
+            
+            return {
+                "successful": successful,
+                "failed": failed,
+                "metadata": {
+                    "total_patients": len(patients),
+                    "generated_at": datetime.now().isoformat(),
+                    "model": self.model,
+                    "batch_processing": "single_batch_all_patients",
+                    "batch_metadata": parsed_data.get("batch_metadata", {})
+                }
+            }
+            
+        except Exception as e:
+            print(f"Error parsing batch results: {type(e).__name__}: {e}")
+            import traceback
+            traceback.print_exc()
+            return {"error": f"Failed to parse batch results: {str(e)}"}
+
+    def _fix_json_response(self, response: str) -> str:
+        """Try to fix common JSON issues"""
+        try:
+            # Remove any trailing incomplete content
+            if response.count('{') > response.count('}'):
+                # Find the last complete object
+                brace_count = 0
+                last_complete_pos = -1
+                for i, char in enumerate(response):
+                    if char == '{':
+                        brace_count += 1
+                    elif char == '}':
+                        brace_count -= 1
+                        if brace_count == 0:
+                            last_complete_pos = i
+                
+                if last_complete_pos > 0:
+                    response = response[:last_complete_pos + 1]
+            
+            # Try to complete incomplete strings
+            if response.count('"') % 2 != 0:
+                response += '"'
+            
+            return response
+        except Exception as e:
+            print(f"Error fixing JSON: {e}")
+            return response
+
+    def evaluate_patient_trial_match(self, trial_info: Dict[str, Any], patient_info: Dict[str, Any]) -> Dict[str, Any]:
+        """Evaluate patient-trial match"""
+        prompt = self.patient_trial_evaluation_prompt(trial_info, patient_info)
+        result = self.call_llm(prompt)
+        
+        if "error" not in result:
+            result["patient_info"] = {
+                "patient_id": patient_info['patient_id'],
+                "mrn": patient_info['mrn'],
+                "age": patient_info['age'],
+                "gender": patient_info['gender'],
+                "oncologist": patient_info['oncologist']
+            }
+            result["trial_info"] = {
+                "trial_id": trial_info['trial_id'],
+                "title": trial_info['title'],
+                "condition": trial_info['condition'],
+                "phase": trial_info['phase']
+            }
+        
+        return result
+
+    def evaluate_trial_patient_match(self, trial_info: Dict[str, Any], patient_info: Dict[str, Any]) -> Dict[str, Any]:
+        """Evaluate trial-patient match"""
+        prompt = self.trial_patient_evaluation_prompt(trial_info, patient_info)
+        result = self.call_llm(prompt)
+        
+        if "error" not in result:
+            result["patient_info"] = {
+                "patient_id": patient_info['patient_id'],
+                "mrn": patient_info['mrn'],
+                "age": patient_info['age'],
+                "gender": patient_info['gender'],
+                "oncologist": patient_info['oncologist']
+            }
+            result["trial_info"] = {
+                "trial_id": trial_info['trial_id'],
+                "title": trial_info['title'],
+                "condition": trial_info['condition'],
+                "phase": trial_info['phase']
+            }
+        
+        return result
+
+    def evaluate_patient_trial_matches_batch(self, trials: List[Dict[str, Any]], patient_info: Dict[str, Any]) -> Dict[str, Any]:
+        """Evaluate multiple trials for a patient in one batch"""
+        try:
+            prompt = self.batch_patient_trial_evaluation_prompt(trials, patient_info)
+            result = self.call_llm(prompt)
+            
+            if "error" not in result:
+                # Parse the batch results
+                parsed_results = self.parse_batch_evaluation_result(result.get("response", ""), trials, patient_info)
+                return parsed_results
+            else:
+                return result
+                
+        except Exception as e:
+            return {
+                "error": f"Batch evaluation failed: {str(e)}",
+                "trials_count": len(trials),
+                "patient_id": patient_info.get('patient_id', 'Unknown')
+            }
+
+    def batch_patient_trial_evaluation_prompt(self, trials: List[Dict[str, Any]], patient_info: Dict[str, Any]) -> str:
+        """Generate prompt for batch patient-trial evaluation"""
+        
+        # Patient information
+        patient_text = f"""
+        PATIENT INFORMATION:
+        Patient ID: {patient_info['patient_id']}
+        MRN: {patient_info['mrn']}
+        Age: {patient_info['age']}
+        Gender: {patient_info['gender']}
+        Oncologist: {patient_info['oncologist']}
+        Combined Medical Record: {patient_info['combined_text']}
+        """
+        
+        # Trials information (limit to prevent token overflow)
+        trials_text = ""
+        max_trials = min(len(trials), 3)  # Limit to 3 trials for batch processing
+        for i, trial in enumerate(trials[:max_trials], 1):
+            trials_text += f"""
+        {'='*60}
+        TRIAL {i}:
+        {'='*60}
+        Trial ID: {trial.get('trial_id', 'Unknown')}
+        Title: {trial.get('title', 'Unknown')}
+        Condition: {trial.get('condition', 'Unknown')}
+        Phase: {trial.get('phase', 'Unknown')}
+        Status: {trial.get('status', 'Unknown')}
+        Investigator: {trial.get('investigator', 'Unknown')}
+        Hybrid Score: {trial.get('hybrid_score', 0):.3f}
+        """
+        
+        return f"""
+        You are a medical research assistant specializing in clinical trial matching. 
+        Evaluate the following {max_trials} clinical trials for the given patient and determine eligibility.
+
+        {patient_text}
+
+        CLINICAL TRIALS TO EVALUATE:
+        {trials_text}
+
+        Instructions:
+        1. For EACH trial, evaluate the patient's eligibility based on:
+           - Medical condition match
+           - Age requirements
+           - Gender requirements
+           - Inclusion/exclusion criteria
+           - Overall medical compatibility
+        2. Provide detailed reasoning for each evaluation
+        3. Consider the patient's medical history, current condition, and trial requirements
+        4. Be thorough but concise in your analysis
+
+        Return ONLY a valid JSON object with this structure:
+        {{
+            "batch_evaluations": [
+                {{
+                    "trial_id": "{trials[0].get('trial_id', 'Unknown')}",
+                    "trial_title": "{trials[0].get('title', 'Unknown')}",
+                    "eligibility_status": "ELIGIBLE|NOT_ELIGIBLE|NEED_MORE_INFO",
+                    "confidence_score": 85,
+                    "priority_score": 90,
+                    "reasoning": "Detailed explanation of eligibility decision",
+                    "key_criteria_met": ["criteria1", "criteria2", "criteria3"],
+                    "key_criteria_missed": ["criteria1", "criteria2"],
+                    "recommendations": "Specific recommendations for this trial"
+                }}{f''',
+                {{
+                    "trial_id": "{trials[1].get('trial_id', 'Unknown') if len(trials) > 1 else 'N/A'}",
+                    "trial_title": "{trials[1].get('title', 'Unknown') if len(trials) > 1 else 'N/A'}",
+                    "eligibility_status": "ELIGIBLE|NOT_ELIGIBLE|NEED_MORE_INFO",
+                    "confidence_score": 75,
+                    "priority_score": 80,
+                    "reasoning": "Detailed explanation of eligibility decision",
+                    "key_criteria_met": ["criteria1", "criteria2"],
+                    "key_criteria_missed": ["criteria1", "criteria2", "criteria3"],
+                    "recommendations": "Specific recommendations for this trial"
+                }}''' if len(trials) > 1 else ''}
+                // ... continue for all {max_trials} trials
+            ],
+            "batch_summary": {{
+                "total_trials_evaluated": {max_trials},
+                "eligible_count": 1,
+                "not_eligible_count": 1,
+                "need_more_info_count": 1,
+                "average_confidence": 78.5,
+                "top_recommendations": [
+                    "Trial 1 - Best match due to...",
+                    "Trial 2 - Good alternative because..."
+                ],
+                "generated_at": "{datetime.now().isoformat()}"
+            }}
+        }}
+        """
+
+    def parse_batch_evaluation_result(self, response: str, trials: List[Dict[str, Any]], patient_info: Dict[str, Any]) -> Dict[str, Any]:
+        """Parse batch evaluation result from LLM response"""
+        try:
+            # Clean the response
+            response = response.strip()
+            if response.startswith("```json"):
+                response = response[7:]
+            if response.endswith("```"):
+                response = response[:-3]
+            response = response.strip()
+            
+            # Parse JSON
+            result = json.loads(response)
+            
+            # Validate structure
+            if "batch_evaluations" not in result:
+                return {"error": "Invalid response format: missing batch_evaluations"}
+            
+            evaluations = result["batch_evaluations"]
+            max_trials = min(len(trials), 3)
+            if len(evaluations) != max_trials:
+                return {"error": f"Response has {len(evaluations)} evaluations but expected {max_trials}"}
+            
+            # Add trial and patient info to each evaluation
+            for i, evaluation in enumerate(evaluations):
+                if i < len(trials):
+                    evaluation['trial_info'] = {
+                        "trial_id": trials[i].get('trial_id', 'Unknown'),
+                        "title": trials[i].get('title', 'Unknown'),
+                        "condition": trials[i].get('condition', 'Unknown'),
+                        "phase": trials[i].get('phase', 'Unknown'),
+                        "status": trials[i].get('status', 'Unknown')
+                    }
+                    evaluation['patient_info'] = {
+                        "patient_id": patient_info['patient_id'],
+                        "mrn": patient_info['mrn'],
+                        "age": patient_info['age'],
+                        "gender": patient_info['gender'],
+                        "oncologist": patient_info['oncologist']
+                    }
+                    evaluation['hybrid_score'] = trials[i].get('hybrid_score', 0)
+            
+            return {
+                "success": True,
+                "evaluations": evaluations,
+                "batch_summary": result.get("batch_summary", {}),
+                "total_evaluations": len(evaluations),
+                "generated_at": datetime.now().isoformat()
+            }
+            
+        except json.JSONDecodeError as e:
+            return {"error": f"Failed to parse JSON response: {str(e)}"}
+        except Exception as e:
+            return {"error": f"Failed to parse batch evaluation result: {str(e)}"}
+
+    def evaluate_trial_patient_matches_batch(self, patients: List[Dict[str, Any]], trial_info: Dict[str, Any]) -> Dict[str, Any]:
+        """Evaluate multiple patients for a trial in one batch"""
+        try:
+            prompt = self.batch_trial_patient_evaluation_prompt(patients, trial_info)
+            result = self.call_llm(prompt)
+            
+            if "error" not in result:
+                # Parse the batch results
+                parsed_results = self.parse_batch_trial_patient_evaluation_result(result.get("response", ""), patients, trial_info)
+                return parsed_results
+            else:
+                return result
+                
+        except Exception as e:
+            return {
+                "error": f"Batch evaluation failed: {str(e)}",
+                "patients_count": len(patients),
+                "trial_id": trial_info.get('trial_id', 'Unknown')
+            }
+
+    def batch_trial_patient_evaluation_prompt(self, patients: List[Dict[str, Any]], trial_info: Dict[str, Any]) -> str:
+        """Generate prompt for batch trial-patient evaluation"""
+        
+        # Trial information
+        trial_text = f"""
+        CLINICAL TRIAL INFORMATION:
+        Trial ID: {trial_info['trial_id']}
+        Title: {trial_info['title']}
+        Condition: {trial_info['condition']}
+        Phase: {trial_info['phase']}
+        Status: {trial_info['status']}
+        Investigator: {trial_info['investigator']}
+        """
+        
+        # Patients information (limit to prevent token overflow)
+        patients_text = ""
+        max_patients = min(len(patients), 3)  # Limit to 3 patients for batch processing
+        for i, patient in enumerate(patients[:max_patients], 1):
+            patients_text += f"""
+        {'='*60}
+        PATIENT {i}:
+        {'='*60}
+        Patient ID: {patient.get('patient_id', 'Unknown')}
+        MRN: {patient.get('mrn', 'Unknown')}
+        Age: {patient.get('age', 'Unknown')}
+        Gender: {patient.get('gender', 'Unknown')}
+        Oncologist: {patient.get('oncologist', 'Unknown')}
+        Hybrid Score: {patient.get('hybrid_score', 0):.3f}
+        
+        Combined Medical Record: {patient.get('combined_text', 'Not available')[:1000]}...
+        """
+        
+        return f"""
+        You are a medical research assistant specializing in clinical trial matching. 
+        Evaluate the following {max_patients} patients for the given clinical trial and determine eligibility.
+
+        {trial_text}
+
+        PATIENTS TO EVALUATE:
+        {patients_text}
+
+        Instructions:
+        1. For EACH patient, evaluate their eligibility for the trial based on:
+           - Medical condition match
+           - Age requirements
+           - Gender requirements
+           - Inclusion/exclusion criteria
+           - Overall medical compatibility
+        2. Provide detailed reasoning for each evaluation
+        3. Consider each patient's medical history, current condition, and trial requirements
+        4. Be thorough but concise in your analysis
+
+        Return ONLY a valid JSON object with this structure:
+        {{
+            "batch_evaluations": [
+                {{
+                    "patient_id": {patients[0].get('patient_id', 'Unknown')},
+                    "mrn": "{patients[0].get('mrn', 'Unknown')}",
+                    "eligibility_status": "ELIGIBLE|NOT_ELIGIBLE|NEED_MORE_INFO",
+                    "confidence_score": 85,
+                    "priority_score": 90,
+                    "reasoning": "Detailed explanation of eligibility decision",
+                    "key_criteria_met": ["criteria1", "criteria2", "criteria3"],
+                    "key_criteria_missed": ["criteria1", "criteria2"],
+                    "recommendations": "Specific recommendations for this patient"
+                }}{f''',
+                {{
+                    "patient_id": {patients[1].get('patient_id', 'Unknown') if len(patients) > 1 else 'N/A'}",
+                    "mrn": "{patients[1].get('mrn', 'Unknown') if len(patients) > 1 else 'N/A'}",
+                    "eligibility_status": "ELIGIBLE|NOT_ELIGIBLE|NEED_MORE_INFO",
+                    "confidence_score": 75,
+                    "priority_score": 80,
+                    "reasoning": "Detailed explanation of eligibility decision",
+                    "key_criteria_met": ["criteria1", "criteria2"],
+                    "key_criteria_missed": ["criteria1", "criteria2", "criteria3"],
+                    "recommendations": "Specific recommendations for this patient"
+                }}''' if len(patients) > 1 else ''}
+                // ... continue for all {max_patients} patients
+            ],
+            "batch_summary": {{
+                "total_patients_evaluated": {max_patients},
+                "eligible_count": 1,
+                "not_eligible_count": 1,
+                "need_more_info_count": 1,
+                "average_confidence": 78.5,
+                "top_recommendations": [
+                    "Patient 1 - Best match due to...",
+                    "Patient 2 - Good alternative because..."
+                ],
+                "generated_at": "{datetime.now().isoformat()}"
+            }}
+        }}
+        """
+
+    def parse_batch_trial_patient_evaluation_result(self, response: str, patients: List[Dict[str, Any]], trial_info: Dict[str, Any]) -> Dict[str, Any]:
+        """Parse batch trial-patient evaluation result from LLM response"""
+        try:
+            # Clean the response
+            response = response.strip()
+            if response.startswith("```json"):
+                response = response[7:]
+            if response.endswith("```"):
+                response = response[:-3]
+            response = response.strip()
+            
+            # Parse JSON
+            result = json.loads(response)
+            
+            # Validate structure
+            if "batch_evaluations" not in result:
+                return {"error": "Invalid response format: missing batch_evaluations"}
+            
+            evaluations = result["batch_evaluations"]
+            max_patients = min(len(patients), 3)
+            if len(evaluations) != max_patients:
+                return {"error": f"Response has {len(evaluations)} evaluations but expected {max_patients}"}
+            
+            # Add patient and trial info to each evaluation
+            for i, evaluation in enumerate(evaluations):
+                if i < len(patients):
+                    evaluation['patient_info'] = {
+                        "patient_id": patients[i].get('patient_id', 'Unknown'),
+                        "mrn": patients[i].get('mrn', 'Unknown'),
+                        "age": patients[i].get('age', 'Unknown'),
+                        "gender": patients[i].get('gender', 'Unknown'),
+                        "oncologist": patients[i].get('oncologist', 'Unknown')
+                    }
+                    evaluation['trial_info'] = {
+                        "trial_id": trial_info['trial_id'],
+                        "title": trial_info['title'],
+                        "condition": trial_info['condition'],
+                        "phase": trial_info['phase'],
+                        "status": trial_info['status']
+                    }
+                    evaluation['hybrid_score'] = patients[i].get('hybrid_score', 0)
+            
+            return {
+                "success": True,
+                "evaluations": evaluations,
+                "batch_summary": result.get("batch_summary", {}),
+                "total_evaluations": len(evaluations),
+                "generated_at": datetime.now().isoformat()
+            }
+            
+        except json.JSONDecodeError as e:
+            return {"error": f"Failed to parse JSON response: {str(e)}"}
+        except Exception as e:
+            return {"error": f"Failed to parse batch evaluation result: {str(e)}"}
 
     def generate_keywords_prompt(self, patient_data: Dict[str, Any]) -> str:
         """Generate prompt for patient keyword extraction"""
