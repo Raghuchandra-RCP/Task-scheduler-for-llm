@@ -122,21 +122,151 @@ CREATE TABLE insightsedge.clinical_trial_details (
 
 ## ⚙️ Configuration
 
-The application uses `config.py` for configuration management. Key settings include:
+The application uses `config.py` for configuration management. You can customize various settings by modifying the configuration file or using environment variables.
 
-### API Configuration
-- **API Base URL**: ClinicalTrials.gov API v2 endpoint
-- **Target Statuses**: Trial statuses to collect
-- **Geographic Filter**: San Francisco area with configurable radius
-- **Condition Filters**: Colorectal cancer-related conditions
+### 🔧 Configuration Options in `config.py`
 
-### Database Configuration
-- **Connection Settings**: Host, port, database name, credentials
-- **Batch Processing**: Configurable batch sizes for data insertion
+#### Database Configuration
+```python
+# Database connection settings
+DB_HOST = '13.60.219.182'          # Database server host
+DB_PORT = '5432'                   # Database port
+DB_NAME = 'Insightedgedb'           # Database name
+DB_USER = 'Admin'                   # Database username
+DB_PASSWORD = 'NeXtUrN%40123'       # Database password
+DATABASE_URL = 'postgresql+psycopg2://...'  # Full connection string
+```
 
-### Rate Limiting
-- **Request Delay**: Delay between API requests (default: 1 second)
-- **Timeout Settings**: API request timeout (default: 30 seconds)
+#### API Configuration
+```python
+# ClinicalTrials.gov API settings
+API_BASE_URL = "https://clinicaltrials.gov/api/v2/studies"
+TARGET_STATUSES = ["RECRUITING", "AVAILABLE", "ENROLLING_BY_INVITATION"]
+```
+
+#### Geographic Configuration
+```python
+# San Francisco coordinates and search radius
+SAN_FRANCISCO_LAT = 37.7749        # Latitude
+SAN_FRANCISCO_LON = -122.4194      # Longitude
+SEARCH_RADIUS_KM = 200             # Search radius in kilometers
+```
+
+**To change the search radius:**
+- Set `SEARCH_RADIUS_KM = 300` for 300km radius
+- Set `SEARCH_RADIUS_KM = 400` for 400km radius
+- Adjust as needed for your geographic requirements
+
+#### Condition Filters
+```python
+# Colorectal cancer conditions to search for
+COLORECTAL_CANCER_CONDITIONS = [
+    "metastatic colorectal cancer",
+    "stage IV colon cancer", 
+    "advanced colorectal cancer",
+    "incurable colorectal cancer"
+]
+```
+
+**To add new conditions:**
+- Add new conditions to the `COLORECTAL_CANCER_CONDITIONS` list
+- The API will automatically search for trials matching each condition
+
+#### Performance Settings
+```python
+# Rate limiting and batch processing
+REQUEST_DELAY = 1.0                # Seconds between API requests
+BATCH_SIZE = 100                   # Trials per database batch
+PAGE_SIZE = 1000                   # Trials per API request
+MAX_PAGES = 50                     # Maximum pages per status (50,000 trials)
+TIMEOUT_SECONDS = 30               # API request timeout
+MAX_RETRIES = 3                    # Maximum retries for failed requests
+```
+
+#### Logging Configuration
+```python
+# Logging settings
+LOG_LEVEL = "INFO"                 # DEBUG, INFO, WARNING, ERROR
+LOG_FILE = "logs/trial_scheduler.log"
+LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+```
+
+### 🌍 Environment-Specific Configurations
+
+The application supports different configurations for different environments:
+
+#### Development Environment
+```python
+class DevelopmentConfig(Config):
+    LOG_LEVEL = "DEBUG"
+    REQUEST_DELAY = 0.5            # Faster for development
+```
+
+#### Production Environment
+```python
+class ProductionConfig(Config):
+    LOG_LEVEL = "INFO"
+    REQUEST_DELAY = 2.0            # Slower for production
+    MAX_PAGES = 5                  # Limit trials in production
+```
+
+#### Testing Environment
+```python
+class TestingConfig(Config):
+    LOG_LEVEL = "DEBUG"
+    MAX_PAGES = 1                  # Minimal trials for testing
+    BATCH_SIZE = 10
+```
+
+### 🔄 How to Change Configuration
+
+#### Method 1: Modify `config.py` directly
+Edit the values in `config.py` file:
+```python
+# Example: Change search radius to 300km
+SEARCH_RADIUS_KM = 300
+
+# Example: Add new condition
+COLORECTAL_CANCER_CONDITIONS = [
+    "metastatic colorectal cancer",
+    "stage IV colon cancer", 
+    "advanced colorectal cancer",
+    "incurable colorectal cancer",
+    "recurrent colorectal cancer"  # New condition added
+]
+```
+
+#### Method 2: Use Environment Variables
+Create a `.env` file or set environment variables:
+```env
+# Override default settings
+SEARCH_RADIUS_KM=300
+REQUEST_DELAY=2.0
+LOG_LEVEL=DEBUG
+ENVIRONMENT=production
+```
+
+#### Method 3: Use Configuration Factory
+The application automatically selects configuration based on environment:
+```python
+# Set environment variable
+ENVIRONMENT=production  # Uses ProductionConfig
+ENVIRONMENT=development # Uses DevelopmentConfig
+ENVIRONMENT=testing    # Uses TestingConfig
+```
+
+### 📊 Configuration Validation
+
+Run the test script to validate your configuration:
+```bash
+python test_setup.py
+```
+
+This will check:
+- Database connectivity
+- API endpoint accessibility
+- Configuration parameter validity
+- Required environment variables
 
 ## 🎮 Usage
 
