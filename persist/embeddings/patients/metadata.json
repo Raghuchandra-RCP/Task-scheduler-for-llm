@@ -1,452 +1,57 @@
 {
-  "345": {
-    "mrn": "82047",
-    "age": 35,
+  "460": {
+    "mrn": "101",
+    "age": 68,
     "gender": "Male",
-    "oncologist": "Dr. Daniel Wu, MD",
-    "date_of_visit": "2025-05-22",
-    "created_at": "2025-10-16T10:44:03.439454",
+    "oncologist": "Dr. Ananya Sharma",
+    "date_of_visit": "2025-06-02",
+    "created_at": "2025-10-17T14:00:37.193622",
+    "keywords_count": 35,
+    "keywords_text_length": 607,
     "embedding_index": 0
   },
-  "344": {
-    "mrn": "59103",
-    "age": 69,
-    "gender": "Female",
-    "oncologist": "Dr. Rebecca Green, MD",
-    "date_of_visit": "2025-04-18",
-    "created_at": "2025-10-16T10:44:03.438371",
-    "embedding_index": 1
-  },
-  "343": {
-    "mrn": "34982",
-    "age": 37,
-    "gender": "Male",
-    "oncologist": "Dr. Priya Nair, MD",
-    "date_of_visit": "2025-08-01",
-    "created_at": "2025-10-16T10:44:03.435279",
-    "embedding_index": 2
-  },
-  "342": {
-    "mrn": "76415",
-    "age": 53,
-    "gender": "Female",
-    "oncologist": "Dr. Michael Lee, MD",
-    "date_of_visit": "2025-07-05",
-    "created_at": "2025-10-16T10:44:03.433181",
-    "embedding_index": 3
-  },
-  "339": {
-    "mrn": "7305",
-    "age": 47,
-    "gender": "Female",
-    "oncologist": "Dr. Sarah Patel",
-    "date_of_visit": null,
-    "created_at": "2025-10-15T17:52:13.957603",
-    "embedding_index": 4
-  },
-  "337": {
-    "mrn": "8130",
-    "age": 61,
-    "gender": "Female",
-    "oncologist": "Dr. Emily Roberts",
-    "date_of_visit": null,
-    "created_at": "2025-10-15T17:52:13.956260",
-    "embedding_index": 5
-  },
-  "338": {
-    "mrn": "1426",
-    "age": 74,
-    "gender": "Male",
-    "oncologist": "Dr. Michael Chen",
-    "date_of_visit": null,
-    "created_at": "2025-10-15T17:52:13.956260",
-    "embedding_index": 6
-  },
-  "335": {
-    "mrn": "6744",
-    "age": 67,
-    "gender": "Female",
-    "oncologist": "Dr. Emily Roberts",
-    "date_of_visit": null,
-    "created_at": "2025-10-15T17:52:13.955242",
-    "embedding_index": 7
-  },
-  "336": {
-    "mrn": "2955",
-    "age": 53,
-    "gender": "Male",
-    "oncologist": "Dr. Sarah Patel",
-    "date_of_visit": null,
-    "created_at": "2025-10-15T17:52:13.955242",
-    "embedding_index": 8
-  },
-  "334": {
-    "mrn": "5220",
-    "age": 56,
-    "gender": "Male",
-    "oncologist": "Dr. Michael Chen",
-    "date_of_visit": null,
-    "created_at": "2025-10-15T17:52:13.953990",
-    "embedding_index": 9
-  },
-  "333": {
-    "mrn": "4119",
-    "age": 36,
-    "gender": "Female",
-    "oncologist": "Dr. Sarah Patel",
-    "date_of_visit": null,
-    "created_at": "2025-10-15T17:52:13.952917",
-    "embedding_index": 10
-  },
-  "332": {
-    "mrn": "9083",
-    "age": 70,
-    "gender": "Male",
-    "oncologist": "Dr. Emily Roberts, MD",
-    "date_of_visit": null,
-    "created_at": "2025-10-15T17:52:13.947794",
-    "embedding_index": 11
-  },
-  "331": {
-    "mrn": "3671",
-    "age": 50,
-    "gender": "Female",
-    "oncologist": "Dr. Michael Chen, MD",
-    "date_of_visit": null,
-    "created_at": "2025-10-15T17:52:13.946794",
-    "embedding_index": 12
-  },
-  "329": {
-    "mrn": "12345678",
-    "age": 45,
-    "gender": "Female",
-    "oncologist": "Dr. Sarah Johnson",
-    "date_of_visit": "2024-10-15",
-    "created_at": "2025-10-15T16:09:25.839553",
-    "embedding_index": 13
-  },
-  "328": {
-    "mrn": "69472124",
-    "age": 75,
-    "gender": "Female",
-    "oncologist": "Dr. Lisa Park, MD",
-    "date_of_visit": "2025-06-08",
-    "created_at": "2025-10-10T10:18:12.171941",
-    "embedding_index": 14
-  },
-  "81": {
-    "mrn": "84184554",
-    "age": 66,
-    "gender": "Female",
-    "oncologist": "Dr. Sarah Mitchell, MD",
-    "date_of_visit": "2025-06-14",
-    "created_at": "2025-10-10T10:18:11.995934",
-    "embedding_index": 15
-  },
-  "327": {
-    "mrn": "82446651",
-    "age": 77,
-    "gender": "Male",
-    "oncologist": "Dr. Jennifer Rodriguez, MD",
-    "date_of_visit": "2025-05-28",
-    "created_at": "2025-10-10T10:18:11.814399",
-    "embedding_index": 16
-  },
-  "76": {
-    "mrn": "63043709",
-    "age": 23,
-    "gender": "Female",
-    "oncologist": "Dr. David Thompson, MD",
-    "date_of_visit": "2025-05-21",
-    "created_at": "2025-10-10T10:18:11.636758",
-    "embedding_index": 17
-  },
-  "73": {
-    "mrn": "50330369",
-    "age": 60,
-    "gender": "Male",
-    "oncologist": "Dr. Jennifer Rodriguez, MD",
-    "date_of_visit": "2025-05-29",
-    "created_at": "2025-10-10T10:18:11.456823",
-    "embedding_index": 18
-  },
-  "324": {
-    "mrn": "66569548",
-    "age": 66,
-    "gender": "Male",
-    "oncologist": "Dr. David Thompson, MD",
-    "date_of_visit": "2025-06-04",
-    "created_at": "2025-10-10T10:18:11.276284",
-    "embedding_index": 19
-  },
-  "325": {
-    "mrn": "15517509",
-    "age": 29,
-    "gender": "Male",
-    "oncologist": "Dr. Jennifer Rodriguez, MD",
-    "date_of_visit": "2025-06-15",
-    "created_at": "2025-10-10T10:18:11.097358",
-    "embedding_index": 20
-  },
-  "37": {
-    "mrn": "47601870",
-    "age": 37,
-    "gender": "Female",
-    "oncologist": "Dr. Lisa Park, MD",
-    "date_of_visit": "2025-05-28",
-    "created_at": "2025-10-10T10:18:10.920652",
-    "embedding_index": 21
-  },
-  "318": {
-    "mrn": "57569409",
-    "age": 37,
-    "gender": "Male",
-    "oncologist": "Dr. Sarah Mitchell, MD",
-    "date_of_visit": "2025-05-22",
-    "created_at": "2025-10-10T10:18:10.743890",
-    "embedding_index": 22
-  },
-  "317": {
-    "mrn": "48286215",
-    "age": 28,
-    "gender": "Female",
-    "oncologist": "Dr. David Thompson, MD",
-    "date_of_visit": "2025-05-31",
-    "created_at": "2025-10-10T10:18:10.566898",
-    "embedding_index": 23
-  },
-  "316": {
-    "mrn": "30447231",
-    "age": 33,
-    "gender": "Male",
-    "oncologist": "Dr. Jennifer Rodriguez, MD",
-    "date_of_visit": "2025-05-31",
-    "created_at": "2025-10-10T10:18:10.389207",
-    "embedding_index": 24
-  },
-  "62": {
-    "mrn": "11533179",
-    "age": 33,
-    "gender": "Male",
-    "oncologist": "Dr. Sarah Mitchell, MD",
-    "date_of_visit": "2025-06-15",
-    "created_at": "2025-10-10T10:18:10.212489",
-    "embedding_index": 25
-  },
-  "31": {
-    "mrn": "18118308",
-    "age": 28,
-    "gender": "Female",
-    "oncologist": "Dr. David Thompson, MD",
-    "date_of_visit": "2025-05-30",
-    "created_at": "2025-10-10T10:18:10.035485",
-    "embedding_index": 26
-  },
-  "48": {
-    "mrn": "70906771",
-    "age": 51,
-    "gender": "Male",
-    "oncologist": "Dr. Sarah Mitchell, MD",
-    "date_of_visit": "2025-05-24",
-    "created_at": "2025-10-10T10:18:09.858723",
-    "embedding_index": 27
-  },
-  "320": {
-    "mrn": "86140084",
-    "age": 51,
-    "gender": "Female",
-    "oncologist": "Dr. Sarah Mitchell, MD",
-    "date_of_visit": "2025-05-24",
-    "created_at": "2025-10-10T10:18:09.680060",
-    "embedding_index": 28
-  },
-  "314": {
-    "mrn": "35879553",
-    "age": 45,
-    "gender": "Female",
-    "oncologist": "Dr. Sarah Mitchell, MD",
-    "date_of_visit": "2025-05-26",
-    "created_at": "2025-10-10T10:18:09.502987",
-    "embedding_index": 29
-  },
-  "301": {
-    "mrn": "86504025",
-    "age": 60,
-    "gender": "Female",
-    "oncologist": "Dr. Michael Chen, MD",
-    "date_of_visit": "2025-05-18",
-    "created_at": "2025-10-10T10:18:09.326226",
-    "embedding_index": 30
-  },
-  "34": {
-    "mrn": "13264042",
-    "age": 72,
-    "gender": "Female",
-    "oncologist": "Dr. Michael Chen, MD",
-    "date_of_visit": "2025-05-22",
-    "created_at": "2025-10-10T10:18:09.148559",
-    "embedding_index": 31
-  },
-  "92": {
-    "mrn": "98503832",
-    "age": 60,
-    "gender": "Female",
-    "oncologist": "Dr. Sarah Mitchell, MD",
-    "date_of_visit": "2025-05-18",
-    "created_at": "2025-10-10T10:18:08.971462",
-    "embedding_index": 32
-  },
-  "24": {
-    "mrn": "14728493",
-    "age": 47,
-    "gender": "Female",
-    "oncologist": "Dr. Jennifer Rodriguez, MD",
-    "date_of_visit": "2025-05-26",
-    "created_at": "2025-10-10T10:18:08.792832",
-    "embedding_index": 33
-  },
-  "311": {
-    "mrn": "30086468",
-    "age": 76,
-    "gender": "Female",
-    "oncologist": "Dr. Michael Chen, MD",
-    "date_of_visit": "2025-05-31",
-    "created_at": "2025-10-10T10:18:08.613899",
-    "embedding_index": 34
-  },
-  "33": {
-    "mrn": "49271178",
-    "age": 71,
-    "gender": "Female",
-    "oncologist": "Dr. Lisa Park, MD",
-    "date_of_visit": "2025-06-14",
-    "created_at": "2025-10-10T10:18:08.344012",
-    "embedding_index": 35
-  },
-  "51": {
-    "mrn": "57418600",
-    "age": 35,
-    "gender": "Female",
-    "oncologist": "Dr. Jennifer Rodriguez, MD",
-    "date_of_visit": "2025-06-16",
-    "created_at": "2025-10-10T10:18:08.155735",
-    "embedding_index": 36
-  },
-  "90": {
-    "mrn": "35162470",
-    "age": 40,
-    "gender": "Male",
-    "oncologist": "Dr. Sarah Mitchell, MD",
-    "date_of_visit": "2025-05-28",
-    "created_at": "2025-10-10T10:18:07.925906",
-    "embedding_index": 37
-  },
-  "47": {
-    "mrn": "47529475",
-    "age": 18,
-    "gender": "Male",
-    "oncologist": "Dr. Michael Chen, MD",
-    "date_of_visit": "2025-05-26",
-    "created_at": "2025-10-10T10:18:07.710746",
-    "embedding_index": 38
-  },
-  "285": {
-    "mrn": "85414897",
-    "age": 48,
-    "gender": "Male",
-    "oncologist": "Dr. Lisa Park, MD",
-    "date_of_visit": "2025-05-23",
-    "created_at": "2025-10-10T10:18:07.533751",
-    "embedding_index": 39
-  },
-  "46": {
-    "mrn": "16148888",
-    "age": 28,
-    "gender": "Male",
-    "oncologist": "Dr. Sarah Mitchell, MD",
-    "date_of_visit": "2025-06-08",
-    "created_at": "2025-10-10T10:18:07.355108",
-    "embedding_index": 40
-  },
-  "88": {
-    "mrn": "74332303",
-    "age": 69,
-    "gender": "Male",
-    "oncologist": "Dr. David Thompson, MD",
-    "date_of_visit": "2025-05-28",
-    "created_at": "2025-10-10T10:18:07.175550",
-    "embedding_index": 41
-  },
-  "276": {
-    "mrn": "65601747",
-    "age": 59,
-    "gender": "Male",
-    "oncologist": "Dr. Jennifer Rodriguez, MD",
-    "date_of_visit": "2025-06-05",
-    "created_at": "2025-10-10T10:18:06.998490",
-    "embedding_index": 42
-  },
-  "15": {
-    "mrn": "63210266",
-    "age": 40,
-    "gender": "Male",
-    "oncologist": "Dr. Sarah Mitchell, MD",
-    "date_of_visit": "2025-06-03",
-    "created_at": "2025-10-10T10:18:06.821773",
-    "embedding_index": 43
-  },
-  "9": {
-    "mrn": "90280004",
-    "age": 56,
-    "gender": "Female",
-    "oncologist": "Dr. David Thompson, MD",
-    "date_of_visit": "2025-06-03",
-    "created_at": "2025-10-10T10:18:06.645045",
-    "embedding_index": 44
-  },
-  "273": {
-    "mrn": "30480460",
-    "age": 34,
-    "gender": "Female",
-    "oncologist": "Dr. David Thompson, MD",
-    "date_of_visit": "2025-05-26",
-    "created_at": "2025-10-10T10:18:06.468049",
-    "embedding_index": 45
-  },
-  "271": {
-    "mrn": "60774091",
-    "age": 26,
-    "gender": "Male",
-    "oncologist": "Dr. Lisa Park, MD",
-    "date_of_visit": "2025-06-13",
-    "created_at": "2025-10-10T10:18:06.291351",
-    "embedding_index": 46
-  },
-  "85": {
-    "mrn": "17894757",
+  "459": {
+    "mrn": "3468",
     "age": 22,
     "gender": "Male",
-    "oncologist": "Dr. Jennifer Rodriguez, MD",
-    "date_of_visit": "2025-06-05",
-    "created_at": "2025-10-10T10:18:06.116270",
-    "embedding_index": 47
+    "oncologist": "Dr. Ananya Iyer",
+    "date_of_visit": "2025-09-18",
+    "created_at": "2025-10-17T13:59:20.205200",
+    "keywords_count": 32,
+    "keywords_text_length": 581,
+    "embedding_index": 1
   },
-  "267": {
-    "mrn": "93949889",
-    "age": 26,
-    "gender": "Female",
-    "oncologist": "Dr. Michael Chen, MD",
-    "date_of_visit": "2025-06-05",
-    "created_at": "2025-10-10T10:18:05.940484",
-    "embedding_index": 48
+  "454": {
+    "mrn": "1975",
+    "age": 50,
+    "gender": "Male",
+    "oncologist": "Dr. Kavita Rao",
+    "date_of_visit": "2025-08-18",
+    "created_at": "2025-10-16T18:24:16.594970",
+    "keywords_count": 32,
+    "keywords_text_length": 535,
+    "embedding_index": 2
   },
-  "29": {
-    "mrn": "56838444",
-    "age": 46,
+  "453": {
+    "mrn": "1991",
+    "age": 34,
     "gender": "Female",
-    "oncologist": "Dr. Michael Chen, MD",
-    "date_of_visit": "2025-06-06",
-    "created_at": "2025-10-10T10:18:05.764744",
-    "embedding_index": 49
+    "oncologist": "Dr. Manish Agarwal",
+    "date_of_visit": "2025-08-14",
+    "created_at": "2025-10-16T18:24:14.736421",
+    "keywords_count": 31,
+    "keywords_text_length": 557,
+    "embedding_index": 3
+  },
+  "452": {
+    "mrn": "1980",
+    "age": 44,
+    "gender": "Male",
+    "oncologist": "Dr. Sneha Kapoor",
+    "date_of_visit": "2025-08-10",
+    "created_at": "2025-10-16T18:24:12.944705",
+    "keywords_count": 31,
+    "keywords_text_length": 537,
+    "embedding_index": 4
   }
 }

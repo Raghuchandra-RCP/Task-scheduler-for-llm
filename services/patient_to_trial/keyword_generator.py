@@ -4,48 +4,59 @@ Generates keywords from patient medical records for finding suitable clinical tr
 """
 
 import json
-import os
-from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Any
-from services.shared.database_utils import DatabaseUtils, safe_json_dump
+from services.shared.database_utils import DatabaseUtils
 from services.shared.llm_utils import LLMUtils
 
 class PatientKeywordGenerator:
     def __init__(self):
         self.db_utils = DatabaseUtils()
         self.llm_utils = LLMUtils()
-        
-        # Create results directory structure
-        self.results_dir = Path("results")
-        self.results_dir.mkdir(exist_ok=True)
-        
-        # Create keyword generation subdirectory
-        self.keyword_dir = self.results_dir / "keyword_generation"
-        self.keyword_dir.mkdir(exist_ok=True)
 
     def check_existing_keywords(self, patient_id: int) -> bool:
-        """Check if keywords already exist for a patient"""
-        keyword_file = self.keyword_dir / f"patient_{patient_id}_keywords.json"
-        return keyword_file.exists()
+        """Check if keywords already exist for a patient in database only"""
+        try:
+            # Check database
+            db_keywords = self.db_utils.get_patient_keywords(patient_id)
+            return db_keywords is not None
+            
+        except Exception as e:
+            print(f"Error checking existing keywords for patient {patient_id}: {e}")
+            return False
 
     def load_existing_keywords(self, patient_id: int) -> Dict[str, Any]:
-        """Load existing keywords for a patient"""
-        keyword_file = self.keyword_dir / f"patient_{patient_id}_keywords.json"
+        """Load existing keywords for a patient from database only"""
         try:
-            with open(keyword_file, 'r', encoding='utf-8') as f:
-                return json.load(f)
+            # Load from database
+            db_keywords = self.db_utils.get_patient_keywords(patient_id)
+            if db_keywords:
+                print(f"✅ Loaded keywords from database for patient {patient_id}")
+                return db_keywords
+            
+            print(f"ℹ️ No existing keywords found for patient {patient_id}")
+            return {}
+            
         except Exception as e:
             print(f"Error loading existing keywords for patient {patient_id}: {e}")
             return {}
 
     def save_keywords(self, keywords_data: Dict[str, Any]) -> str:
-        """Save keywords to file"""
-        patient_id = keywords_data.get('patient_id', 'unknown')
-        keyword_file = self.keyword_dir / f"patient_{patient_id}_keywords.json"
-        
-        safe_json_dump(keywords_data, keyword_file, indent=2, ensure_ascii=False)
-        return str(keyword_file)
+        """Save keywords to database only"""
+        try:
+            # Save to database
+            success = self.db_utils.save_patient_keywords(keywords_data)
+            
+            if success:
+                print(f"✅ Keywords saved to database for patient {keywords_data.get('patient_id', 'unknown')}")
+                return f"Database saved for patient {keywords_data.get('patient_id', 'unknown')}"
+            else:
+                print(f"❌ Failed to save keywords to database for patient {keywords_data.get('patient_id', 'unknown')}")
+                return "Database save failed"
+                
+        except Exception as e:
+            print(f"Error saving keywords: {e}")
+            return f"Error: {str(e)}"
 
     def generate_keywords_for_patient(self, patient_data: Dict[str, Any]) -> Dict[str, Any]:
         """Generate keywords for a single patient using LLM (only if not already exists)"""
@@ -202,36 +213,6 @@ class PatientKeywordGenerator:
         
         return results
 
-    def _load_existing_keywords(self) -> Dict[str, Any]:
-        """Load existing keywords from the most recent file"""
-        try:
-            # Find the most recent keywords file
-            keyword_files = list(self.results_dir.glob("patient_keywords_*.json"))
-            if not keyword_files:
-                return {}
-            
-            # Sort by modification time (most recent first)
-            latest_file = max(keyword_files, key=lambda f: f.stat().st_mtime)
-            
-            with open(latest_file, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-            
-            return data.get('successful', {})
-        except Exception as e:
-            print(f"Error loading existing keywords: {e}")
-            return {}
-
-    def save_keywords_to_file(self, results: Dict[str, Any]) -> str:
-        """Save keyword generation results to JSON file"""
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"patient_keywords_{timestamp}.json"
-        filepath = self.keyword_dir / filename
-        
-        safe_json_dump(results, filepath, indent=2, ensure_ascii=False)
-        
-        print(f"Keywords saved to: {filepath}")
-        return str(filepath)
-
     def run_keyword_generation(self, limit: int = 50) -> Dict[str, Any]:
         """Main method to run keyword generation process - OPTIMIZED for existing patients"""
         print("Starting patient keyword generation for trial matching...")
@@ -244,28 +225,29 @@ class PatientKeywordGenerator:
         
         print(f"Found {len(patients)} patients")
         
-        # Check which patients already have keywords
-        existing_keywords = self._load_existing_keywords()
+        # Check which patients already have keywords in database
         new_patients = []
+        existing_count = 0
         
         for patient in patients:
-            patient_id = str(patient['patient_id'])
-            if patient_id not in existing_keywords:
+            patient_id = patient['patient_id']
+            if not self.check_existing_keywords(patient_id):
                 new_patients.append(patient)
             else:
+                existing_count += 1
                 print(f"✅ Patient {patient_id} (MRN: {patient['mrn']}) already has keywords - skipping")
         
         if not new_patients:
             print("🎉 All patients already have keywords - no new generation needed!")
             return {
-                "successful": existing_keywords,
+                "successful": {},
                 "failed": {},
                 "metadata": {
                     "total_patients": len(patients),
                     "new_patients": 0,
                     "existing_patients": len(patients),
                     "generated_at": datetime.now().isoformat(),
-                    "note": "All patients already had keywords"
+                    "note": "All patients already had keywords in database"
                 }
             }
         
@@ -275,19 +257,11 @@ class PatientKeywordGenerator:
         print("Generating keywords for NEW patients only...")
         results = self.generate_keywords_batch(new_patients)
         
-        # Merge with existing keywords
-        all_keywords = existing_keywords.copy()
-        all_keywords.update(results.get('successful', {}))
-        
-        # Update results with combined data
-        results["successful"] = all_keywords
+        # Update results with metadata
         results["metadata"]["total_patients"] = len(patients)
         results["metadata"]["new_patients"] = len(new_patients)
-        results["metadata"]["existing_patients"] = len(patients) - len(new_patients)
+        results["metadata"]["existing_patients"] = existing_count
         results["metadata"]["note"] = f"Generated keywords for {len(new_patients)} new patients"
-        
-        # Save results
-        filepath = self.save_keywords_to_file(results)
         
         # Print summary
         successful_count = len(results["successful"])
@@ -296,10 +270,9 @@ class PatientKeywordGenerator:
         print(f"\nPatient Keyword Generation Summary:")
         print(f"Total patients: {len(patients)}")
         print(f"New patients processed: {len(new_patients)}")
-        print(f"Existing patients skipped: {len(patients) - len(new_patients)}")
+        print(f"Existing patients skipped: {existing_count}")
         print(f"Total successful: {successful_count}")
         print(f"Failed: {failed_count}")
-        print(f"Results saved to: {filepath}")
         
         return results
 

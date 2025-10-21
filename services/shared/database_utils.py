@@ -29,6 +29,20 @@ class DatabaseUtils:
     def __init__(self):
         self.engine = create_engine(DATABASE_URL)
     
+    def _safe_json_load(self, data):
+        """Safely load JSON data, handling both string and list formats"""
+        if data is None:
+            return []
+        elif isinstance(data, str):
+            try:
+                return json.loads(data)
+            except json.JSONDecodeError:
+                return []
+        elif isinstance(data, (list, dict)):
+            return data
+        else:
+            return []
+    
     def get_connection(self):
         """Get database connection"""
         return self.engine.connect()
@@ -254,3 +268,200 @@ class DatabaseUtils:
         except Exception as e:
             print(f"Error getting trial by ID {trial_id}: {e}")
             return None
+    
+    def save_patient_keywords(self, keywords_data: Dict[str, Any]) -> bool:
+        """Save patient keywords to database"""
+        try:
+            with self.get_connection() as connection:
+                # Check if keywords already exist for this patient
+                check_query = text("""
+                    SELECT id FROM insightsedge.patient_keywords 
+                    WHERE patient_id = :patient_id
+                """)
+                result = connection.execute(check_query, {"patient_id": keywords_data["patient_id"]})
+                existing_record = result.fetchone()
+                
+                if existing_record:
+                    # Update existing record
+                    update_query = text("""
+                        UPDATE insightsedge.patient_keywords SET
+                            mrn = :mrn,
+                            age = :age,
+                            gender = :gender,
+                            summary = :summary,
+                            primary_diagnosis = :primary_diagnosis,
+                            stage = :stage,
+                            metastatic_sites = :metastatic_sites,
+                            molecular_markers = :molecular_markers,
+                            comorbidities = :comorbidities,
+                            medications = :medications,
+                            allergies = :allergies,
+                            performance_status = :performance_status,
+                            family_history = :family_history,
+                            keywords = :keywords,
+                            keywords_text = :keywords_text,
+                            updated_at = CURRENT_TIMESTAMP
+                        WHERE patient_id = :patient_id
+                    """)
+                    
+                    connection.execute(update_query, {
+                        "patient_id": keywords_data["patient_id"],
+                        "mrn": keywords_data.get("mrn"),
+                        "age": keywords_data.get("age"),
+                        "gender": keywords_data.get("gender"),
+                        "summary": keywords_data.get("summary"),
+                        "primary_diagnosis": keywords_data.get("primary_diagnosis"),
+                        "stage": keywords_data.get("stage"),
+                        "metastatic_sites": json.dumps(keywords_data.get("metastatic_sites", [])),
+                        "molecular_markers": json.dumps(keywords_data.get("molecular_markers", [])),
+                        "comorbidities": json.dumps(keywords_data.get("comorbidities", [])),
+                        "medications": json.dumps(keywords_data.get("medications", [])),
+                        "allergies": json.dumps(keywords_data.get("allergies", [])),
+                        "performance_status": keywords_data.get("performance_status"),
+                        "family_history": json.dumps(keywords_data.get("family_history", [])),
+                        "keywords": json.dumps(keywords_data.get("keywords", [])),
+                        "keywords_text": keywords_data.get("keywords_text")
+                    })
+                    print(f"Updated keywords for patient {keywords_data['patient_id']}")
+                else:
+                    # Insert new record
+                    insert_query = text("""
+                        INSERT INTO insightsedge.patient_keywords (
+                            patient_id, mrn, age, gender, summary, primary_diagnosis, stage,
+                            metastatic_sites, molecular_markers, comorbidities, medications,
+                            allergies, performance_status, family_history, keywords, keywords_text
+                        ) VALUES (
+                            :patient_id, :mrn, :age, :gender, :summary, :primary_diagnosis, :stage,
+                            :metastatic_sites, :molecular_markers, :comorbidities, :medications,
+                            :allergies, :performance_status, :family_history, :keywords, :keywords_text
+                        )
+                    """)
+                    
+                    connection.execute(insert_query, {
+                        "patient_id": keywords_data["patient_id"],
+                        "mrn": keywords_data.get("mrn"),
+                        "age": keywords_data.get("age"),
+                        "gender": keywords_data.get("gender"),
+                        "summary": keywords_data.get("summary"),
+                        "primary_diagnosis": keywords_data.get("primary_diagnosis"),
+                        "stage": keywords_data.get("stage"),
+                        "metastatic_sites": json.dumps(keywords_data.get("metastatic_sites", [])),
+                        "molecular_markers": json.dumps(keywords_data.get("molecular_markers", [])),
+                        "comorbidities": json.dumps(keywords_data.get("comorbidities", [])),
+                        "medications": json.dumps(keywords_data.get("medications", [])),
+                        "allergies": json.dumps(keywords_data.get("allergies", [])),
+                        "performance_status": keywords_data.get("performance_status"),
+                        "family_history": json.dumps(keywords_data.get("family_history", [])),
+                        "keywords": json.dumps(keywords_data.get("keywords", [])),
+                        "keywords_text": keywords_data.get("keywords_text")
+                    })
+                    print(f"Inserted keywords for patient {keywords_data['patient_id']}")
+                
+                connection.commit()
+                return True
+                
+        except Exception as e:
+            print(f"Error saving patient keywords: {e}")
+            return False
+    
+    def get_patient_keywords(self, patient_id: int) -> Optional[Dict[str, Any]]:
+        """Get patient keywords from database"""
+        try:
+            with self.get_connection() as connection:
+                query = text("""
+                    SELECT * FROM insightsedge.patient_keywords 
+                    WHERE patient_id = :patient_id
+                """)
+                result = connection.execute(query, {"patient_id": patient_id})
+                row = result.fetchone()
+                
+                if row:
+                    return {
+                        "id": row[0],
+                        "patient_id": row[1],
+                        "mrn": row[2],
+                        "age": row[3],
+                        "gender": row[4],
+                        "summary": row[5],
+                        "primary_diagnosis": row[6],
+                        "stage": row[7],
+                        "metastatic_sites": self._safe_json_load(row[8]),
+                        "molecular_markers": self._safe_json_load(row[9]),
+                        "comorbidities": self._safe_json_load(row[10]),
+                        "medications": self._safe_json_load(row[11]),
+                        "allergies": self._safe_json_load(row[12]),
+                        "performance_status": row[13],
+                        "family_history": self._safe_json_load(row[14]),
+                        "keywords": self._safe_json_load(row[15]),
+                        "keywords_text": row[16],
+                        "generated_at": row[17].isoformat() if row[17] else None,
+                        "created_at": row[18].isoformat() if row[18] else None,
+                        "updated_at": row[19].isoformat() if row[19] else None
+                    }
+                return None
+        except Exception as e:
+            print(f"Error getting patient keywords: {e}")
+            return None
+    
+    def get_all_patient_keywords(self, limit: int = 100) -> List[Dict[str, Any]]:
+        """Get all patient keywords from database"""
+        try:
+            with self.get_connection() as connection:
+                query = text("""
+                    SELECT * FROM insightsedge.patient_keywords 
+                    ORDER BY created_at DESC 
+                    LIMIT :limit
+                """)
+                result = connection.execute(query, {"limit": limit})
+                
+                keywords_list = []
+                for row in result:
+                    keywords_list.append({
+                        "id": row[0],
+                        "patient_id": row[1],
+                        "mrn": row[2],
+                        "age": row[3],
+                        "gender": row[4],
+                        "summary": row[5],
+                        "primary_diagnosis": row[6],
+                        "stage": row[7],
+                        "metastatic_sites": self._safe_json_load(row[8]),
+                        "molecular_markers": self._safe_json_load(row[9]),
+                        "comorbidities": self._safe_json_load(row[10]),
+                        "medications": self._safe_json_load(row[11]),
+                        "allergies": self._safe_json_load(row[12]),
+                        "performance_status": row[13],
+                        "family_history": self._safe_json_load(row[14]),
+                        "keywords": self._safe_json_load(row[15]),
+                        "keywords_text": row[16],
+                        "generated_at": row[17].isoformat() if row[17] else None,
+                        "created_at": row[18].isoformat() if row[18] else None,
+                        "updated_at": row[19].isoformat() if row[19] else None
+                    })
+                
+                return keywords_list
+        except Exception as e:
+            print(f"Error getting all patient keywords: {e}")
+            return []
+    
+    def delete_patient_keywords(self, patient_id: int) -> bool:
+        """Delete patient keywords from database"""
+        try:
+            with self.get_connection() as connection:
+                query = text("""
+                    DELETE FROM insightsedge.patient_keywords 
+                    WHERE patient_id = :patient_id
+                """)
+                result = connection.execute(query, {"patient_id": patient_id})
+                connection.commit()
+                
+                if result.rowcount > 0:
+                    print(f"Deleted keywords for patient {patient_id}")
+                    return True
+                else:
+                    print(f"No keywords found for patient {patient_id}")
+                    return False
+                    
+        except Exception as e:
+            print(f"Error deleting patient keywords: {e}")
+            return False
