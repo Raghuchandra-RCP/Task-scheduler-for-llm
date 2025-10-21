@@ -1,0 +1,31 @@
+# Task Scheduler LLM Service Configuration
+
+# Database Configuration
+DATABASE_URL=postgresql+psycopg2://Admin:NeXtUrN%40123@13.60.219.182:5432/Insightedgedb
+
+# Gemini API Configuration
+GEMINI_API_KEY=AIzaSyCXJp-l1aw6ytfhNZ-ZO1ZTkG4SWc8z_PU
+GEMINI_MODEL=gemini-2.0-flash-exp
+GEMINI_TEMPERATURE=0.2
+GEMINI_MAX_TOKENS=8000
+GEMINI_TIMEOUT=60
+GEMINI_MAX_RETRIES=3
+
+# Task Scheduler Configuration
+SCHEDULER_INTERVAL_MINUTES=30
+MAX_CONCURRENT_TASKS=5
+TASK_TIMEOUT_SECONDS=300
+
+# Logging Configuration
+LOG_LEVEL=INFO
+LOG_FILE=task_scheduler.log
+
+# Service Flags
+USE_LLM_PROCESSING=true
+USE_DATABASE=true
+USE_DUMMY_DATA=false
+
+# JWT Configuration (if needed)
+JWT_SECRET_KEY=your-secret-key-change-in-production
+JWT_ALGORITHM=HS256
+JWT_ACCESS_TOKEN_EXPIRE_MINUTES=30
