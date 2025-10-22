@@ -48,7 +48,7 @@ class PatientEmbeddingGenerator:
             return False
 
     def generate_patient_embeddings(self, patients: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Generate embeddings for multiple patients (only new patients)"""
+        """Generate embeddings for multiple patients using keywords from database (only new patients)"""
         print(f"📊 Embedding Generation Summary:")
         print(f"   Total patients: {len(patients)}")
         
@@ -86,9 +86,29 @@ class PatientEmbeddingGenerator:
         for i, patient in enumerate(new_patients):
             print(f"Processing patient {i+1}/{len(new_patients)}: MRN {patient['mrn']}")
             
-            # Generate embedding for patient text
+            # Get keywords from database for this patient
+            keywords_data = self.db_utils.get_patient_keywords(patient['patient_id'])
+            
+            if not keywords_data:
+                print(f"❌ No keywords found for patient {patient['patient_id']} - skipping embedding generation")
+                continue
+            
+            # Use keywords_text for embedding generation instead of full medical history
+            keywords_text = keywords_data.get('keywords_text', '')
+            if not keywords_text:
+                # Fallback to keywords array if keywords_text is empty
+                keywords_list = keywords_data.get('keywords', [])
+                keywords_text = ', '.join(keywords_list) if keywords_list else ''
+            
+            if not keywords_text:
+                print(f"❌ No keywords text found for patient {patient['patient_id']} - skipping")
+                continue
+            
+            print(f"   Using keywords: {keywords_text[:100]}...")
+            
+            # Generate embedding for patient keywords
             embedding = self.embedding_utils.generate_embedding(
-                patient['combined_text'], 
+                keywords_text, 
                 task_type="retrieval_document"
             )
             patient_embeddings.append(embedding)
@@ -101,6 +121,8 @@ class PatientEmbeddingGenerator:
                 "oncologist": patient['oncologist'],
                 "date_of_visit": patient['date_of_visit'],
                 "created_at": patient['created_at'],
+                "keywords_count": len(keywords_data.get('keywords', [])),
+                "keywords_text_length": len(keywords_text),
                 "embedding_index": i
             }
             
@@ -171,7 +193,7 @@ class PatientEmbeddingGenerator:
             return {}
 
     def run_patient_embedding_generation(self, limit: int = 50) -> Dict[str, Any]:
-        """Main method to run patient embedding generation - OPTIMIZED for existing patients"""
+        """Main method to run patient embedding generation using keywords from database"""
         print("Starting patient embedding generation for trial matching...")
         
         # Get patient data
@@ -182,38 +204,50 @@ class PatientEmbeddingGenerator:
         
         print(f"Found {len(patients)} patients")
         
-        # Check which patients already have embeddings
+        # Check which patients already have embeddings and keywords
         existing_metadata = self._load_existing_embeddings()
         new_patients = []
+        skipped_patients = []
         
         for patient in patients:
             patient_id = str(patient['patient_id'])
-            if patient_id not in existing_metadata and not self._check_patient_embedding_exists(patient_id):
-                new_patients.append(patient)
-            else:
+            
+            # Check if embedding already exists
+            if patient_id in existing_metadata or self._check_patient_embedding_exists(patient_id):
+                skipped_patients.append(patient)
                 print(f"✅ Patient {patient_id} (MRN: {patient['mrn']}) already has embeddings - skipping")
+                continue
+            
+            # Check if keywords exist in database
+            keywords_data = self.db_utils.get_patient_keywords(patient['patient_id'])
+            if not keywords_data:
+                skipped_patients.append(patient)
+                print(f"⚠️ Patient {patient_id} (MRN: {patient['mrn']}) has no keywords - skipping embedding generation")
+                continue
+            
+            new_patients.append(patient)
         
         if not new_patients:
-            print("🎉 All patients already have embeddings - no new generation needed!")
+            print("🎉 All patients already have embeddings or no keywords - no new generation needed!")
             return {
                 "total_patients": len(patients),
                 "new_patients": 0,
-                "existing_patients": len(patients),
+                "existing_patients": len(skipped_patients),
                 "embedding_dimension": self.embedding_utils.dimension,
-                "note": "All patients already had embeddings"
+                "note": "All patients already had embeddings or no keywords"
             }
         
         print(f"🆕 Found {len(new_patients)} NEW patients needing embedding generation")
         
-        # Generate embeddings only for new patients
-        print("Generating embeddings for NEW patients only...")
+        # Generate embeddings only for new patients with keywords
+        print("Generating embeddings for NEW patients with keywords...")
         embedding_data = self.generate_patient_embeddings(new_patients)
         
         # Update embedding data with combined info
         embedding_data["total_patients"] = len(patients)
         embedding_data["new_patients"] = len(new_patients)
-        embedding_data["existing_patients"] = len(patients) - len(new_patients)
-        embedding_data["note"] = f"Generated embeddings for {len(new_patients)} new patients"
+        embedding_data["existing_patients"] = len(skipped_patients)
+        embedding_data["note"] = f"Generated embeddings for {len(new_patients)} new patients using keywords"
         
         # Save embeddings
         save_info = self.save_patient_embeddings(embedding_data)
@@ -222,7 +256,7 @@ class PatientEmbeddingGenerator:
             print(f"\nPatient Embedding Generation Summary:")
             print(f"Total patients: {len(patients)}")
             print(f"New patients processed: {len(new_patients)}")
-            print(f"Existing patients skipped: {len(patients) - len(new_patients)}")
+            print(f"Existing/skipped patients: {len(skipped_patients)}")
             print(f"Embedding dimension: {save_info['embedding_dimension']}")
             print(f"Matrix shape: {save_info['matrix_shape']}")
             print(f"FAISS index size: {save_info['index_size']}")
