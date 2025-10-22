@@ -31,10 +31,10 @@ class PatientKeywordGenerator:
             # Load from database
             db_keywords = self.db_utils.get_patient_keywords(patient_id)
             if db_keywords:
-                print(f"✅ Loaded keywords from database for patient {patient_id}")
+                print(f"OK Loaded keywords from database for patient {patient_id}")
                 return db_keywords
             
-            print(f"ℹ️ No existing keywords found for patient {patient_id}")
+            print(f"INFO No existing keywords found for patient {patient_id}")
             return {}
             
         except Exception as e:
@@ -48,10 +48,10 @@ class PatientKeywordGenerator:
             success = self.db_utils.save_patient_keywords(keywords_data)
             
             if success:
-                print(f"✅ Keywords saved to database for patient {keywords_data.get('patient_id', 'unknown')}")
+                print(f"OK Keywords saved to database for patient {keywords_data.get('patient_id', 'unknown')}")
                 return f"Database saved for patient {keywords_data.get('patient_id', 'unknown')}"
             else:
-                print(f"❌ Failed to save keywords to database for patient {keywords_data.get('patient_id', 'unknown')}")
+                print(f"ERROR Failed to save keywords to database for patient {keywords_data.get('patient_id', 'unknown')}")
                 return "Database save failed"
                 
         except Exception as e:
@@ -64,11 +64,11 @@ class PatientKeywordGenerator:
         
         # Check if keywords already exist
         if self.check_existing_keywords(patient_id):
-            print(f"✅ Patient {patient_id} (MRN: {patient_data['mrn']}) already has keywords - loading existing")
+            print(f"OK Patient {patient_id} (MRN: {patient_data['mrn']}) already has keywords - loading existing")
             return self.load_existing_keywords(patient_id)
         
         try:
-            print(f"🆕 Generating NEW keywords for patient MRN: {patient_data['mrn']}")
+            print(f"NEW Generating NEW keywords for patient MRN: {patient_data['mrn']}")
             
             keywords_data = self.llm_utils.generate_keywords_for_patient(patient_data)
             
@@ -82,7 +82,7 @@ class PatientKeywordGenerator:
             
             # Save the generated keywords
             self.save_keywords(keywords_data)
-            print(f"💾 Keywords saved for patient {patient_id}")
+            print(f"SAVED Keywords saved for patient {patient_id}")
             
             return keywords_data
                 
@@ -122,25 +122,25 @@ class PatientKeywordGenerator:
             else:
                 new_patients.append(patient)
         
-        print(f"📊 Keyword Generation Summary:")
+        print(f"SUMMARY Keyword Generation Summary:")
         print(f"   Total patients: {len(patients)}")
         print(f"   Existing patients (skipped): {len(existing_patients)}")
         print(f"   New patients (to process): {len(new_patients)}")
         
         if not new_patients:
-            print("🎉 All patients already have keywords - no new generation needed!")
+            print("SUCCESS All patients already have keywords - no new generation needed!")
             results["metadata"]["batch_status"] = "all_existing"
             return results
         
-        print(f"🆕 Generating keywords for {len(new_patients)} NEW patients...")
+        print(f"NEW Generating keywords for {len(new_patients)} NEW patients...")
         
         # Process only new patients
         try:
             batch_keywords_data = self.llm_utils.generate_keywords_for_patient_batch(new_patients)
             
             if "error" in batch_keywords_data:
-                print(f"❌ Batch processing failed: {batch_keywords_data['error']}")
-                print("🔄 Falling back to individual patient processing...")
+                print(f"ERROR Batch processing failed: {batch_keywords_data['error']}")
+                print("FALLBACK Falling back to individual patient processing...")
                 
                 # Fallback to individual processing
                 individual_results = self._process_patients_individually(new_patients)
@@ -161,7 +161,7 @@ class PatientKeywordGenerator:
                 
                 results["metadata"]["batch_status"] = "success"
             
-            print(f"✅ Processing completed:")
+            print(f"OK Processing completed:")
             print(f"   Successful: {len(results['successful'])}")
             print(f"   Failed: {len(results['failed'])}")
             print(f"   Skipped: {len(results['skipped'])}")
@@ -179,7 +179,7 @@ class PatientKeywordGenerator:
 
     def _process_patients_individually(self, patients: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Process patients individually as fallback when batch processing fails"""
-        print(f"🔄 Processing {len(patients)} patients individually...")
+        print(f"PROCESSING Processing {len(patients)} patients individually...")
         
         results = {
             "successful": {},
@@ -195,17 +195,17 @@ class PatientKeywordGenerator:
                 
                 if "error" in keywords_data:
                     results["failed"][patient_id] = keywords_data
-                    print(f"❌ Failed to generate keywords for patient {patient_id}")
+                    print(f"ERROR Failed to generate keywords for patient {patient_id}")
                 else:
                     results["successful"][patient_id] = keywords_data
-                    print(f"✅ Generated keywords for patient {patient_id}")
+                    print(f"OK Generated keywords for patient {patient_id}")
                     
             except Exception as e:
                 results["failed"][patient_id] = {
                     "patient_id": patient_id,
                     "error": str(e)
                 }
-                print(f"❌ Error processing patient {patient_id}: {e}")
+                print(f"ERROR Error processing patient {patient_id}: {e}")
         
         print(f"Individual processing completed:")
         print(f"   Successful: {len(results['successful'])}")
@@ -235,10 +235,10 @@ class PatientKeywordGenerator:
                 new_patients.append(patient)
             else:
                 existing_count += 1
-                print(f"✅ Patient {patient_id} (MRN: {patient['mrn']}) already has keywords - skipping")
+                print(f"OK Patient {patient_id} (MRN: {patient['mrn']}) already has keywords - skipping")
         
         if not new_patients:
-            print("🎉 All patients already have keywords - no new generation needed!")
+            print("SUCCESS All patients already have keywords - no new generation needed!")
             return {
                 "successful": {},
                 "failed": {},
@@ -251,7 +251,7 @@ class PatientKeywordGenerator:
                 }
             }
         
-        print(f"🆕 Found {len(new_patients)} NEW patients needing keyword generation")
+        print(f"NEW Found {len(new_patients)} NEW patients needing keyword generation")
         
         # Generate keywords only for new patients
         print("Generating keywords for NEW patients only...")

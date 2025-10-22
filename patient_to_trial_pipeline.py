@@ -14,6 +14,7 @@ from services.patient_to_trial.patient_embedding import PatientEmbeddingGenerato
 from services.patient_to_trial.patient_matcher import PatientMatcher
 from services.patient_to_trial.patient_evaluator import PatientEvaluator
 from services.shared.database_utils import safe_json_dump
+from evaluation_results_db.utils.evaluation_results_db import EvaluationResultsDB
 from config import DEFAULT_PATIENT_LIMIT
 
 class PatientToTrialOrchestrator:
@@ -22,6 +23,7 @@ class PatientToTrialOrchestrator:
         self.embedding_generator = PatientEmbeddingGenerator()
         self.patient_matcher = PatientMatcher()
         self.patient_evaluator = PatientEvaluator()
+        self.eval_db = EvaluationResultsDB()
         
         # Results directory
         self.results_dir = Path("results")
@@ -160,14 +162,41 @@ class PatientToTrialOrchestrator:
             pipeline_results["pipeline_completed_at"] = datetime.now().isoformat()
             pipeline_results["overall_status"] = "completed"
             
-            # Save pipeline results
+            # Save pipeline results to JSON file
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             pipeline_file = self.results_dir / f"patient_to_trial_pipeline_{patient_id}_{timestamp}.json"
             
             safe_json_dump(pipeline_results, pipeline_file, indent=2, ensure_ascii=False)
             
+            # Save evaluation results to database
+            print(f"\n💾 Saving evaluation results to database...")
+            pipeline_results["database_save_status"] = "failed"
+            pipeline_results["database_id"] = None
+            pipeline_results["database_save_error"] = None
+            
+            try:
+                if matching_results and matching_results.get('patient_info'):
+                    db_id = self.eval_db.save_patient_to_trial_evaluation(matching_results)
+                    if db_id:
+                        pipeline_results["database_save_status"] = "success"
+                        pipeline_results["database_id"] = db_id
+                        print(f"✅ Evaluation results saved to database with ID: {db_id}")
+                    else:
+                        pipeline_results["database_save_error"] = "Database save returned None"
+                        print("⚠️ Failed to save evaluation results to database")
+                else:
+                    pipeline_results["database_save_error"] = "No matching results to save"
+                    print("⚠️ No matching results available to save to database")
+            except Exception as e:
+                pipeline_results["database_save_error"] = str(e)
+                print(f"⚠️ Database save error (continuing with JSON): {e}")
+            
             print(f"\n🎉 PIPELINE COMPLETED SUCCESSFULLY!")
             print(f"Pipeline results saved to: {pipeline_file}")
+            if pipeline_results["database_save_status"] == "success":
+                print(f"Database ID: {pipeline_results['database_id']}")
+            else:
+                print(f"Database save failed: {pipeline_results.get('database_save_error', 'Unknown error')}")
             
             # Print final summary
             if matching_results:

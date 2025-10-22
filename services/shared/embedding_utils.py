@@ -45,7 +45,7 @@ class EmbeddingUtils:
             print("Loading MedCPT Query Encoder...")
             self.query_model = AutoModel.from_pretrained("ncbi/MedCPT-Query-Encoder").to(self.device)
             self.query_tokenizer = AutoTokenizer.from_pretrained("ncbi/MedCPT-Query-Encoder")
-            print("✅ MedCPT Query Encoder loaded successfully")
+            print("OK MedCPT Query Encoder loaded successfully")
         return self.query_model, self.query_tokenizer
 
     def load_document_model(self):
@@ -54,7 +54,7 @@ class EmbeddingUtils:
             print("Loading MedCPT Article Encoder...")
             self.document_model = AutoModel.from_pretrained("ncbi/MedCPT-Article-Encoder").to(self.device)
             self.document_tokenizer = AutoTokenizer.from_pretrained("ncbi/MedCPT-Article-Encoder")
-            print("✅ MedCPT Article Encoder loaded successfully")
+            print("OK MedCPT Article Encoder loaded successfully")
         return self.document_model, self.document_tokenizer
 
     def generate_embedding(self, text: str, task_type: str = "retrieval_document") -> np.ndarray:
