@@ -189,8 +189,16 @@ class HybridMatcher:
             metadata = self.trial_metadata if index_type == "trial" else self.patient_metadata
             
             for idx, score in sorted_results[:20]:  # Top 20 results
-                if str(idx) in metadata:
-                    result = metadata[str(idx)].copy()
+                # Find patient ID that corresponds to this FAISS index
+                patient_id = None
+                for pid, patient_data in metadata.items():
+                    if patient_data.get('embedding_index') == idx:
+                        patient_id = pid
+                        break
+                
+                if patient_id:
+                    result = metadata[patient_id].copy()
+                    result['patient_id'] = patient_id
                     result['index'] = idx
                     result['hybrid_score'] = score
                     result['embedding_score'] = embedding_scores_dict.get(idx, 0.0)

@@ -61,12 +61,12 @@ class TrialEvaluator:
 
     def evaluate_top_patients_for_trial(self, trial_id: str, top_patients: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Evaluate top patients for a specific trial using LLM batch processing"""
-        print(f"🚀 Evaluating {len(top_patients)} patients for trial {trial_id}")
+        print(f"EVALUATING Evaluating {len(top_patients)} patients for trial {trial_id}")
         
         # Get detailed trial information
         trial_info = self.db_utils.get_trial_by_id(trial_id)
         if not trial_info:
-            print(f"❌ Trial {trial_id} not found")
+            print(f"ERROR Trial {trial_id} not found")
             return {}
         
         # Get detailed patient information for all patients
@@ -74,12 +74,12 @@ class TrialEvaluator:
         for patient in top_patients:
             mrn = patient.get('mrn')
             if not mrn:
-                print(f"  ❌ No MRN found for patient")
+                print(f"  ERROR No MRN found for patient")
                 continue
                 
             detailed_patient_info = self.db_utils.get_patient_by_mrn(mrn)
             if not detailed_patient_info:
-                print(f"  ❌ Patient with MRN {mrn} not found in database")
+                print(f"  ERROR Patient with MRN {mrn} not found in database")
                 continue
             
             # Merge hybrid score and other metadata from original patient
@@ -89,17 +89,17 @@ class TrialEvaluator:
             detailed_patients.append(detailed_patient_info)
         
         if not detailed_patients:
-            print("❌ No detailed patient information found")
+            print("ERROR No detailed patient information found")
             return {}
         
-        print(f"📊 Running BATCH evaluation for {len(detailed_patients)} patients...")
-        print(f"📋 Trial: {trial_info['title']} (Phase: {trial_info['phase']}, Status: {trial_info['status']})")
+        print(f"BATCH Running BATCH evaluation for {len(detailed_patients)} patients...")
+        print(f"TRIAL Trial: {trial_info['title']} (Phase: {trial_info['phase']}, Status: {trial_info['status']})")
         
         # Use batch evaluation - this sends ALL patients to Gemini in one API call
         batch_result = self.llm_utils.evaluate_trial_patient_matches_batch(detailed_patients, trial_info)
         
         if "error" in batch_result:
-            print(f"❌ Batch evaluation failed: {batch_result['error']}")
+            print(f"ERROR Batch evaluation failed: {batch_result['error']}")
             return {
                 "trial_id": trial_id,
                 "trial_info": trial_info,
@@ -119,8 +119,8 @@ class TrialEvaluator:
         evaluations = batch_result.get("evaluations", [])
         batch_summary = batch_result.get("batch_summary", {})
         
-        print(f"✅ Batch evaluation completed successfully!")
-        print(f"📊 Results: {len(evaluations)} patients evaluated")
+        print(f"OK Batch evaluation completed successfully!")
+        print(f"RESULTS Results: {len(evaluations)} patients evaluated")
         print(f"   - Eligible: {batch_summary.get('eligible_count', 0)}")
         print(f"   - Not Eligible: {batch_summary.get('not_eligible_count', 0)}")
         print(f"   - Need More Info: {batch_summary.get('need_more_info_count', 0)}")
@@ -162,7 +162,21 @@ class TrialEvaluator:
         
         if not hybrid_results['matching_patients']:
             print("No matching patients found in hybrid matching")
-            return hybrid_results
+            # Return consistent structure with summary even when no patients found
+            return {
+                "trial_id": trial_id,
+                "trial_info": hybrid_results['trial_info'],
+                "hybrid_matching": hybrid_results,
+                "llm_evaluation": {},
+                "final_ranking": [],
+                "summary": {
+                    "total_patients_found": hybrid_results['total_matches'],
+                    "patients_evaluated": 0,
+                    "eligible_patients": 0,
+                    "average_confidence": 0
+                },
+                "generated_at": datetime.now().isoformat()
+            }
         
         # Step 2: LLM evaluation of top patients
         print("Step 2: Running LLM evaluation...")
@@ -216,16 +230,16 @@ class TrialEvaluator:
         results['results_file'] = filepath
         
         # Save results to database (new functionality)
-        print(f"\n💾 Saving results to database...")
+        print(f"\nSAVING Saving results to database...")
         try:
             db_id = self.eval_db.save_trial_to_patient_evaluation(results)
             if db_id:
                 results['database_id'] = db_id
-                print(f"✅ Results saved to database with ID: {db_id}")
+                print(f"OK Results saved to database with ID: {db_id}")
             else:
-                print("⚠️ Failed to save results to database")
+                print("WARNING Failed to save results to database")
         except Exception as e:
-            print(f"⚠️ Database save error (continuing with JSON): {e}")
+            print(f"WARNING Database save error (continuing with JSON): {e}")
         
         # Print summary
         print(f"\nPipeline Summary:")
