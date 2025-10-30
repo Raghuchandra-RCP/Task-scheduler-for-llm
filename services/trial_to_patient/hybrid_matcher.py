@@ -1,6 +1,6 @@
 """
 Trial-to-Patient Hybrid Matcher
-Combines MedCPT embeddings with BM25 for optimal patient matching
+Combines clincical longformer embeddings with BM25 for optimal patient matching
 """
 
 import json

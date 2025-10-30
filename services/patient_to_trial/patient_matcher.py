@@ -112,17 +112,24 @@ class PatientMatcher:
         try:
             print(f"Finding trials for patient MRN: {patient_data['mrn']}")
             
-            # Generate embedding for patient
+            # Use complete patient data for better accuracy (contains full medical context)
+            combined_text = patient_data.get('combined_text', '')
+            
+            if not combined_text:
+                print(f"❌ No combined_text found for patient {patient_data['patient_id']}")
+                return []
+            
+            # Generate embedding for complete patient data (full medical record)
             patient_embedding = self.embedding_utils.generate_embedding(
-                patient_data['combined_text'], 
+                combined_text, 
                 task_type="retrieval_query"
             )
             
             # Get embedding similarity
             embedding_scores = self.get_embedding_similarity(patient_embedding)
             
-            # Get BM25 similarity
-            bm25_scores = self.get_bm25_similarity(patient_data['combined_text'])
+            # Get BM25 similarity (using complete patient data)
+            bm25_scores = self.get_bm25_similarity(combined_text)
             
             # Normalize scores
             embedding_scores_dict = {idx: score for idx, score in embedding_scores}

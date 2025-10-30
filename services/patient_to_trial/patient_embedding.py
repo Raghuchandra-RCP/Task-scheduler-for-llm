@@ -93,7 +93,7 @@ class PatientEmbeddingGenerator:
                 print(f"❌ No keywords found for patient {patient['patient_id']} - skipping embedding generation")
                 continue
             
-            # Use keywords_text for embedding generation instead of full medical history
+            # Use keywords_text for embedding generation
             keywords_text = keywords_data.get('keywords_text', '')
             if not keywords_text:
                 # Fallback to keywords array if keywords_text is empty
