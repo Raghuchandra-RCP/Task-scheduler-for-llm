@@ -64,8 +64,13 @@ class PatientEvaluator:
         """Evaluate top trials for a specific patient using LLM batch processing"""
         print(f"🚀 Evaluating {len(top_trials)} trials for patient {patient_id}")
         
-        # Get detailed patient information
+        # Get detailed patient information - try both patient_id and MRN lookup
         patient_info = self.db_utils.get_patient_by_id(patient_id)
+        if not patient_info:
+            # Try MRN lookup if patient_id lookup failed
+            print(f"   Trying MRN lookup for patient evaluation...")
+            patient_info = self.db_utils.get_patient_by_mrn(str(patient_id))
+        
         if not patient_info:
             print(f"❌ Patient {patient_id} not found")
             return {}
@@ -147,8 +152,12 @@ class PatientEvaluator:
         """Evaluate top trials for a specific patient using individual LLM calls (fallback method)"""
         print(f"Evaluating {len(top_trials)} trials individually for patient {patient_id}")
         
-        # Get detailed patient information
+        # Get detailed patient information - try both patient_id and MRN lookup
         patient_info = self.db_utils.get_patient_by_id(patient_id)
+        if not patient_info:
+            # Try MRN lookup if patient_id lookup failed
+            patient_info = self.db_utils.get_patient_by_mrn(str(patient_id))
+        
         if not patient_info:
             print(f"Patient {patient_id} not found")
             return {}
@@ -206,20 +215,58 @@ class PatientEvaluator:
             phase_filter=phase_filter
         )
         
+        # Check if patient was found (empty dict means patient not found)
+        if not hybrid_results or not hybrid_results.get('patient_info'):
+            print(f"❌ Patient {patient_id} not found by patient_id - trying MRN lookup...")
+            # Try to find by MRN if patient_id lookup failed
+            try:
+                # Always try MRN lookup if patient_id lookup fails
+                print(f"   Trying MRN lookup for: {patient_id}")
+                patient_data = self.db_utils.get_patient_by_mrn(str(patient_id))
+                if patient_data:
+                    print(f"   ✅ Found patient by MRN: {patient_data['mrn']} (ID: {patient_data['patient_id']})")
+                    # Retry with actual patient_id
+                    hybrid_results = self.patient_matcher.find_trials_for_patient(
+                        patient_id=patient_data['patient_id'],
+                        age_range=age_range,
+                        gender=gender,
+                        phase_filter=phase_filter
+                    )
+                else:
+                    print(f"   ❌ Patient not found by MRN either: {patient_id}")
+            except Exception as e:
+                print(f"   ❌ MRN lookup also failed: {e}")
+                import traceback
+                traceback.print_exc()
+            
+            # If still not found after MRN lookup attempt
+            if not hybrid_results or not hybrid_results.get('patient_info'):
+                return {
+                    "patient_id": patient_id,
+                    "error": "Patient not found",
+                    "matching_trials": [],
+                    "total_matches": 0,
+                    "generated_at": datetime.now().isoformat()
+                }
+        
         if not hybrid_results.get('matching_trials'):
             print("No matching trials found in hybrid matching")
             return hybrid_results
         
         # Step 2: LLM evaluation of top trials
         print("Step 2: Running LLM evaluation...")
+        # Use the actual patient_id from hybrid_results (may have been resolved from MRN)
+        actual_patient_id = hybrid_results.get('patient_info', {}).get('patient_id', patient_id)
         llm_evaluation = self.evaluate_top_trials_for_patient(
-            patient_id=patient_id,
+            patient_id=actual_patient_id,
             top_trials=hybrid_results['matching_trials']
         )
         
         # Step 3: Combine results
+        # Use actual patient_id (may have been resolved from MRN lookup)
+        actual_patient_id = hybrid_results.get('patient_info', {}).get('patient_id', patient_id)
         complete_results = {
-            "patient_id": patient_id,
+            "patient_id": actual_patient_id,
             "patient_info": hybrid_results['patient_info'],
             "hybrid_matching": hybrid_results,
             "llm_evaluation": llm_evaluation,
@@ -260,25 +307,31 @@ class PatientEvaluator:
         filepath = self.save_evaluation_results(results)
         results['results_file'] = filepath
         
-        # Save results to database (new functionality)
-        print(f"\n💾 Saving results to database...")
-        try:
-            db_id = self.eval_db.save_patient_to_trial_evaluation(results)
-            if db_id:
-                results['database_id'] = db_id
-                print(f"✅ Results saved to database with ID: {db_id}")
-            else:
-                print("⚠️ Failed to save results to database")
-        except Exception as e:
-            print(f"⚠️ Database save error (continuing with JSON): {e}")
+        # Save results to database (only if patient was found and has valid patient_id)
+        if results.get('error') or not results.get('patient_info') or not results.get('patient_info', {}).get('patient_id'):
+            print(f"\n⚠️ Skipping database save - patient not found or invalid patient_id")
+        else:
+            print(f"\n💾 Saving results to database...")
+            try:
+                db_id = self.eval_db.save_patient_to_trial_evaluation(results)
+                if db_id:
+                    results['database_id'] = db_id
+                    print(f"✅ Results saved to database with ID: {db_id}")
+                else:
+                    print("⚠️ Failed to save results to database")
+            except Exception as e:
+                print(f"⚠️ Database save error (continuing with JSON): {e}")
         
         # Print summary
         print(f"\nPipeline Summary:")
-        print(f"Patient: {results['patient_info'].get('mrn', 'Unknown')}")
-        print(f"Total trials found: {results['summary']['total_trials_found']}")
-        print(f"Trials evaluated: {results['summary']['trials_evaluated']}")
-        print(f"Eligible trials: {results['summary']['eligible_trials']}")
-        print(f"Average confidence: {results['summary']['average_confidence']:.1f}%")
+        if results.get('error'):
+            print(f"Error: {results['error']}")
+        else:
+            print(f"Patient: {results.get('patient_info', {}).get('mrn', 'Unknown')}")
+            print(f"Total trials found: {results.get('summary', {}).get('total_trials_found', 0)}")
+            print(f"Trials evaluated: {results.get('summary', {}).get('trials_evaluated', 0)}")
+            print(f"Eligible trials: {results.get('summary', {}).get('eligible_trials', 0)}")
+            print(f"Average confidence: {results.get('summary', {}).get('average_confidence', 0):.1f}%")
         print(f"Results saved to: {filepath}")
         if results.get('database_id'):
             print(f"Database ID: {results['database_id']}")

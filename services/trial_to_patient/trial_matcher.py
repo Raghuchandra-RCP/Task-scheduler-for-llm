@@ -221,7 +221,7 @@ def main():
     matcher = TrialMatcher()
     
     # Test with a specific trial
-    trial_id = "T001"  # Replace with actual trial ID
+    trial_id = "NCT00097292"  # Replace with actual trial ID
     results = matcher.find_patients_for_trial(
         trial_id=trial_id,
         age_range=(18, 75),
