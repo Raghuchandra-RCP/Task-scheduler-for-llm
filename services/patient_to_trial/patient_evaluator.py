@@ -22,6 +22,22 @@ class PatientEvaluator:
         # Results directory
         self.results_dir = Path("results")
         self.results_dir.mkdir(exist_ok=True)
+    
+    def _build_trial_text_from_metadata(self, trial_metadata: Dict[str, Any], trial_id: str) -> str:
+        """Build combined_trial_text from metadata when database query fails"""
+        title = trial_metadata.get('title', 'Not available')
+        condition = trial_metadata.get('condition', 'Not specified')
+        phase = trial_metadata.get('phase', 'Not specified')
+        status = trial_metadata.get('status', 'Not specified')
+        investigator = trial_metadata.get('investigator', 'Not specified')
+        
+        return f"""Trial ID: {trial_id}
+Title: {title}
+Condition: {condition}
+Phase: {phase}
+Status: {status}
+Investigator: {investigator}
+Note: This trial information is from archived metadata. Please verify current status in database."""
 
     def evaluate_trial_for_patient(self, trial_info: Dict[str, Any], patient_info: Dict[str, Any]) -> Dict[str, Any]:
         """Evaluate a single trial for a specific patient using LLM"""
@@ -71,17 +87,45 @@ class PatientEvaluator:
             return {}
         
         # Get detailed trial information for all trials
+        # First try to get from database, if not found use metadata from matcher
         detailed_trials = []
+        matcher = self.patient_matcher  # Get access to matcher's metadata
+        
         for trial in top_trials:
             trial_id = trial.get('trial_id')
             if trial_id:
+                # Try database first (for current/updated trial info)
                 detailed_trial_info = self.db_utils.get_trial_by_id(trial_id)
+                
+                # If not in database, use metadata from FAISS index
+                if not detailed_trial_info:
+                    # Get trial info from metadata (contains info from when embeddings were generated)
+                    trial_metadata = matcher.trial_metadata.get(trial_id)
+                    if trial_metadata:
+                        # Build detailed_trial_info from metadata
+                        detailed_trial_info = {
+                            "trial_id": trial_id,
+                            "title": trial_metadata.get('title', ''),
+                            "condition": trial_metadata.get('condition', ''),
+                            "phase": trial_metadata.get('phase', ''),
+                            "status": trial_metadata.get('status', ''),
+                            "investigator": trial_metadata.get('investigator', ''),
+                            "created_date": trial_metadata.get('created_date', ''),
+                            "patients_matched": trial_metadata.get('patients_matched', 0),
+                            "matching_status": trial_metadata.get('matching_status', 'pending'),
+                            # Build combined_trial_text from available fields
+                            "combined_trial_text": self._build_trial_text_from_metadata(trial_metadata, trial_id)
+                        }
+                        print(f"ℹ️  Using metadata for trial {trial_id} (not in current database)")
+                
                 if detailed_trial_info:
                     # Merge hybrid score and other metadata from original trial
                     detailed_trial_info['hybrid_score'] = trial.get('hybrid_score', 0)
                     detailed_trial_info['embedding_score'] = trial.get('embedding_score', 0)
                     detailed_trial_info['bm25_score'] = trial.get('bm25_score', 0)
                     detailed_trials.append(detailed_trial_info)
+                else:
+                    print(f"⚠️  Trial {trial_id} not found in database or metadata")
         
         if not detailed_trials:
             print("❌ No detailed trial information found")

@@ -5,6 +5,7 @@ Common database operations and stored procedures for both patient-to-trial and t
 
 import json
 import numpy as np
+from datetime import datetime
 from sqlalchemy import create_engine, text
 from config import DATABASE_URL
 from typing import List, Dict, Any, Optional
@@ -28,6 +29,58 @@ def safe_json_dump(data, file_path, **kwargs):
 class DatabaseUtils:
     def __init__(self):
         self.engine = create_engine(DATABASE_URL)
+    
+    def _safe_isoformat(self, date_value):
+        """Safely convert date/datetime to ISO format string, handling both datetime objects and strings"""
+        if date_value is None:
+            return None
+        
+        # Check if it's already a datetime object
+        if isinstance(date_value, datetime):
+            return date_value.isoformat()
+        
+        # Check if it's already a string
+        if isinstance(date_value, str):
+            # If it's already a string, check if it looks like a valid ISO format
+            if 'T' in date_value or len(date_value) >= 10:  # ISO format has 'T' or at least YYYY-MM-DD
+                # Try to validate it's a proper ISO format
+                try:
+                    # Try parsing with fromisoformat (supports various formats)
+                    datetime.fromisoformat(date_value.replace('Z', '+00:00'))
+                    return date_value
+                except (ValueError, AttributeError):
+                    pass
+            
+            # Try to parse from common date formats
+            date_formats = [
+                '%Y-%m-%d %H:%M:%S',  # PostgreSQL timestamp format
+                '%Y-%m-%d %H:%M:%S.%f',  # PostgreSQL timestamp with microseconds
+                '%Y-%m-%d',  # Date only
+                '%m/%d/%Y',  # US format
+            ]
+            
+            for fmt in date_formats:
+                try:
+                    dt = datetime.strptime(date_value, fmt)
+                    return dt.isoformat()
+                except (ValueError, AttributeError):
+                    continue
+            
+            # If all parsing fails, return the string as-is
+            return date_value
+        
+        # Check if it has date/time methods (like date objects from database)
+        if hasattr(date_value, 'isoformat'):
+            try:
+                return date_value.isoformat()
+            except:
+                pass
+        
+        # For other types, try to convert to string
+        try:
+            return str(date_value)
+        except:
+            return None
     
     def _safe_json_load(self, data):
         """Safely load JSON data, handling both string and list formats"""
@@ -63,8 +116,8 @@ class DatabaseUtils:
                         "gender": row[3],
                         "combined_text": row[4],
                         "oncologist": row[5],
-                        "date_of_visit": row[6].isoformat() if row[6] else None,
-                        "created_at": row[7].isoformat() if row[7] else None
+                        "date_of_visit": self._safe_isoformat(row[6]),
+                        "created_at": self._safe_isoformat(row[7])
                     })
                 
                 return patients
@@ -178,8 +231,8 @@ class DatabaseUtils:
                         "gender": row[3],
                         "combined_text": row[4],
                         "oncologist": row[5],
-                        "date_of_visit": row[6].isoformat() if row[6] else None,
-                        "created_at": row[7].isoformat() if row[7] else None
+                        "date_of_visit": self._safe_isoformat(row[6]),
+                        "created_at": self._safe_isoformat(row[7])
                     }
                 return None
         except Exception as e:
@@ -205,8 +258,8 @@ class DatabaseUtils:
                         "gender": row[3],
                         "combined_text": row[4],
                         "oncologist": row[5],
-                        "date_of_visit": row[6].isoformat() if row[6] else None,
-                        "created_at": row[7].isoformat() if row[7] else None
+                        "date_of_visit": self._safe_isoformat(row[6]),
+                        "created_at": self._safe_isoformat(row[7])
                     }
                 return None
         except Exception as e:
@@ -246,7 +299,6 @@ class DatabaseUtils:
                         ) as combined_trial_text
                     FROM insightsedge.clinical_trial_details ctd
                     WHERE ctd.nct_id = :trial_id
-                        AND ctd.overall_status IN ('RECRUITING', 'ENROLLING_BY_INVITATION', 'AVAILABLE')
                 """)
                 result = connection.execute(query, {"trial_id": trial_id})
                 row = result.fetchone()
@@ -394,9 +446,9 @@ class DatabaseUtils:
                         "family_history": self._safe_json_load(row[14]),
                         "keywords": self._safe_json_load(row[15]),
                         "keywords_text": row[16],
-                        "generated_at": row[17].isoformat() if row[17] else None,
-                        "created_at": row[18].isoformat() if row[18] else None,
-                        "updated_at": row[19].isoformat() if row[19] else None
+                        "generated_at": self._safe_isoformat(row[17]),
+                        "created_at": self._safe_isoformat(row[18]),
+                        "updated_at": self._safe_isoformat(row[19])
                     }
                 return None
         except Exception as e:
@@ -434,9 +486,9 @@ class DatabaseUtils:
                         "family_history": self._safe_json_load(row[14]),
                         "keywords": self._safe_json_load(row[15]),
                         "keywords_text": row[16],
-                        "generated_at": row[17].isoformat() if row[17] else None,
-                        "created_at": row[18].isoformat() if row[18] else None,
-                        "updated_at": row[19].isoformat() if row[19] else None
+                        "generated_at": self._safe_isoformat(row[17]),
+                        "created_at": self._safe_isoformat(row[18]),
+                        "updated_at": self._safe_isoformat(row[19])
                     })
                 
                 return keywords_list
