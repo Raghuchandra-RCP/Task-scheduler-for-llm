@@ -213,12 +213,38 @@ class DatabaseUtils:
             return []
     
     def get_patient_by_id(self, patient_id: int) -> Optional[Dict[str, Any]]:
-        """Get specific patient by ID"""
+        """Get specific patient by ID - query table directly to avoid filtering"""
         try:
             with self.get_connection() as connection:
+                # Query table directly to avoid stored procedure filters
                 query = text("""
-                    SELECT * FROM insightsedge.get_patient_data_for_keywords(1000)
-                    WHERE patient_id = :patient_id
+                    SELECT 
+                        pmh.id as patient_id,
+                        pmh.mrn,
+                        pmh.age,
+                        pmh.gender,
+                        CONCAT(
+                            'Patient MRN: ', pmh.mrn, E'\n',
+                            'Age: ', COALESCE(pmh.age::TEXT, 'Not specified'), ', Gender: ', COALESCE(pmh.gender, 'Not specified'), E'\n',
+                            'Date of Visit: ', COALESCE(pmh.date_of_visit::TEXT, 'Not specified'), E'\n',
+                            'Oncologist: ', COALESCE(pmh.oncologist, 'Not specified'), E'\n\n',
+                            'Chief Complaint: ', COALESCE(pmh.chief_complaint, 'Not specified'), E'\n\n',
+                            'History of Present Illness: ', COALESCE(pmh.history_of_present_illness, 'Not specified'), E'\n\n',
+                            'Past Medical History: ', COALESCE(pmh.past_medical_history, 'Not specified'), E'\n\n',
+                            'Family History: ', COALESCE(pmh.family_history, 'Not specified'), E'\n\n',
+                            'Social History: ', COALESCE(pmh.social_history, 'Not specified'), E'\n\n',
+                            'Review of Systems: ', COALESCE(pmh.review_of_systems, 'Not specified'), E'\n\n',
+                            'Medications and Allergies: ', COALESCE(pmh.medications_allergies, 'Not specified'), E'\n\n',
+                            'Physical Examination: ', COALESCE(pmh.physical_examination, 'Not specified'), E'\n\n',
+                            'Laboratory and Imaging Results: ', COALESCE(pmh.laboratory_imaging_results, 'Not specified'), E'\n\n',
+                            'Imaging: ', COALESCE(pmh.imaging, 'Not specified'), E'\n\n',
+                            'Assessment: ', COALESCE(pmh.assessment, 'Not specified')
+                        ) as combined_text,
+                        pmh.oncologist,
+                        pmh.date_of_visit,
+                        pmh.created_at
+                    FROM insightsedge.patient_medical_history_temp pmh
+                    WHERE pmh.id = :patient_id
                 """)
                 result = connection.execute(query, {"patient_id": patient_id})
                 row = result.fetchone()
@@ -237,15 +263,43 @@ class DatabaseUtils:
                 return None
         except Exception as e:
             print(f"Error getting patient by ID: {e}")
+            import traceback
+            traceback.print_exc()
             return None
 
     def get_patient_by_mrn(self, mrn: str) -> Optional[Dict[str, Any]]:
-        """Get specific patient by MRN"""
+        """Get specific patient by MRN - query table directly to avoid filtering"""
         try:
             with self.get_connection() as connection:
+                # Query table directly to avoid stored procedure filters
                 query = text("""
-                    SELECT * FROM insightsedge.get_patient_data_for_keywords(1000)
-                    WHERE mrn = :mrn
+                    SELECT 
+                        pmh.id as patient_id,
+                        pmh.mrn,
+                        pmh.age,
+                        pmh.gender,
+                        CONCAT(
+                            'Patient MRN: ', pmh.mrn, E'\n',
+                            'Age: ', COALESCE(pmh.age::TEXT, 'Not specified'), ', Gender: ', COALESCE(pmh.gender, 'Not specified'), E'\n',
+                            'Date of Visit: ', COALESCE(pmh.date_of_visit::TEXT, 'Not specified'), E'\n',
+                            'Oncologist: ', COALESCE(pmh.oncologist, 'Not specified'), E'\n\n',
+                            'Chief Complaint: ', COALESCE(pmh.chief_complaint, 'Not specified'), E'\n\n',
+                            'History of Present Illness: ', COALESCE(pmh.history_of_present_illness, 'Not specified'), E'\n\n',
+                            'Past Medical History: ', COALESCE(pmh.past_medical_history, 'Not specified'), E'\n\n',
+                            'Family History: ', COALESCE(pmh.family_history, 'Not specified'), E'\n\n',
+                            'Social History: ', COALESCE(pmh.social_history, 'Not specified'), E'\n\n',
+                            'Review of Systems: ', COALESCE(pmh.review_of_systems, 'Not specified'), E'\n\n',
+                            'Medications and Allergies: ', COALESCE(pmh.medications_allergies, 'Not specified'), E'\n\n',
+                            'Physical Examination: ', COALESCE(pmh.physical_examination, 'Not specified'), E'\n\n',
+                            'Laboratory and Imaging Results: ', COALESCE(pmh.laboratory_imaging_results, 'Not specified'), E'\n\n',
+                            'Imaging: ', COALESCE(pmh.imaging, 'Not specified'), E'\n\n',
+                            'Assessment: ', COALESCE(pmh.assessment, 'Not specified')
+                        ) as combined_text,
+                        pmh.oncologist,
+                        pmh.date_of_visit,
+                        pmh.created_at
+                    FROM insightsedge.patient_medical_history_temp pmh
+                    WHERE pmh.mrn = :mrn
                 """)
                 result = connection.execute(query, {"mrn": mrn})
                 row = result.fetchone()
@@ -264,6 +318,8 @@ class DatabaseUtils:
                 return None
         except Exception as e:
             print(f"Error getting patient by MRN: {e}")
+            import traceback
+            traceback.print_exc()
             return None
     
     def get_trial_by_id(self, trial_id: str) -> Optional[Dict[str, Any]]:

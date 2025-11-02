@@ -21,16 +21,25 @@ from config import (
     USE_DATABASE
 )
 
-# Import our services
-from database.patient_db import PatientDB
-from database.trial_database_service import TrialDatabaseService
+# Import our services (conditional based on USE_DATABASE)
+if USE_DATABASE:
+    try:
+        from database.patient_db import PatientDB
+        from database.trial_database_service import TrialDatabaseService
+    except ImportError:
+        logger.warning("Database modules not found - database functionality will be disabled")
+        PatientDB = None
+        TrialDatabaseService = None
+else:
+    PatientDB = None
+    TrialDatabaseService = None
 
 class TaskScheduler:
     def __init__(self):
         self.scheduler = AsyncIOScheduler(
             jobstores={'default': MemoryJobStore()},
-            executors={'default': AsyncIOExecutor(max_workers=MAX_CONCURRENT_TASKS)},
-            job_defaults={'coalesce': True, 'max_instances': 1}
+            executors={'default': AsyncIOExecutor()},
+            job_defaults={'coalesce': True, 'max_instances': MAX_CONCURRENT_TASKS}
         )
         self.running = False
         
@@ -44,12 +53,14 @@ class TaskScheduler:
         
         try:
             # Initialize database services
-            if USE_DATABASE:
+            if USE_DATABASE and PatientDB and TrialDatabaseService:
                 self.patient_db = PatientDB()
                 self.trial_db = TrialDatabaseService()
                 await self.patient_db.initialize()
                 await self.trial_db.initialize()
                 logger.info("Database services initialized")
+            elif USE_DATABASE:
+                logger.warning("Database enabled but database modules not available - continuing without database services")
             
             # Initialize LLM services
             if USE_LLM_PROCESSING:

@@ -38,9 +38,15 @@ class EvaluationResultsDB:
             hybrid_matching = evaluation_data.get('hybrid_matching', {})
             summary = evaluation_data.get('summary', {})
             
+            # Validate required fields before insertion
+            patient_id = patient_info.get('patient_id')
+            if not patient_id:
+                print(f"❌ Cannot save to database: patient_id is required but not found in patient_info")
+                return None
+            
             # Prepare data for insertion
             insert_data = {
-                'patient_id': patient_info.get('patient_id'),
+                'patient_id': patient_id,
                 'patient_mrn': patient_info.get('mrn'),
                 'evaluation_timestamp': datetime.now(),
                 'patient_age': patient_info.get('age'),

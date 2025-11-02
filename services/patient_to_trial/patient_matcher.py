@@ -230,7 +230,7 @@ def main():
     matcher = PatientMatcher()
     
     # Test with a specific patient
-    patient_id = 1  # Replace with actual patient ID
+    patient_id = 64567  # Replace with actual patient ID
     results = matcher.find_trials_for_patient(
         patient_id=patient_id,
         phase_filter=["Phase I", "Phase II", "Phase III"]
